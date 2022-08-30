@@ -7,20 +7,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginRestService {
-  httpOptions = new HttpHeaders({
-    "Content-Type": "application/json",
-    "Authorization": this.getToken()
-  });
+
+  httpOption = new HttpHeaders().set("Content-Type", "application/json");
 
   constructor(
     private http: HttpClient
   ) { }
 
   login(params:{}){
-    let body = JSON.stringify({});
-    return this.http.post(environment.baseUri + 'users/login', params, {
-      headers: this.httpOptions
-    })
+    return this.http.post(environment.baseUri + 'users/login', params, {headers: this.httpOption.set("Authorization",this.getToken())});
   }
 
   //Método para obtener el usuario del local storage

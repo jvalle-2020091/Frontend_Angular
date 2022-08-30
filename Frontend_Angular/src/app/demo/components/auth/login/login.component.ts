@@ -3,7 +3,8 @@ import { Component, OnInit  } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { LoginRestService } from 'src/app/services/login-rest.service'
 import { Router } from '@angular/router';
-
+import {Message} from 'primeng//api';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
@@ -31,7 +32,6 @@ export class LoginComponent implements OnInit{
 
     valCheck: string[] = ['remember'];
 
-
     dataUser = {
         username: "",
         password: ""
@@ -39,10 +39,9 @@ export class LoginComponent implements OnInit{
 
     constructor(
         public layoutService: LayoutService,
-        public loginRest: LoginRestService,
-       // private messageService: MessageService, 
+        private loginRest: LoginRestService,
         private router: Router
-        ) {}
+    ) {}
 
     ngOnInit(): void {
     
@@ -50,17 +49,14 @@ export class LoginComponent implements OnInit{
 
     login(){
         this.loginRest.login(this.dataUser).subscribe({
-            next: (res: any) =>{      
-                localStorage.setItem("token", res.token);
-                localStorage.setItem("user", JSON.stringify(res.newUserSearch || res.usernameExist));
-                this.router.navigateByUrl('layout');
-               // this.messageService.add({ severity: 'success', summary: 'Successful', detail: res.message, life: 3000 });
-            },
-            error: (err) => {
-                console.log(err);
-                
-               // this.messageService.add({ severity: 'error', summary: 'Error', detail: err, life: 3000 });
-            }
-        })
+          next: (res: any) => {
+            localStorage.setItem("token", res.token);
+            localStorage.setItem("user", JSON.stringify(res.newUserSearch || res.usernameExist));
+            this.router.navigateByUrl("layout");
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
     }
 }
