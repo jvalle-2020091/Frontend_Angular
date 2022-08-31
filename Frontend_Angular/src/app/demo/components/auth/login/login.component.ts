@@ -3,8 +3,7 @@ import { Component, OnInit  } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { LoginRestService } from 'src/app/services/login-rest.service'
 import { Router } from '@angular/router';
-import {Message} from 'primeng//api';
-import { MessageService } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -40,7 +39,8 @@ export class LoginComponent implements OnInit{
     constructor(
         public layoutService: LayoutService,
         private loginRest: LoginRestService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -52,10 +52,11 @@ export class LoginComponent implements OnInit{
           next: (res: any) => {
             localStorage.setItem("token", res.token);
             localStorage.setItem("user", JSON.stringify(res.newUserSearch || res.usernameExist));
+            this.toastr.success(res.message);
             this.router.navigateByUrl("layout");
           },
           error: (err) => {
-            console.log(err);
+            this.toastr.error(err.error.message || err.error);
           }
         });
     }

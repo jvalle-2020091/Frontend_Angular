@@ -13,6 +13,8 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
         AppRoutingModule,
         AppLayoutModule, 
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot()
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
