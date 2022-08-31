@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { LoginComponent } from './demo/components/auth/login/login.component';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
+import { NeedPasswordComponent } from './demo/components/need-password/need-password.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,8 @@ import { NotfoundComponent } from './demo/components/notfound/notfound.component
             ),
         },
         { path: 'pages/notfound', component: NotfoundComponent },
+     { path: 'needChangePassword', component: NeedPasswordComponent },
+
         { path: '**', redirectTo: 'pages/notfound' },
       ],
       {
