@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 export class CrudComponent implements OnInit {
 
     // Propiedades de plantilla
-    productDialog: boolean = false;
+    userUpdateDialog: boolean = false;
 
-    deleteProductDialog: boolean = false;
+    deleteUserDialog: boolean = false;
 
     deleteProductsDialog: boolean = false;
 
@@ -36,7 +36,6 @@ export class CrudComponent implements OnInit {
     users: any = [];
     userDelete:any;
     userUpdate: any;
-    booleanValues = [true, false];
 
     constructor(
         private userRest: UserRestService,
@@ -64,7 +63,7 @@ export class CrudComponent implements OnInit {
     getUserDelete(id:string){
         this.userRest.getUser(id).subscribe({
             next: (res: any) => {
-                this.deleteProductDialog = true;
+                this.deleteUserDialog = true;
                 this.userDelete = res.user;
             },
             error: (err) => {
@@ -77,7 +76,7 @@ export class CrudComponent implements OnInit {
         this.userRest.deleteUser(this.userDelete.id).subscribe({
             next:(res:any)=>{
                 this.toastr.success(res.message);
-                this.deleteProductDialog = false;
+                this.deleteUserDialog = false;
                 this.getUsers();
             },
             error:(err)=>{
@@ -90,7 +89,7 @@ export class CrudComponent implements OnInit {
     getUserUpdate(id:string){
         this.userRest.getUser(id).subscribe({
             next: (res: any) => {
-                this.productDialog = true;
+                this.userUpdateDialog = true;
                 this.userUpdate = res.user;
             },
             error: (err) => {
@@ -100,10 +99,11 @@ export class CrudComponent implements OnInit {
      };
 
      updateUser(){
+
         this.userRest.updateUser(this.userUpdate.id, this.userUpdate).subscribe({
             next:(res:any)=>{
                 this.getUsers();
-                this.productDialog = false;
+                this.userUpdateDialog = false;
                 this.toastr.success(res.message);
             },
             error:(err)=>{
@@ -125,7 +125,7 @@ export class CrudComponent implements OnInit {
 
     editProduct(product: Product) {
         this.product = { ...product };
-        this.productDialog = true;
+        this.userUpdateDialog = true;
     }
 
     confirmDeleteSelected() {
@@ -135,7 +135,7 @@ export class CrudComponent implements OnInit {
     }
 
     hideDialog() {
-        this.productDialog = false;
+        this.userUpdateDialog = false;
         this.submitted = false;
     }
 
