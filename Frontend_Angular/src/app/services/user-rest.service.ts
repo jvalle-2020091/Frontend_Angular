@@ -27,7 +27,7 @@ export class UserRestService {
     return this.http.put(environment.baseUri + "users/deleteUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   };
 
-  updateUser(idUser: string){
-    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+  updateUser(idUser: string, params: {}){
+    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, params,{headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 }

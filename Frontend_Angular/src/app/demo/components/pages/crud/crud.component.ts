@@ -36,6 +36,7 @@ export class CrudComponent implements OnInit {
     users: any = [];
     userDelete:any;
     userUpdate: any;
+    booleanValues = [true, false];
 
     constructor(
         private userRest: UserRestService,
@@ -46,7 +47,7 @@ export class CrudComponent implements OnInit {
         this.getUsers();
     }
 
-    // FUNCIONES
+    // GET
     getUsers(){
         this.userRest.getUsers().subscribe({
             next: (res: any) => {
@@ -59,7 +60,8 @@ export class CrudComponent implements OnInit {
         });
     };
 
-     getUserDelete(id:string){
+    // DELETE
+    getUserDelete(id:string){
         this.userRest.getUser(id).subscribe({
             next: (res: any) => {
                 this.deleteProductDialog = true;
@@ -84,7 +86,8 @@ export class CrudComponent implements OnInit {
         })
      };
 
-     getUserUpdate(id:string){
+     // UPDATE
+    getUserUpdate(id:string){
         this.userRest.getUser(id).subscribe({
             next: (res: any) => {
                 this.productDialog = true;
@@ -97,10 +100,11 @@ export class CrudComponent implements OnInit {
      };
 
      updateUser(){
-        this.userRest.updateUser(this.userUpdate.id).subscribe({
+        this.userRest.updateUser(this.userUpdate.id, this.userUpdate).subscribe({
             next:(res:any)=>{
-                this.toastr.success(res.message);
                 this.getUsers();
+                this.productDialog = false;
+                this.toastr.success(res.message);
             },
             error:(err)=>{
                 console.log(err);
@@ -112,7 +116,7 @@ export class CrudComponent implements OnInit {
     openNew() {
         this.product = {};
         this.submitted = false;
-        this.productDialog = true;
+        
     }
 
     deleteSelectedProducts() {
