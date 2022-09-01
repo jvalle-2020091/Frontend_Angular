@@ -19,7 +19,15 @@ export class UserRestService {
     return this.http.get(environment.baseUri + "users/getUsers", {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 
-  deleteUser(){
-    
+  getUser(idUser: string){
+    return this.http.get(environment.baseUri + "users/getUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+  };
+
+  deleteUser(idUser: string){
+    return this.http.put(environment.baseUri + "users/deleteUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+  };
+
+  updateUser(idUser: string){
+    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 }

@@ -34,6 +34,8 @@ export class CrudComponent implements OnInit {
 
     // Propiedades de proyecto BDG
     users: any = [];
+    userDelete:any;
+    userUpdate: any;
 
     constructor(
         private userRest: UserRestService,
@@ -55,7 +57,57 @@ export class CrudComponent implements OnInit {
                 console.log(err);
             }
         });
-    }
+    };
+
+     getUserDelete(id:string){
+        this.userRest.getUser(id).subscribe({
+            next: (res: any) => {
+                this.deleteProductDialog = true;
+                this.userDelete = res.user;
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+     };
+
+     deleteUser(){
+        this.userRest.deleteUser(this.userDelete.id).subscribe({
+            next:(res:any)=>{
+                this.toastr.success(res.message);
+                this.deleteProductDialog = false;
+                this.getUsers();
+            },
+            error:(err)=>{
+                console.log(err);
+            }
+        })
+     };
+
+     getUserUpdate(id:string){
+        this.userRest.getUser(id).subscribe({
+            next: (res: any) => {
+                this.productDialog = true;
+                this.userUpdate = res.user;
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+     };
+
+     updateUser(){
+        this.userRest.updateUser(this.userUpdate.id).subscribe({
+            next:(res:any)=>{
+                this.toastr.success(res.message);
+                this.getUsers();
+            },
+            error:(err)=>{
+                console.log(err);
+            }
+        })
+     }
+
 
     openNew() {
         this.product = {};
@@ -72,21 +124,10 @@ export class CrudComponent implements OnInit {
         this.productDialog = true;
     }
 
-    deleteProduct(product: Product) {
-        this.deleteProductDialog = true;
-        this.product = { ...product };
-    }
-
     confirmDeleteSelected() {
         this.deleteProductsDialog = false;
         this.products = this.products.filter(val => !this.selectedProducts.includes(val));
         this.selectedProducts = [];
-    }
-
-    confirmDelete() {
-        this.deleteProductDialog = false;
-        this.products = this.products.filter(val => val.id !== this.product.id);
-        this.product = {};
     }
 
     hideDialog() {
