@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { LoginRestService } from 'src/app/services/login-rest.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -36,30 +37,34 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
+  idUser: any;
+
   constructor(
     public layoutService: LayoutService,
     private loginRest: LoginRestService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((idRuta) => {
+      this.idUser = idRuta.get('idUser');
+  });
+  }
 
   login() {
     this.loginRest.login(this.dataUser).subscribe({
       next: (res: any) => {
         let userPass = res.usernameExist;
-
         if (userPass.needChangePassword == false) {
           localStorage.setItem('token', res.token);
-          localStorage.setItem(
-            'user',
-            JSON.stringify(res.newUserSearch || res.usernameExist)
+          localStorage.setItem('user', JSON.stringify(res.newUserSearch || res.usernameExist)
           );
           this.toastr.success(res.message);
           this.router.navigateByUrl('layout');
         } else if (userPass.needChangePassword == true) {
-          this.router.navigateByUrl('needChangePassword');
+          this.router.navigateByUrl('needChangePassword/' + userPass.id);
         }
       },
       error: (err) => {

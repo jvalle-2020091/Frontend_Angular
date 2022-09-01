@@ -11,20 +11,20 @@
                     <span class="text-600 font-medium">Sign in to continue</span>
                 </div>
 
-                <div class="w-full md:w-10 mx-auto">
+                <div class="w-full md:w-10 mx-auto" autocomplete="off"
+                >
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Username</label>
-                    <input id="email1" [(ngModel)]="dataUser.username" #username="ngModel"  type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <input id="email1" [(ngModel)]="dataUser.username" #username="ngModel"  type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;" autocomplete="off">
 
                     <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
 
-                    <p-password id="password1" [(ngModel)]="dataUser.password"  #password="ngModel" placeholder="Password" [toggleMask]="false" styleClass="w-full mb-3"></p-password>
+                    <p-password id="password1" [(ngModel)]="dataUser.password"  #password="ngModel" placeholder="Password" [toggleMask]="false" styleClass="w-full mb-3" autocomplete="off"></p-password>
 
                     <div class="flex align-items-center justify-content-between mb-5">
                         <div class="flex align-items-center">
                             <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
                             <label for="rememberme1">Remember me</label>
                         </div>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                     </div>
                     <button (click)="login()" pButton pRipple label="Sign In" class="w-full p-3 text-xl" ></button>
                 </div>

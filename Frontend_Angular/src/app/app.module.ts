@@ -15,10 +15,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NeedPasswordComponent } from './demo/components/need-password/need-password.component'
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent
+        AppComponent, NotfoundComponent, NeedPasswordComponent,
+
     ],
     imports: [
         AppRoutingModule,

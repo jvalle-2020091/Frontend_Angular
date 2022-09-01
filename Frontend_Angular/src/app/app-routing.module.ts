@@ -31,7 +31,7 @@ import { NeedPasswordComponent } from './demo/components/need-password/need-pass
             ),
         },
         { path: 'pages/notfound', component: NotfoundComponent },
-     { path: 'needChangePassword', component: NeedPasswordComponent },
+     { path: 'needChangePassword/:idUser', component: NeedPasswordComponent },
 
         { path: '**', redirectTo: 'pages/notfound' },
       ],
