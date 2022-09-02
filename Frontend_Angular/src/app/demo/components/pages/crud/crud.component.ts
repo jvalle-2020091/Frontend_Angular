@@ -161,18 +161,23 @@ export class CrudComponent implements OnInit {
      };
 
      updateUser(){
-
+        if (this.userUpdate.firstName?.trim() && this.userUpdate.lastName?.trim()) {
         this.userRest.updateUser(this.userUpdate.id, this.userUpdate).subscribe({
             next:(res:any)=>{
-                this.getUsers();
-                this.userUpdateDialog = false;
-                this.toastr.success(res.message);
+                
+                    this.getUsers();
+                    this.userUpdateDialog = false;
+                    this.toastr.success(res.message);
+                
             },
             error:(err)=>{
                 console.log(err);
             }
         })
+        }
+        this.submitted = true;
      }
+     
 
      updateUserLock(){
         this.userRest.updateUser(this.userLocked.id, this.userLocked).subscribe({

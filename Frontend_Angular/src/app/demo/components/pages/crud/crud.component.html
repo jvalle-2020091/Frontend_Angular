@@ -42,9 +42,8 @@
                         <td style="width:14%; min-width:10rem;"><span>{{user.firstName}}</span></td>
                         <td style="width:14%; min-width:8rem;"><span>{{user.lastName}}</span></td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.mail}}</span></td>
-                        <td style="width:14%; min-width: 10rem; text-align:center;">
-                            <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-warning mr-2" (click)="getPasswordUpdate(user.id)" ></button>
-
+                        <td style="width:14%; min-width: 10rem;">
+                            <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-warning" (click)="getPasswordUpdate(user.id)" ></button>
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.isLocked}}</span></td>
                         <td>
@@ -70,12 +69,12 @@
                 <div class="field">
                     <label for="name">First Name</label>
                     <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.firstName" required autofocus #name="ngModel" [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.firstName}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">Name is required.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">First Name is required.</small>
                 </div>
                 <div class="field">
                     <label for="lastname">Last Name</label>
                     <input type="text" pInputText id="lastname" [(ngModel)]="this.userUpdate.lastName" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.lastname}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">lastName is required.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">Last Name is required.</small>
                 </div>
             </ng-template>
             
