@@ -20,7 +20,6 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {StepsModule} from 'primeng/steps';
 import { AddUserComponent } from './add-user/add-user.component';
 import {CardModule} from 'primeng/card';
-import { RouterModule } from '@angular/router';
 
 
 
@@ -44,15 +43,7 @@ import { RouterModule } from '@angular/router';
         DialogModule,
         ToggleButtonModule,
         StepsModule,
-        CardModule,
-        RouterModule.forChild([
-            {
-                path: '', component: CrudComponent, children: [
-                    { path: '', redirectTo: 'addUser', pathMatch: 'full' },
-                    { path: 'addUser', component: AddUserComponent }
-                ]
-            }
-        ])
+        CardModule
         
     ],
     declarations: [CrudComponent, AddUserComponent]

@@ -5,8 +5,12 @@ import { AddUserComponent } from './add-user/add-user.component'
 
 @NgModule({
 	imports: [RouterModule.forChild([
-		{ path: '', component: CrudComponent },
-
+		{
+			path: '', component: CrudComponent, children: [
+				{ path: '', redirectTo: 'addUser', pathMatch: 'full' },
+				{ path: 'addUser', component: AddUserComponent }
+			]
+		}
 
 	])],
 	exports: [RouterModule]
