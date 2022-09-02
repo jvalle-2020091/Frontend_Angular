@@ -20,7 +20,9 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {StepsModule} from 'primeng/steps';
 import { AddUserComponent } from './add-user/add-user.component';
 import {CardModule} from 'primeng/card';
+import { SettingsUserComponent } from './settings-user/settings-user.component';
 
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -46,6 +48,6 @@ import {CardModule} from 'primeng/card';
         CardModule
         
     ],
-    declarations: [CrudComponent, AddUserComponent]
+    declarations: [CrudComponent, AddUserComponent, SettingsUserComponent]
 })
 export class CrudModule { }

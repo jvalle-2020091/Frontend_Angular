@@ -5,6 +5,7 @@ import { Table } from 'primeng/table';
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -52,7 +53,8 @@ export class CrudComponent implements OnInit {
 
     constructor(
         private userRest: UserRestService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -61,10 +63,13 @@ export class CrudComponent implements OnInit {
             {label: 'Step 1',
             routerLink: 'addUser'},
             {label: 'Step 2',
-             routerLink: 'addUser2'},
-            {label: 'Step 3', 
-            routerLink: 'addUser3'}
+             routerLink: 'settings'}
         ];
+    }
+
+    dialogCreateUser(){
+        this.addUser = true;
+        this.router.navigate(['/layout/pages/crud/addUser']);
     }
 
     // GET

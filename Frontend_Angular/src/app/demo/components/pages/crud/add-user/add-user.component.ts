@@ -6,11 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './add-user.component.html',
 })
 export class AddUserComponent implements OnInit {
-  personalInformation: any;
 
   submitted: boolean = false;
   user: any
-
+  
   constructor(
      private router: Router
   ) { }
@@ -20,15 +19,8 @@ export class AddUserComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.personalInformation.firstname && this.personalInformation.lastname && this.personalInformation.age) {
-      
-        this.router.navigate(['steps/seat']);
-
-        return;
-    }
-
-    this.submitted = true;
-}
+    this.router.navigate(['/layout/pages/crud/settings']);
+  }
 
 
 }

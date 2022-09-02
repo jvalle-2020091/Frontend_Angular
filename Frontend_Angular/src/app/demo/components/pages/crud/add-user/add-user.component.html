@@ -8,17 +8,32 @@
         </ng-template>
         <ng-template pTemplate="content">
             <div class="field">
+                <label for="firstName">First Name</label>
+                <input type="text" pInputText id="username"/>
+            </div>
+            <div class="field">
+                <label for="lastName">Last Name</label>
+                <input type="text" pInputText id="username"/>
+            </div>
+            <div class="field">
                 <label for="email">Email</label>
                 <input type="text" pInputText id="email"  required autofocus [(ngModel)]="user" [ngClass]="{'ng-invalid ng-dirty' : submitted && !user}"/>
                 <small class="ng-dirty ng-invalid" *ngIf="submitted && !user">Name is required.</small>
             </div>
-
             <div class="field">
                 <label for="username">Username</label>
                 <input type="text" pInputText id="username"/>
             </div>
-
+            <div class="field">
+                <input type="checkbox" pInputCheck id="sendCredentials"/>
+                <label for="sendCredentials">Send credentials</label>
+            </div>
+            <div class="field">
+                <input type="checkbox" pInputCheck id="emailUser">
+                <label for="emailUser">User equal to mail</label>
+            </div>
             
+
         </ng-template>
 
         <ng-template pTemplate="footer">
