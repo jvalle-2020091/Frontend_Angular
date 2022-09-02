@@ -58,9 +58,12 @@ export class CrudComponent implements OnInit {
     ngOnInit() {
         this.getUsers();
         this.items = [
-            {label: 'Step 1'},
-            {label: 'Step 2'},
-            {label: 'Step 3'}
+            {label: 'Step 1',
+            routerLink: 'addUser'},
+            {label: 'Step 2',
+             routerLink: 'addUser2'},
+            {label: 'Step 3', 
+            routerLink: 'addUser3'}
         ];
     }
 

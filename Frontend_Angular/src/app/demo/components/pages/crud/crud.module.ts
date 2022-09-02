@@ -18,6 +18,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {StepsModule} from 'primeng/steps';
+import { AddUserComponent } from './add-user/add-user.component';
+import {CardModule} from 'primeng/card';
+import { RouterModule } from '@angular/router';
+
 
 
 @NgModule({
@@ -40,8 +44,17 @@ import {StepsModule} from 'primeng/steps';
         DialogModule,
         ToggleButtonModule,
         StepsModule,
+        CardModule,
+        RouterModule.forChild([
+            {
+                path: '', component: CrudComponent, children: [
+                    { path: '', redirectTo: 'addUser', pathMatch: 'full' },
+                    { path: 'addUser', component: AddUserComponent }
+                ]
+            }
+        ])
         
     ],
-    declarations: [CrudComponent]
+    declarations: [CrudComponent, AddUserComponent]
 })
 export class CrudModule { }
