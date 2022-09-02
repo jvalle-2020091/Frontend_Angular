@@ -14,6 +14,9 @@ export class CrudComponent implements OnInit {
     // Propiedades de plantilla
     userUpdateDialog: boolean = false;
 
+    lockedUser: boolean = false;
+
+
     deleteUserDialog: boolean = false;
 
     deleteProductsDialog: boolean = false;
@@ -36,6 +39,7 @@ export class CrudComponent implements OnInit {
     users: any = [];
     userDelete:any;
     userUpdate: any;
+    userLocked: any;
 
     constructor(
         private userRest: UserRestService,
@@ -65,6 +69,18 @@ export class CrudComponent implements OnInit {
             next: (res: any) => {
                 this.deleteUserDialog = true;
                 this.userDelete = res.user;
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+     };
+
+     getUserLocked(id:string){
+        this.userRest.getUser(id).subscribe({
+            next: (res: any) => {
+                this.lockedUser = true;
+                this.userLocked = res.user;
             },
             error: (err) => {
                 console.log(err);
@@ -104,6 +120,45 @@ export class CrudComponent implements OnInit {
             next:(res:any)=>{
                 this.getUsers();
                 this.userUpdateDialog = false;
+                this.toastr.success(res.message);
+            },
+            error:(err)=>{
+                console.log(err);
+            }
+        })
+     }
+
+     updateUserLock(){
+        this.userRest.updateUser(this.userLocked.id, this.userLocked).subscribe({
+            next:(res:any)=>{
+                this.getUsers();
+                this.lockedUser = false;
+                this.toastr.success(res.message);
+            },
+            error:(err)=>{
+                console.log(err);
+            }
+        })
+     }
+
+     lockUser(){
+        this.userRest.lockedUser(this.userUpdate.id, this.userUpdate).subscribe({
+            next:(res:any)=>{
+                this.getUsers();
+                this.lockedUser = false;
+                this.toastr.success(res.message);
+            },
+            error:(err)=>{
+                console.log(err);
+            }
+        })
+     }
+
+     unLockUser(){
+        this.userRest.unlockedUser(this.userUpdate.id, this.userUpdate).subscribe({
+            next:(res:any)=>{
+                this.getUsers();
+                this.lockedUser = false;
                 this.toastr.success(res.message);
             },
             error:(err)=>{
