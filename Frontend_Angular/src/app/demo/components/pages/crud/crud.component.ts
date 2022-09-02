@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
+import {MenuItem} from 'primeng/api';
+
 
 @Component({
     templateUrl: './crud.component.html',
@@ -16,6 +18,9 @@ export class CrudComponent implements OnInit {
 
     lockedUser: boolean = false;
 
+    addUser: boolean = false;
+
+    changePassword: boolean = false;    
 
     deleteUserDialog: boolean = false;
 
@@ -24,6 +29,9 @@ export class CrudComponent implements OnInit {
     products: Product[] = [];
 
     product: Product = {};
+
+    items: MenuItem[] = [];
+
 
     selectedProducts: Product[] = [];
 
@@ -40,6 +48,7 @@ export class CrudComponent implements OnInit {
     userDelete:any;
     userUpdate: any;
     userLocked: any;
+    passworUpdate: any;
 
     constructor(
         private userRest: UserRestService,
@@ -48,6 +57,11 @@ export class CrudComponent implements OnInit {
 
     ngOnInit() {
         this.getUsers();
+        this.items = [
+            {label: 'Step 1'},
+            {label: 'Step 2'},
+            {label: 'Step 3'}
+        ];
     }
 
     // GET
@@ -107,6 +121,30 @@ export class CrudComponent implements OnInit {
             next: (res: any) => {
                 this.userUpdateDialog = true;
                 this.userUpdate = res.user;
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+     };
+
+     getPasswordUpdate(id:string){
+        this.userRest.getUser(id).subscribe({
+            next: (res: any) => {
+                this.changePassword = true;
+                this.passworUpdate = res.user;
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+     };
+
+     updatePasswordByAdmin(){
+        this.userRest.updatePasswordByAdmin(this.passworUpdate.id).subscribe({
+            next: (res: any) => {
+                this.changePassword = false;
+                this.toastr.success(res.message);
             },
             error: (err) => {
                 console.log(err);

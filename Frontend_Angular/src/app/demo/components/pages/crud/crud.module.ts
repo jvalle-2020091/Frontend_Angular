@@ -17,6 +17,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {StepsModule} from 'primeng/steps';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
         RadioButtonModule,
         InputNumberModule,
         DialogModule,
-        ToggleButtonModule
+        ToggleButtonModule,
+        StepsModule,
+        
     ],
     declarations: [CrudComponent]
 })
