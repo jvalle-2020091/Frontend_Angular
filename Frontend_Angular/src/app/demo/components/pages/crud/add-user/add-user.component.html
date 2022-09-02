@@ -7,10 +7,20 @@
             Enter your personal information
         </ng-template>
         <ng-template pTemplate="content">
-          <div>
-            <input type="text">
-          </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="text" pInputText id="email"  required autofocus [(ngModel)]="user" [ngClass]="{'ng-invalid ng-dirty' : submitted && !user}"/>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !user">Name is required.</small>
+            </div>
+
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" pInputText id="username"/>
+            </div>
+
+            
         </ng-template>
+
         <ng-template pTemplate="footer">
             <div class="grid grid-nogutter justify-content-end">
                 <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>

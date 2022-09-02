@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 export class AddUserComponent implements OnInit {
   personalInformation: any;
 
-    submitted: boolean = false
+  submitted: boolean = false;
+  user: any
 
   constructor(
      private router: Router
@@ -28,5 +29,6 @@ export class AddUserComponent implements OnInit {
 
     this.submitted = true;
 }
+
 
 }
