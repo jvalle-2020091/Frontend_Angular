@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import { CrudRoutingModule } from './crud-routing.module';
 import { CrudComponent } from './crud.component';
 import { TableModule } from 'primeng/table';
@@ -18,11 +18,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {StepsModule} from 'primeng/steps';
-import { AddUserComponent } from './add-user/add-user.component';
 import {CardModule} from 'primeng/card';
-import { SettingsUserComponent } from './settings-user/settings-user.component';
+ import {MatStepperModule} from '@angular/material/stepper';
+ import {MatFormFieldModule} from '@angular/material/form-field';
+ import { MatButtonModule} from '@angular/material/button';
+ import {MatInputModule} from '@angular/material/input';
+ import {MatCheckboxModule} from '@angular/material/checkbox';
 
-import {HttpClientModule} from '@angular/common/http';
+
+
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -45,9 +50,15 @@ import {HttpClientModule} from '@angular/common/http';
         DialogModule,
         ToggleButtonModule,
         StepsModule,
-        CardModule
-        
+        CardModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        MatCheckboxModule,
     ],
-    declarations: [CrudComponent, AddUserComponent, SettingsUserComponent]
+    
+    declarations: [CrudComponent],
+    
 })
 export class CrudModule { }

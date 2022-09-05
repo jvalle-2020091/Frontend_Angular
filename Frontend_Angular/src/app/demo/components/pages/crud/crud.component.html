@@ -6,7 +6,6 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="dialogCreateUser()"></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -138,12 +137,80 @@
         </p-dialog>
 
         <!--Modal y stepper para agregar usuario-->
-        <p-dialog  [(visible)]="addUser" [style]="{width: '800px', height: '1000px'}" header="Add User" [modal]="true" class="p-fluid">
-            <div class="card">
-                <p-toast></p-toast>
-                <p-steps [model]="items" [readonly]="true"></p-steps>
-            </div>
-            <router-outlet></router-outlet>
+        <p-dialog  [(visible)]="addUser" [style]="{width: '700px', height: '450px'}" header="Add User" [modal]="true" class="p-fluid">
+            <mat-stepper linear #stepper>
+
+                <mat-step>
+                    <form class="example-form">
+                        <ng-template matStepLabel>Create user</ng-template>
+                      
+                        <table class="example-full-width" cellspacing="0"><tr>
+
+                          <td><mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="Firstname">
+                          </mat-form-field></td>
+
+                          <td><mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Lastname">
+                          </mat-form-field></td>
+                        </tr></table>
+                      
+                        <p>
+                            <table class="example-full-width" cellspacing="0"><tr>
+                            <td>
+                          <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput  placeholder="Ex. pat@example.com">
+
+                          </mat-form-field></td>
+                          <td>
+
+                          <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Username</mat-label>
+                             <input type="text" matInput  placeholder="Username">
+                          </mat-form-field>
+                        </td>
+                    </tr></table>
+            
+                        <p>
+                            <section class="example-section" >
+                                <h4>Configuration options:</h4>
+                                <p><mat-checkbox >Send credentials to email</mat-checkbox></p>
+                                <p><mat-checkbox >Username equal to email</mat-checkbox></p>
+                              </section>
+                      </form>
+                      <p>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperNext>Next</button>
+                      </div>
+                </mat-step>
+
+
+                <mat-step>
+                    <form >
+                      <ng-template matStepLabel>Rol user</ng-template>
+                      <input type="text" placeholder="Lastname">
+
+                      <div>
+                        <button mat-button matStepperNext>Next</button>
+                      </div>
+                    </form>
+                  </mat-step>
+
+                  <mat-step>
+                    <form >
+                      <ng-template matStepLabel>Upload image</ng-template>
+                        
+                      <div>
+                        <button mat-button matStepperNext>Next</button>
+                      </div>
+                    </form>
+                  </mat-step>
+               
+              </mat-stepper>
+           
 
         </p-dialog>
 

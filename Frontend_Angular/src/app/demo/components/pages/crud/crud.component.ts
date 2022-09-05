@@ -8,12 +8,16 @@ import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
 
 
+
 @Component({
     templateUrl: './crud.component.html',
     providers: [MessageService]
 })
 export class CrudComponent implements OnInit {
 
+   
+
+  
     // Propiedades de plantilla
     userUpdateDialog: boolean = false;
 
@@ -54,7 +58,7 @@ export class CrudComponent implements OnInit {
     constructor(
         private userRest: UserRestService,
         private toastr: ToastrService,
-        private router: Router
+        private router: Router,
     ) { }
 
     ngOnInit() {
@@ -69,7 +73,6 @@ export class CrudComponent implements OnInit {
 
     dialogCreateUser(){
         this.addUser = true;
-        this.router.navigate(['/layout/pages/crud/addUser']);
     }
 
     // GET
