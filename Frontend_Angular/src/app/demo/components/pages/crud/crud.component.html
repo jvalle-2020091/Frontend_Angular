@@ -141,15 +141,15 @@
             <mat-stepper linear #stepper>
                 <!--STEP 1-->
                 <mat-step>
-                    <form class="example-form">
+                    <form class="example-form" #myForm="ngForm">
                         <ng-template matStepLabel>Create user</ng-template>
                       
                         <table class="example-full-width" cellspacing="0"><tr>
 
                           <td style="margin: 5px;"><mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>First Name</mat-label>
-                            <input matInput [formControl]="FormControll" placeholder="Firstname" >
-                            <mat-error *ngIf="FormControll.hasError('required')">
+                            <input [(ngModel)]="this.newUser.firstName" name="firstName" matInput [formControl]="firstNameControl" placeholder="Firstname" >
+                            <mat-error *ngIf="firstNameControl.hasError('required')">
                                 First Name is <strong>required</strong>
                               </mat-error>
 
@@ -157,8 +157,8 @@
 
                           <td><mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Last Name</mat-label>
-                            <input  matInput [formControl]="FormControll" matInput placeholder="Lastname">
-                            <mat-error *ngIf="FormControll.hasError('required')">
+                            <input [(ngModel)]="this.newUser.lastName" name="lastName" matInput [formControl]="lastNameControl" matInput placeholder="Lastname">
+                            <mat-error *ngIf="lastNameControl.hasError('required')">
                                 Last Name is <strong>required</strong>
                               </mat-error>
                           </mat-form-field></td>
@@ -169,14 +169,14 @@
                             <td>
                           <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Email</mat-label>
-                            <input type="email" matInput  placeholder="Ex. pat@example.com">
+                            <input name="gmail" [(ngModel)]="this.newUser.mail" type="email" matInput [formControl]="mailControl" placeholder="Ex. pat@example.com">
 
                           </mat-form-field></td>
                           <td>
 
                           <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Username</mat-label>
-                             <input type="text" matInput  placeholder="Username">
+                             <input [(ngModel)]="this.newUser.username" name="username" [formControl]="usernameControl" matInput matInput placeholder="Username">
                           </mat-form-field>
                         </td>
                     </tr></table>
@@ -184,7 +184,7 @@
                         <p>
                             <section class="example-section" >
                                 <h4>Configuration options:</h4>
-                                <p><mat-checkbox >Send credentials to email</mat-checkbox></p>
+                                <p><mat-checkbox [formControl]="emailSendControl" [(ngModel)]="this.newUser.sendEmail">Send credentials to email</mat-checkbox></p>
                                 <p><mat-checkbox >Username equal to email</mat-checkbox></p>
                               </section>
                       </form>
@@ -211,7 +211,7 @@
                       <ng-template matStepLabel>Upload image</ng-template>
                         
                       <div>
-                        <button mat-button matStepperNext>Next</button>
+                        <button mat-button matStepperNext (click)="registerByAdmin(myForm)">Confirm</button>
                       </div>
                     </form>
                   </mat-step>

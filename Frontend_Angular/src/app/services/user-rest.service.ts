@@ -31,13 +31,6 @@ export class UserRestService {
     return this.http.put(environment.baseUri + "users/updateUser/" + idUser, params,{headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 
-  lockedUser(idUser: string, params:{}){
-    return this.http.put(environment.baseUri + "users/lockUser/" + idUser, params , {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 
-  }
-
-  unlockedUser(idUser: string, params:{}){
-    return this.http.put(environment.baseUri + "users/unlockedUser/" + idUser, params , {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 
-  }
 
   updatePasswordByAdmin(idUser: string){
     return this.http.put(environment.baseUri + "users/updatePasswordByAdmin/" + idUser , {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 

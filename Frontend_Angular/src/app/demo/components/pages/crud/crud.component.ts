@@ -59,13 +59,20 @@ export class CrudComponent implements OnInit {
     userLocked: any;
     passworUpdate: any;
 
-    FormControll = new FormControl ('', [Validators.required])
+    usernameControl = new FormControl ('', [Validators.required]);
+    mailControl = new FormControl ('', [Validators.required]);
+    firstNameControl = new FormControl ('', [Validators.required]);
+    lastNameControl = new FormControl ('', [Validators.required]);
+    emailSendControl = new FormControl ('', [Validators.required]);
+
+    
 
     newUser ={
-        username: '',
+        username:'',
         mail:'',
         firstName:'',
-        lastName:''
+        lastName:'',
+        sendEmail: false
     }
 
     constructor(
@@ -214,6 +221,7 @@ export class CrudComponent implements OnInit {
                 this.getUsers();
                 this.lockedUser = false;
                 this.toastr.success(res.message);
+                
             },
             error:(err)=>{
                 console.log(err);
@@ -221,32 +229,19 @@ export class CrudComponent implements OnInit {
         })
      }
 
-     lockUser(){
-        this.userRest.lockedUser(this.userUpdate.id, this.userUpdate).subscribe({
+    registerByAdmin(myForm: NgForm){
+        this.userRest.registerByAdmin(this.newUser).subscribe({
             next:(res:any)=>{
                 this.getUsers();
-                this.lockedUser = false;
+                this.addUser = false;
                 this.toastr.success(res.message);
+                myForm.reset();
             },
             error:(err)=>{
-                console.log(err);
+                this.toastr.error(err.error.message || err.error);
             }
-        })
-     }
-
-     unLockUser(){
-        this.userRest.unlockedUser(this.userUpdate.id, this.userUpdate).subscribe({
-            next:(res:any)=>{
-                this.getUsers();
-                this.lockedUser = false;
-                this.toastr.success(res.message);
-            },
-            error:(err)=>{
-                console.log(err);
-            }
-        })
-     }
-
+        });
+    }
 
     openNew() {
         this.product = {};
@@ -277,4 +272,5 @@ export class CrudComponent implements OnInit {
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
+
 }
