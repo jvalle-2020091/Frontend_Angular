@@ -139,21 +139,28 @@
         <!--Modal y stepper para agregar usuario-->
         <p-dialog  [(visible)]="addUser" [style]="{width: '700px', height: '450px'}" header="Add User" [modal]="true" class="p-fluid">
             <mat-stepper linear #stepper>
-
+                <!--STEP 1-->
                 <mat-step>
                     <form class="example-form">
                         <ng-template matStepLabel>Create user</ng-template>
                       
                         <table class="example-full-width" cellspacing="0"><tr>
 
-                          <td><mat-form-field class="example-full-width" appearance="fill">
+                          <td style="margin: 5px;"><mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>First Name</mat-label>
-                            <input matInput placeholder="Firstname">
+                            <input matInput [formControl]="FormControll" placeholder="Firstname" >
+                            <mat-error *ngIf="FormControll.hasError('required')">
+                                First Name is <strong>required</strong>
+                              </mat-error>
+
                           </mat-form-field></td>
 
                           <td><mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Last Name</mat-label>
-                            <input matInput placeholder="Lastname">
+                            <input  matInput [formControl]="FormControll" matInput placeholder="Lastname">
+                            <mat-error *ngIf="FormControll.hasError('required')">
+                                Last Name is <strong>required</strong>
+                              </mat-error>
                           </mat-form-field></td>
                         </tr></table>
                       
@@ -187,7 +194,7 @@
                       </div>
                 </mat-step>
 
-
+                <!--STEP 2-->
                 <mat-step>
                     <form >
                       <ng-template matStepLabel>Rol user</ng-template>

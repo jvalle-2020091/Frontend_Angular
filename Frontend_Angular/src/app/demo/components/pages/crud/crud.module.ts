@@ -24,6 +24,8 @@ import {CardModule} from 'primeng/card';
  import { MatButtonModule} from '@angular/material/button';
  import {MatInputModule} from '@angular/material/input';
  import {MatCheckboxModule} from '@angular/material/checkbox';
+ import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -56,6 +58,7 @@ import {CardModule} from 'primeng/card';
         MatButtonModule,
         MatInputModule,
         MatCheckboxModule,
+        ReactiveFormsModule
     ],
     
     declarations: [CrudComponent],

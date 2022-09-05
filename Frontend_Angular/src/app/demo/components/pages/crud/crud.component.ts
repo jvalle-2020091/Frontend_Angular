@@ -6,6 +6,10 @@ import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+
+
+
 
 
 
@@ -55,6 +59,15 @@ export class CrudComponent implements OnInit {
     userLocked: any;
     passworUpdate: any;
 
+    FormControll = new FormControl ('', [Validators.required])
+
+    newUser ={
+        username: '',
+        mail:'',
+        firstName:'',
+        lastName:''
+    }
+
     constructor(
         private userRest: UserRestService,
         private toastr: ToastrService,
@@ -73,6 +86,19 @@ export class CrudComponent implements OnInit {
 
     dialogCreateUser(){
         this.addUser = true;
+    }
+
+    //REGISTER
+    registerUser(){
+    
+        this.userRest.registerByAdmin(this.newUser).subscribe({
+            next:(res: any)=>{
+                this.newUser = res.user
+            },
+            error:(err)=>{
+                console.log(err);
+            }
+        })
     }
 
     // GET
