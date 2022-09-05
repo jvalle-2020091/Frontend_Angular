@@ -43,6 +43,10 @@ export class UserRestService {
     return this.http.put(environment.baseUri + "users/updatePasswordByAdmin/" + idUser , {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 
   }
 
+  registerByAdmin(params:{}){
+    return this.http.post(environment.baseUri + "users/register", params, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 
+  }
+
 
 
 }

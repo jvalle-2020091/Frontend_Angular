@@ -9,7 +9,7 @@
         <ng-template pTemplate="content">
             <div class="field">
                 <label for="firstName">First Name</label>
-                <input type="text" pInputText id="username"/>
+                <input type="text" pInputText id="username" [(ngModel)]="this.registerData.username"/>
             </div>
             <div class="field">
                 <label for="lastName">Last Name</label>

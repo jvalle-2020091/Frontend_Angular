@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsUserComponent implements OnInit {
 
+  userInformation: any
   constructor(
     private router: Router
   ) { }
@@ -15,7 +16,6 @@ export class SettingsUserComponent implements OnInit {
   }
 
   nextPage() {
-   
   }
   prevPage() {
     this.router.navigate(['/layout/pages/crud/addUser']);
