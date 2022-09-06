@@ -6,7 +6,7 @@ import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, NgForm, Validators, FormBuilder} from '@angular/forms';
 
 
 
@@ -59,12 +59,23 @@ export class CrudComponent implements OnInit {
     userLocked: any;
     passworUpdate: any;
 
-    usernameControl = new FormControl ('', [Validators.required]);
-    mailControl = new FormControl ('', [Validators.required]);
-    firstNameControl = new FormControl ('', [Validators.required]);
-    lastNameControl = new FormControl ('', [Validators.required]);
+    //Propiedades Stteper
     emailSendControl = new FormControl ('', [Validators.required]);
 
+    firstFormGroup = this._formBuilder.group({
+        firstCtrl: ['', Validators.required],
+        secondCtrl: ['', Validators.required],
+        thirdCtrl: ['', Validators.required],
+        fourthCtrl: ['', Validators.required],
+      });
+      secondFormGroup = this._formBuilder.group({
+        a: ['', Validators.required],
+      });
+      thirdFormGroup = this._formBuilder.group({
+        seco8ndCtrl: ['', Validators.required],
+      });
+
+      isEditable = false;
     
 
     newUser ={
@@ -79,6 +90,7 @@ export class CrudComponent implements OnInit {
         private userRest: UserRestService,
         private toastr: ToastrService,
         private router: Router,
+        private _formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
@@ -91,7 +103,8 @@ export class CrudComponent implements OnInit {
         ];
     }
 
-    dialogCreateUser(){
+    dialogCreateUser(form: any){
+        form.reset()
         this.addUser = true;
     }
 
@@ -229,13 +242,13 @@ export class CrudComponent implements OnInit {
         })
      }
 
-    registerByAdmin(myForm: NgForm){
+    registerByAdmin(){
         this.userRest.registerByAdmin(this.newUser).subscribe({
             next:(res:any)=>{
                 this.getUsers();
                 this.addUser = false;
                 this.toastr.success(res.message);
-                myForm.reset();
+                
             },
             error:(err)=>{
                 this.toastr.error(err.error.message || err.error);

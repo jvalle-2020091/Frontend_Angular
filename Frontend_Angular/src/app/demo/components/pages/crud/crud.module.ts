@@ -28,7 +28,6 @@ import {CardModule} from 'primeng/card';
 
 
 
-
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -58,7 +57,8 @@ import {CardModule} from 'primeng/card';
         MatButtonModule,
         MatInputModule,
         MatCheckboxModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        
     ],
     
     declarations: [CrudComponent],

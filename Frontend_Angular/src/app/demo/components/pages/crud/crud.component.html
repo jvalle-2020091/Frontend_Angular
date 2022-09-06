@@ -5,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="dialogCreateUser()"></button>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="dialogCreateUser(firstFormGroup)"></button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -140,44 +140,41 @@
         <p-dialog  [(visible)]="addUser" [style]="{width: '700px', height: '450px'}" header="Add User" [modal]="true" class="p-fluid">
             <mat-stepper linear #stepper>
                 <!--STEP 1-->
-                <mat-step>
-                    <form class="example-form" #myForm="ngForm">
+                <mat-step [stepControl]="firstFormGroup" >
+                    <form [formGroup]="firstFormGroup">
                         <ng-template matStepLabel>Create user</ng-template>
                       
-                        <table class="example-full-width" cellspacing="0"><tr>
+                        <table cellspacing="0"><tr>
 
-                          <td style="margin: 5px;"><mat-form-field class="example-full-width" appearance="fill">
+                          <td style="margin: 5px;"><mat-form-field appearance="fill">
                             <mat-label>First Name</mat-label>
-                            <input [(ngModel)]="this.newUser.firstName" name="firstName" matInput [formControl]="firstNameControl" placeholder="Firstname" >
-                            <mat-error *ngIf="firstNameControl.hasError('required')">
-                                First Name is <strong>required</strong>
-                              </mat-error>
+                            <input formControlName="firstCtrl"  [(ngModel)]="this.newUser.firstName" matInput  placeholder="Firstname" required >
+                            
 
                           </mat-form-field></td>
 
-                          <td><mat-form-field class="example-full-width" appearance="fill">
+                          <td><mat-form-field  appearance="fill">
                             <mat-label>Last Name</mat-label>
-                            <input [(ngModel)]="this.newUser.lastName" name="lastName" matInput [formControl]="lastNameControl" matInput placeholder="Lastname">
-                            <mat-error *ngIf="lastNameControl.hasError('required')">
-                                Last Name is <strong>required</strong>
-                              </mat-error>
+                            <input formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName" name="lastName" matInput placeholder="Lastname" required>
+                            
                           </mat-form-field></td>
                         </tr></table>
                       
                         <p>
-                            <table class="example-full-width" cellspacing="0"><tr>
+                            <table cellspacing="0"><tr>
                             <td>
-                          <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-form-field appearance="fill">
                             <mat-label>Email</mat-label>
-                            <input name="gmail" [(ngModel)]="this.newUser.mail" type="email" matInput [formControl]="mailControl" placeholder="Ex. pat@example.com">
-
+                            <input formControlName="thirdCtrl" name="gmail" [(ngModel)]="this.newUser.mail" type="email" matInput placeholder="Ex. pat@example.com" required>
+                            
                           </mat-form-field></td>
                           <td>
 
-                          <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-form-field  appearance="fill">
                             <mat-label>Username</mat-label>
-                             <input [(ngModel)]="this.newUser.username" name="username" [formControl]="usernameControl" matInput matInput placeholder="Username">
-                          </mat-form-field>
+                             <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username" name="username"  matInput placeholder="Username" required>
+                            
+                            </mat-form-field>
                         </td>
                     </tr></table>
             
@@ -191,17 +188,19 @@
                       <p>
                       <div>
                         <button mat-raised-button color="primary" matStepperNext>Next</button>
-                      </div>
+                    </div>
                 </mat-step>
 
                 <!--STEP 2-->
-                <mat-step>
+                <mat-step >
                     <form >
                       <ng-template matStepLabel>Rol user</ng-template>
                       <input type="text" placeholder="Lastname">
 
                       <div>
-                        <button mat-button matStepperNext>Next</button>
+                        <button style="margin: 5px;" mat-raised-button matStepperPrevious color="primary">Back</button>
+                        <button style="margin: 5px;" mat-raised-button matStepperNext color="primary">Next</button>
+                        
                       </div>
                     </form>
                   </mat-step>
@@ -211,7 +210,7 @@
                       <ng-template matStepLabel>Upload image</ng-template>
                         
                       <div>
-                        <button mat-button matStepperNext (click)="registerByAdmin(myForm)">Confirm</button>
+                        <button mat-button matStepperNext (click)="registerByAdmin()">Confirm</button>
                       </div>
                     </form>
                   </mat-step>
