@@ -5,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="dialogCreateUser(firstFormGroup)"></button>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="dialogCreateUser(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset() "></button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -137,54 +137,60 @@
         </p-dialog>
 
         <!--Modal y stepper para agregar usuario-->
-        <p-dialog  [(visible)]="addUser" [style]="{width: '700px', height: '450px'}" header="Add User" [modal]="true" class="p-fluid">
+        <p-dialog  [(visible)]="addUser" [style]="{width: '50%', height: '70%'}" header="Add User" [modal]="true" class="p-fluid">
             <mat-stepper linear #stepper>
                 <!--STEP 1-->
                 <mat-step [stepControl]="firstFormGroup" >
-                    <form [formGroup]="firstFormGroup">
-                        <ng-template matStepLabel>Create user</ng-template>
-                      
-                        <table cellspacing="0"><tr>
-
-                          <td style="margin: 5px;"><mat-form-field appearance="fill">
-                            <mat-label>First Name</mat-label>
-                            <input formControlName="firstCtrl"  [(ngModel)]="this.newUser.firstName" matInput  placeholder="Firstname" required >
-                            
-
-                          </mat-form-field></td>
-
-                          <td><mat-form-field  appearance="fill">
-                            <mat-label>Last Name</mat-label>
-                            <input formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName" name="lastName" matInput placeholder="Lastname" required>
-                            
-                          </mat-form-field></td>
-                        </tr></table>
-                      
-                        <p>
+                    <div style="justify-content: center;">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Create user</ng-template>
+                          
                             <table cellspacing="0"><tr>
+    
+                              <td style="margin: 5px;"><mat-form-field appearance="fill">
+                                <mat-label>First Name</mat-label>
+                                <input formControlName="firstCtrl"  [(ngModel)]="this.newUser.firstName" matInput  placeholder="Firstname" required >
+                                
+    
+                              </mat-form-field></td>
+    
+                              <td><mat-form-field  appearance="fill">
+                                <mat-label>Last Name</mat-label>
+                                <input formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName" name="lastName" matInput placeholder="Lastname" required>
+                                
+                              </mat-form-field></td>
+                            </tr></table>
+                          
+                            <p>
+                                <table cellspacing="0"><tr>
+                                <td>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="thirdCtrl" name="gmail" [(ngModel)]="this.newUser.mail" type="email" matInput placeholder="Ex. pat@example.com" required>
+                                
+                              </mat-form-field></td>
                             <td>
-                          <mat-form-field appearance="fill">
-                            <mat-label>Email</mat-label>
-                            <input formControlName="thirdCtrl" name="gmail" [(ngModel)]="this.newUser.mail" type="email" matInput placeholder="Ex. pat@example.com" required>
-                            
-                          </mat-form-field></td>
-                          <td>
+    
+                              <mat-form-field  appearance="fill">
+                                <mat-label>Username</mat-label>
+                                 <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username" name="username"  matInput placeholder="Username" required>
+                                
+                                </mat-form-field>
+                            </td>
 
-                          <mat-form-field  appearance="fill">
-                            <mat-label>Username</mat-label>
-                             <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username" name="username"  matInput placeholder="Username" required>
-                            
-                            </mat-form-field>
-                        </td>
-                    </tr></table>
-            
-                        <p>
-                            <section class="example-section" >
-                                <h4>Configuration options:</h4>
-                                <p><mat-checkbox [formControl]="emailSendControl" [(ngModel)]="this.newUser.sendEmail">Send credentials to email</mat-checkbox></p>
-                                <p><mat-checkbox >Username equal to email</mat-checkbox></p>
-                              </section>
-                      </form>
+                        </tr></table>
+                        <input [(ngModel)]="this.newUser.image" type="file" name="imagensubida" accept="image/png, .jpeg, .jpg">
+                
+                            <p>
+                                <section class="example-section" >
+                                    <h4>Configuration options:</h4>
+                                    <p><mat-checkbox formControlName="checkCtrl1"  [(ngModel)]="this.newUser.sendEmail">Send credentials to email</mat-checkbox></p>
+                                    <p><mat-checkbox formControlName="checkCtrl2" >Username equal to email</mat-checkbox></p>
+                                  </section>
+                          </form>
+                    </div>
+
+                    
                       <p>
                       <div>
                         <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -192,29 +198,22 @@
                 </mat-step>
 
                 <!--STEP 2-->
-                <mat-step >
-                    <form >
+                <mat-step [stepControl]="secondFormGroup" >
+                    <form [formGroup]="secondFormGroup" >
                       <ng-template matStepLabel>Rol user</ng-template>
-                      <input type="text" placeholder="Lastname">
+                      <h5>¿Qué Rol tendrá este usuario?</h5>
+                      <p>
+                        
+
+                      <input formControlName="a" type="text" placeholder="Lastname">
 
                       <div>
                         <button style="margin: 5px;" mat-raised-button matStepperPrevious color="primary">Back</button>
-                        <button style="margin: 5px;" mat-raised-button matStepperNext color="primary">Next</button>
-                        
-                      </div>
-                    </form>
-                  </mat-step>
-
-                  <mat-step>
-                    <form >
-                      <ng-template matStepLabel>Upload image</ng-template>
-                        
-                      <div>
                         <button mat-button matStepperNext (click)="registerByAdmin()">Confirm</button>
                       </div>
+                      
                     </form>
                   </mat-step>
-               
               </mat-stepper>
            
 

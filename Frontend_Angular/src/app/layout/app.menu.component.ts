@@ -28,7 +28,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                   
                     {
-                        label: 'Crud',
+                        label: 'Users',
                         icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/layout/pages/crud']
                     },

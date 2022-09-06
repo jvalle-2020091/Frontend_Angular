@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
 import {FormControl, NgForm, Validators, FormBuilder} from '@angular/forms';
+import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
+
 
 
 
@@ -59,32 +62,36 @@ export class CrudComponent implements OnInit {
     userLocked: any;
     passworUpdate: any;
 
-    //Propiedades Stteper
-    emailSendControl = new FormControl ('', [Validators.required]);
+    //Propiedades Step 1
 
     firstFormGroup = this._formBuilder.group({
         firstCtrl: ['', Validators.required],
         secondCtrl: ['', Validators.required],
         thirdCtrl: ['', Validators.required],
         fourthCtrl: ['', Validators.required],
+        checkCtrl1: [],
+        checkCtrl2: []
       });
       secondFormGroup = this._formBuilder.group({
         a: ['', Validators.required],
       });
       thirdFormGroup = this._formBuilder.group({
-        seco8ndCtrl: ['', Validators.required],
+        firstCtrll: ['', Validators.required],
       });
-
-      isEditable = false;
     
-
     newUser ={
         username:'',
         mail:'',
         firstName:'',
         lastName:'',
-        sendEmail: false
+        sendEmail: false,
+        image: ""
     }
+
+    
+
+
+
 
     constructor(
         private userRest: UserRestService,
@@ -103,23 +110,13 @@ export class CrudComponent implements OnInit {
         ];
     }
 
-    dialogCreateUser(form: any){
-        form.reset()
+    dialogCreateUser(){
+        
         this.addUser = true;
     }
 
     //REGISTER
-    registerUser(){
-    
-        this.userRest.registerByAdmin(this.newUser).subscribe({
-            next:(res: any)=>{
-                this.newUser = res.user
-            },
-            error:(err)=>{
-                console.log(err);
-            }
-        })
-    }
+ 
 
     // GET
     getUsers(){
@@ -248,7 +245,6 @@ export class CrudComponent implements OnInit {
                 this.getUsers();
                 this.addUser = false;
                 this.toastr.success(res.message);
-                
             },
             error:(err)=>{
                 this.toastr.error(err.error.message || err.error);
@@ -285,5 +281,7 @@ export class CrudComponent implements OnInit {
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
+
+
 
 }
