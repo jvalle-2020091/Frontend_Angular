@@ -28,8 +28,8 @@ export class AppMenuComponent implements OnInit {
                 items: [
                   
                     {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-user-edit',
+                        label: 'Users',
+                        icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/layout/pages/crud']
                     },
                     {
