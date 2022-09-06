@@ -1,0 +1,102 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New Role" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="dialogCreateRole()"></button>
+                    </div>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table [value]="roles" #dt [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+                [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Roles and Permissions</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search..." class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id">ID </th>
+                        <th pSortableColumn="name">Name </th>
+                        <th pSortableColumn="users">Users </th>
+                        <th pSortableColumn="permissions">Permissions </th>
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <tr>
+                        <td style="width:14%; min-width:10rem;"><span>1</span></td>
+                        <td style="width:14%; min-width:10rem;"><span>Admin</span></td>
+                        <td style="width:14%; min-width:10rem;">
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-users"
+                                    class="p-button-rounded p-button-success mr-2"></button>
+                            </div>
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <div class="flex">
+                                <button pButton pRipple icon="pi-check-circle"
+                                    class="p-button-rounded p-button-success mr-2"></button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"></button>
+                                <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger mr-2"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!--Modal para agregar un nuevo role-->
+        <p-dialog [(visible)]="addRoles" [style]="{width: '350px'}" header="New Role" [modal]="true" class="p-fluid">
+
+
+            <div class="field">
+                <label for="name">Name for this new role</label>
+                <input type="text" pInputText />
+                <!-- <span class="requiredFile" >*Campo obligatorio</span> -->
+            </div>
+            <div class="field">
+                <label for="name">What is the description of this role?</label>
+                <input type="text" pInputText />
+                <!-- <span class="requiredFile" >*Campo obligatorio</span> -->
+            </div>
+
+            <div class="card">
+                <p-tabView>
+                    <p-tabPanel header="Users">
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Users" class="w-full sm:w-auto" />
+                        </span>
+                    </p-tabPanel>
+                    <p-tabPanel header="Permissions">
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Permissions" class="w-full sm:w-auto" />
+                        </span>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+
+
+        </p-dialog>
+
+    </div>
+</div>

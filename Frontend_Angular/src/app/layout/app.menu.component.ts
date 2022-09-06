@@ -29,8 +29,13 @@ export class AppMenuComponent implements OnInit {
                   
                     {
                         label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
+                        icon: 'pi pi-fw pi-user-edit',
                         routerLink: ['/layout/pages/crud']
+                    },
+                    {
+                        label: 'Roles',
+                        icon: 'pi pi-fw pi-cog',
+                        routerLink: ['/layout/pages/roles']
                     },
                    
                 ]
