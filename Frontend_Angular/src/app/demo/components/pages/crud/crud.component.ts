@@ -6,15 +6,29 @@ import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
-import {FormControl, NgForm, Validators, FormBuilder} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
+import {FormControl, NgForm, Validators, FormBuilder} from '@angular/forms';
 import {SelectionModel} from '@angular/cdk/collections';
 
+export interface PeriodicElement {
+    name: string;
+    position: number;
+    weight: number;
+    symbol: string;
+  }
 
+  const ELEMENT_DATA: PeriodicElement[] = [
+    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
 
-
-
-
+  ];
 
 @Component({
     templateUrl: './crud.component.html',
@@ -22,9 +36,6 @@ import {SelectionModel} from '@angular/cdk/collections';
 })
 export class CrudComponent implements OnInit {
 
-   
-
-  
     // Propiedades de plantilla
     userUpdateDialog: boolean = false;
 
@@ -61,7 +72,10 @@ export class CrudComponent implements OnInit {
     userUpdate: any;
     userLocked: any;
     passworUpdate: any;
+    filesToUpload: any;
 
+    
+    
     //Propiedades Step 1
 
     firstFormGroup = this._formBuilder.group({
@@ -78,7 +92,7 @@ export class CrudComponent implements OnInit {
       thirdFormGroup = this._formBuilder.group({
         firstCtrll: ['', Validators.required],
       });
-    
+
     newUser ={
         username:'',
         mail:'',
@@ -87,11 +101,44 @@ export class CrudComponent implements OnInit {
         sendEmail: false,
         image: ""
     }
+    //Propiedades Step 2
+    displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol'];
+    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    selection = new SelectionModel<PeriodicElement>(true, []);
 
-    
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    /* Whether the number of selected elements matches the total number of rows. */
+    isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+    }
+
+    /* Selects all rows if they are not all selected; otherwise clear selection. */
+    toggleAllRows() {
+        if (this.isAllSelected()) {
+        this.selection.clear();
+        return;
+        }
+
+        this.selection.select(...this.dataSource.data);
+    }
+
+    /** The label for the checkbox on the passed row */
+    checkboxLabel(row?: PeriodicElement): string {
+        if (!row) {
+        return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        }
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    } 
 
 
 
+      
 
     constructor(
         private userRest: UserRestService,
@@ -99,6 +146,8 @@ export class CrudComponent implements OnInit {
         private router: Router,
         private _formBuilder: FormBuilder
     ) { }
+
+    
 
     ngOnInit() {
         this.getUsers();
@@ -115,15 +164,18 @@ export class CrudComponent implements OnInit {
         this.addUser = true;
     }
 
-    //REGISTER
- 
+    equalToEmail(){
+        if(this.newUser.mail){
 
+        }
+    }
+
+ 
     // GET
     getUsers(){
         this.userRest.getUsers().subscribe({
             next: (res: any) => {
                 this.users = res.users;
-                console.log(this.users);
             },
             error: (err) => {
                 console.log(err);
@@ -225,6 +277,7 @@ export class CrudComponent implements OnInit {
      }
      
 
+
      updateUserLock(){
         this.userRest.updateUser(this.userLocked.id, this.userLocked).subscribe({
             next:(res:any)=>{
@@ -239,10 +292,15 @@ export class CrudComponent implements OnInit {
         })
      }
 
+    
+
     registerByAdmin(){
         this.userRest.registerByAdmin(this.newUser).subscribe({
             next:(res:any)=>{
                 this.getUsers();
+                this.uploadImage();
+                console.log(this.uploadImage());
+                
                 this.addUser = false;
                 this.toastr.success(res.message);
             },
@@ -251,6 +309,33 @@ export class CrudComponent implements OnInit {
             }
         });
     }
+
+    filesChange(inputFile: any) {
+        this.filesToUpload = <Array<File>>inputFile.target.files;
+        console.log(this.filesToUpload);
+      }
+
+
+      uploadImage() {
+        this.userRest
+          .requestFiles( this.filesToUpload, 'image', 
+          this.newUser.username, 
+          this.newUser.firstName, 
+          this.newUser.lastName, 
+          this.newUser.mail,
+          this.newUser.sendEmail )
+          .then((res: any) => {
+
+            let resClear = JSON.parse(res);
+            if (!resClear.error) {
+                this.getUsers();
+                this.addUser = false;
+                this.toastr.success(resClear.message);
+            } else {
+                this.toastr.error(res);
+            }
+          });
+      }
 
     openNew() {
         this.product = {};

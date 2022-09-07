@@ -25,6 +25,8 @@ import {CardModule} from 'primeng/card';
  import {MatInputModule} from '@angular/material/input';
  import {MatCheckboxModule} from '@angular/material/checkbox';
  import { ReactiveFormsModule } from '@angular/forms';
+ import { MatTableModule } from '@angular/material/table';
+
 
 
 
@@ -58,6 +60,7 @@ import {CardModule} from 'primeng/card';
         MatInputModule,
         MatCheckboxModule,
         ReactiveFormsModule,
+        MatTableModule
         
     ],
     

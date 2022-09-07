@@ -41,5 +41,38 @@ export class UserRestService {
   }
 
 
+  requestFiles( files: Array<File>, name: string, username: string, firstName: string, lastName: string, mail: string, sendEmail: any) {
+    return new Promise((resolve, reject) => {
+      let formData = new FormData();
+      let xhr = new XMLHttpRequest();
+
+      formData.append('username', username );
+      formData.append('firstName', firstName );
+      formData.append('lastName', lastName );
+      formData.append('mail', mail );
+      formData.append('sendEmail', sendEmail );
+
+
+      let uri = environment.baseUri + 'users/register';
+
+      for (var x = 0; x < files.length; x++) {
+        formData.append(name, files[x], files[x].name);
+      }
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
+
+      xhr.open('POST', uri, true);
+      xhr.setRequestHeader('Authorization', this.loginRest.getToken());
+      xhr.send(formData);
+    });
+  }
 
 }

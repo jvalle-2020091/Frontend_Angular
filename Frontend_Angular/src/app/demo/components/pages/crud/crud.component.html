@@ -37,7 +37,9 @@
                     <tr>
                         <td style="width:14%; min-width:10rem;"><span>{{user.id}}</span></td>
                         <td style="width:14%; min-width:10rem;"><span>{{user.username}}</span></td>
-                        <td style="width:14%; min-width:10rem;"><span>IMAGEN</span></td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
+                            <img src="http://localhost:3000/users/getImage/{{ user.image }}" width="60" alt="User image" class="shadow-4" />
+                        </td>                        
                         <td style="width:14%; min-width:10rem;"><span>{{user.firstName}}</span></td>
                         <td style="width:14%; min-width:8rem;"><span>{{user.lastName}}</span></td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.mail}}</span></td>
@@ -179,7 +181,7 @@
                             </td>
 
                         </tr></table>
-                        <input [(ngModel)]="this.newUser.image" type="file" name="imagensubida" accept="image/png, .jpeg, .jpg">
+                        <input (change)="filesChange($event)" [(ngModel)]="this.newUser.image" type="file" name="imagensubida" accept="image/png, .jpeg, .jpg">
                 
                             <p>
                                 <section class="example-section" >
@@ -197,25 +199,82 @@
                     </div>
                 </mat-step>
 
-                <!--STEP 2-->
-                <mat-step [stepControl]="secondFormGroup" >
-                    <form [formGroup]="secondFormGroup" >
-                      <ng-template matStepLabel>Rol user</ng-template>
-                      <h5>¿Qué Rol tendrá este usuario?</h5>
-                      <p>
-                        
+               <!--STEP 2-->
+               <mat-step [stepControl]="secondFormGroup" >
+                <form [formGroup]="secondFormGroup" >
+                  <ng-template matStepLabel>Rol user</ng-template>
+                  <h5>¿Qué Rol tendrá este usuario?</h5>
+                  <p>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Filter</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                      </mat-form-field>
 
-                      <input formControlName="a" type="text" placeholder="Lastname">
-
-                      <div>
-                        <button style="margin: 5px;" mat-raised-button matStepperPrevious color="primary">Back</button>
-                        <button mat-button matStepperNext (click)="registerByAdmin()">Confirm</button>
-                      </div>
                       
-                    </form>
-                  </mat-step>
-              </mat-stepper>
-           
+                      <table style="width: 100%; height: 10px; overflow-y: scroll;" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <!-- Checkbox Column -->
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                            [checked]="selection.hasValue() && isAllSelected()"
+                                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                            [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)"
+                                            [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                            </td>
+                        </ng-container>
+                      
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                          <th mat-header-cell *matHeaderCellDef> No. </th>
+                          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef> Name </th>
+                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="weight">
+                          <th mat-header-cell *matHeaderCellDef> Weight </th>
+                          <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="symbol">
+                          <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                          <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                      </table>
+                    
+
+                  <input formControlName="a" type="text" placeholder="Lastname">
+
+                  <div>
+                    <button style="margin: 5px;" mat-raised-button matStepperPrevious color="primary">Back</button>
+                    <button mat-button matStepperNext (click)="uploadImage()">Confirm</button>
+                  </div>
+                  
+                </form>
+              </mat-step>
+            </mat-stepper>
 
         </p-dialog>
 
