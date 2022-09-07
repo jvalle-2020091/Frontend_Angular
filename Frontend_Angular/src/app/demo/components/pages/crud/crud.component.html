@@ -5,18 +5,24 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="dialogCreateUser(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset() "></button>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="dialogCreateUser(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset() "></button>
                     </div>
                 </ng-template>
             </p-toolbar>
 
-            <p-table [value]="users" #dt [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['username','firstName','lastName','mail']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table [value]="users" #dt [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['username','firstName','lastName','mail']" [rows]="10" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Users</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                                class="w-full sm:w-auto" />
                         </span>
                     </div>
                 </ng-template>
@@ -37,21 +43,30 @@
                     <tr>
                         <td style="width:14%; min-width:10rem;"><span>{{user.id}}</span></td>
                         <td style="width:14%; min-width:10rem;"><span>{{user.username}}</span></td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            <img src="http://localhost:3000/users/getImage/{{ user.image }}" width="60" alt="User image" class="shadow-4" />
-                        </td>                        
+                        <td style="width:14%; min-width:10rem;">
+                            <img *ngIf="!user.image"
+                                src="https://ui-avatars.com/api/?name={{user.firstName}}+{{user.lastName}}" width="60"
+                                class="shadow-4" />
+                            <img *ngIf="user.image" src="http://localhost:3000/users/getImage/{{ user.image }}"
+                                width="60" alt="User image" class="shadow-4" />
+                        </td>
                         <td style="width:14%; min-width:10rem;"><span>{{user.firstName}}</span></td>
                         <td style="width:14%; min-width:8rem;"><span>{{user.lastName}}</span></td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.mail}}</span></td>
                         <td style="width:14%; min-width: 10rem;">
-                            <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-warning" (click)="getPasswordUpdate(user.id)" ></button>
+                            <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-warning"
+                                (click)="getPasswordUpdate(user.id)"></button>
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.isLocked}}</span></td>
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="getUserUpdate(user.id)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="getUserDelete(user.id)"></button>
-                                <button pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2" (click)="getUserLocked(user.id)" ></button>
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="getUserUpdate(user.id)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
+                                    (click)="getUserDelete(user.id)"></button>
+                                <button pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2"
+                                    (click)="getUserLocked(user.id)"></button>
                             </div>
                         </td>
                     </tr>
@@ -59,221 +74,218 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="userUpdateDialog" [style]="{width: '450px'}" header="User Details" [modal]="true" class="p-fluid">
-            
+        <!--Modal para actualizar al usuario-->
+
+        <p-dialog [(visible)]="userUpdateDialog" [style]="{width: '450px'}" header="User Details" [modal]="true"
+            class="p-fluid">
+
             <ng-template pTemplate="content">
                 <div class="field">
                     <label for="name">Username</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.username" required autofocus disabled [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.username}"/>
-                    <span class="requiredFile" *ngIf="!this.userUpdate.username.valid && this.userUpdate.username.touched">*Campo obligatorio</span>
+                    <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.username" required autofocus
+                        disabled [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.username}" />
+                    <span class="requiredFile"
+                        *ngIf="!this.userUpdate.username.valid && this.userUpdate.username.touched">*Campo
+                        obligatorio</span>
                 </div>
                 <div class="field">
                     <label for="name">First Name</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.firstName" required autofocus #name="ngModel" [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.firstName}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">First Name is required.</small>
+                    <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.firstName" required autofocus
+                        #name="ngModel" [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.firstName}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">First Name is
+                        required.</small>
                 </div>
                 <div class="field">
                     <label for="lastname">Last Name</label>
-                    <input type="text" pInputText id="lastname" [(ngModel)]="this.userUpdate.lastName" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.lastname}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">Last Name is required.</small>
+                    <input type="text" pInputText id="lastname" [(ngModel)]="this.userUpdate.lastName" required
+                        autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.lastname}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">Last Name is
+                        required.</small>
                 </div>
             </ng-template>
-            
+
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="userUpdateDialog = false" ></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="updateUser()"></button>
+                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                    (click)="userUpdateDialog = false"></button>
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                    (click)="updateUser()"></button>
             </ng-template>
-            
+
         </p-dialog>
 
+        <!--Modal para eliminar el usuario-->
         <p-dialog [(visible)]="deleteUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span >Are you sure you want to delete this user?</span>
+                <span>Are you sure you want to delete this user?</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteUserDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="deleteUser()"></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to delete selected users?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductsDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="deleteUserDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="deleteUser()"></button>
             </ng-template>
         </p-dialog>
 
         <!--Modal para bloquear usuario-->
-        <p-dialog [(visible)]="lockedUser" [style]="{width: '450px'}" header="Locked user" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="lockedUser" [style]="{width: '450px'}" header="Locked user" [modal]="true"
+            class="p-fluid">
             <ng-template pTemplate="content">
                 <br>
-                <p-toggleButton onLabel="Locked" offLabel="Unlocked" 
-               [(ngModel)]="this.userLocked.isLocked" 
-                 ></p-toggleButton>
+                <p-toggleButton onLabel="Locked" offLabel="Unlocked" [(ngModel)]="this.userLocked.isLocked">
+                </p-toggleButton>
             </ng-template>
-            
+
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="lockedUser = false" ></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="updateUserLock()"></button>
+                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                    (click)="lockedUser = false"></button>
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                    (click)="updateUserLock()"></button>
             </ng-template>
         </p-dialog>
 
-                <!--Modal para cambio de contraseña-->
-        <p-dialog [(visible)]="changePassword" header="Confirm change password" [modal]="true" [style]="{width:'450px'}">
+        <!--Modal para cambio de contraseña-->
+        <p-dialog [(visible)]="changePassword" header="Confirm change password" [modal]="true"
+            [style]="{width:'450px'}">
 
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span >Are you sure you want to confirm the password change?
+                <span>Are you sure you want to confirm the password change?
                 </span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="changePassword = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="updatePasswordByAdmin()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="changePassword = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="updatePasswordByAdmin()"></button>
             </ng-template>
 
         </p-dialog>
 
         <!--Modal y stepper para agregar usuario-->
-        <p-dialog  [(visible)]="addUser" [style]="{width: '50%', height: '70%'}" header="Add User" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="addUser" [style]="{width: '50%', height: '70%'}" header="Add User" [modal]="true"
+            class="p-fluid">
             <mat-stepper linear #stepper>
                 <!--STEP 1-->
-                <mat-step [stepControl]="firstFormGroup" >
+                <mat-step [stepControl]="firstFormGroup">
                     <div style="justify-content: center;">
                         <form [formGroup]="firstFormGroup">
                             <ng-template matStepLabel>Create user</ng-template>
-                          
-                            <table cellspacing="0"><tr>
-    
-                              <td style="margin: 5px;"><mat-form-field appearance="fill">
-                                <mat-label>First Name</mat-label>
-                                <input formControlName="firstCtrl"  [(ngModel)]="this.newUser.firstName" matInput  placeholder="Firstname" required >
-                                
-    
-                              </mat-form-field></td>
-    
-                              <td><mat-form-field  appearance="fill">
-                                <mat-label>Last Name</mat-label>
-                                <input formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName" name="lastName" matInput placeholder="Lastname" required>
-                                
-                              </mat-form-field></td>
-                            </tr></table>
-                          
-                            <p>
-                                <table cellspacing="0"><tr>
-                                <td>
-                              <mat-form-field appearance="fill">
-                                <mat-label>Email</mat-label>
-                                <input formControlName="thirdCtrl" name="gmail" [(ngModel)]="this.newUser.mail" type="email" matInput placeholder="Ex. pat@example.com" required>
-                                
-                              </mat-form-field></td>
-                            <td>
-    
-                              <mat-form-field  appearance="fill">
-                                <mat-label>Username</mat-label>
-                                 <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username" name="username"  matInput placeholder="Username" required>
-                                
-                                </mat-form-field>
-                            </td>
 
-                        </tr></table>
-                        <input (change)="filesChange($event)" [(ngModel)]="this.newUser.image" type="file" name="imagensubida" accept="image/png, .jpeg, .jpg">
-                
+                            <table cellspacing="0">
+                                <tr>
+                                    <td style="margin: 5px;">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>First Name</mat-label>
+                                            <input formControlName="firstCtrl" [(ngModel)]="this.newUser.firstName"
+                                                matInput placeholder="Firstname" required>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Last Name</mat-label>
+                                            <input formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName"
+                                                name="lastName" matInput placeholder="Lastname" required>
+
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
+
                             <p>
-                                <section class="example-section" >
-                                    <h4>Configuration options:</h4>
-                                    <p><mat-checkbox formControlName="checkCtrl1"  [(ngModel)]="this.newUser.sendEmail">Send credentials to email</mat-checkbox></p>
-                                    <p><mat-checkbox formControlName="checkCtrl2" >Username equal to email</mat-checkbox></p>
-                                  </section>
-                          </form>
+                            <table cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Email</mat-label>
+                                            <input formControlName="thirdCtrl" name="gmail"
+                                                [(ngModel)]="this.newUser.mail" type="email" matInput
+                                                placeholder="Ex. pat@example.com" required>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Username</mat-label>
+                                            <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username"
+                                                name="username" matInput placeholder="Username" required>
+                                        </mat-form-field>
+                                    </td>
+
+                                </tr>
+                            </table>
+                            <input (change)="filesChange($event)" type="file" name="file" id="file" class="inputfile" />
+                            <label for="file"><u>Subir imagen aqui </u></label>
+
+                            <br>
+                            <br>
+                            <img src="https://ui-avatars.com/api/?name={{this.newUser.firstName}}+{{this.newUser.lastName}}"
+                                width="30" class="shadow-4" />
+                            <p>
+                            <section class="example-section">
+                                <h4>Configuration options:</h4>
+                                <p>
+                                    <mat-checkbox formControlName="checkCtrl1" [(ngModel)]="this.newUser.sendEmail">Send
+                                        credentials to email</mat-checkbox>
+                                </p>
+                                <p>
+                                    <mat-checkbox formControlName="checkCtrl2">Username equal to email</mat-checkbox>
+                                </p>
+                            </section>
+                        </form>
                     </div>
 
-                    
-                      <p>
-                      <div>
+
+                    <p>
+                    <div>
                         <button mat-raised-button color="primary" matStepperNext>Next</button>
                     </div>
                 </mat-step>
 
-               <!--STEP 2-->
-               <mat-step [stepControl]="secondFormGroup" >
-                <form [formGroup]="secondFormGroup" >
-                  <ng-template matStepLabel>Rol user</ng-template>
-                  <h5>¿Qué Rol tendrá este usuario?</h5>
-                  <p>
-                    <mat-form-field appearance="standard">
-                        <mat-label>Filter</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-                      </mat-form-field>
+                <!--STEP 2-->
+                <mat-step [stepControl]="secondFormGroup">
+                    <form [formGroup]="secondFormGroup">
+                        <ng-template matStepLabel>Rol user</ng-template>
+                        <h5>¿Qué Rol tendrá este usuario?</h5>
+                        <p>
+                            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" placeholder="Search Roles" (input)="onGlobalFilterRole(dtrole, $event)" class="w-full sm:w-auto" />
+                            </span>
+                            <hr>  
 
-                      
-                      <table style="width: 100%; height: 10px; overflow-y: scroll;" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-                        <!-- Checkbox Column -->
-                        <ng-container matColumnDef="select">
-                            <th mat-header-cell *matHeaderCellDef>
-                            <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                                            [checked]="selection.hasValue() && isAllSelected()"
-                                            [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                            [aria-label]="checkboxLabel()">
-                            </mat-checkbox>
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                            <mat-checkbox (click)="$event.stopPropagation()"
-                                            (change)="$event ? selection.toggle(row) : null"
-                                            [checked]="selection.isSelected(row)"
-                                            [aria-label]="checkboxLabel(row)">
-                            </mat-checkbox>
-                            </td>
-                        </ng-container>
-                      
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                          <th mat-header-cell *matHeaderCellDef> No. </th>
-                          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                        </ng-container>
-                      
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                          <th mat-header-cell *matHeaderCellDef> Name </th>
-                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                        </ng-container>
-                      
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="weight">
-                          <th mat-header-cell *matHeaderCellDef> Weight </th>
-                          <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                        </ng-container>
-                      
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="symbol">
-                          <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                          <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                        </ng-container>
-                      
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      
-                        <!-- Row shown when there is no matching data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                        </tr>
-                      </table>
-                    
+                            <p-table  #dtrole [value]="roles"  [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['name']"  dataKey="id">
+                        
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 5rem">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th pSortableColumn="Users">Roles </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-role>
+                                    <tr>
+                                        <td>
+                                            <p-tableCheckbox [value]="role"></p-tableCheckbox>
+                                        </td>
+                                        <td ><span class="p-column-title">Users</span>
+                                            {{role.name}}
+                                        </td>                                
+                                    </tr>
+                                </ng-template>
+                            </p-table>
 
-                  <input formControlName="a" type="text" placeholder="Lastname">
+                        <div>
+                            <button style="margin: 5px;" mat-raised-button matStepperPrevious
+                                color="primary">Back</button>
+                            <button mat-button matStepperNext (click)="uploadImage()">Confirm</button>
+                        </div>
 
-                  <div>
-                    <button style="margin: 5px;" mat-raised-button matStepperPrevious color="primary">Back</button>
-                    <button mat-button matStepperNext (click)="uploadImage()">Confirm</button>
-                  </div>
-                  
-                </form>
-              </mat-step>
+                    </form>
+                </mat-step>
             </mat-stepper>
 
         </p-dialog>

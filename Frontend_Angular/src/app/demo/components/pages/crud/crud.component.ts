@@ -1,34 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
-import {MatTableDataSource} from '@angular/material/table';
-import {FormControl, NgForm, Validators, FormBuilder} from '@angular/forms';
-import {SelectionModel} from '@angular/cdk/collections';
+import { Validators, FormBuilder} from '@angular/forms';
+import { RoleRestService } from 'src/app/services/role-rest.service';
 
-export interface PeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-  }
 
-  const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-
-  ];
 
 @Component({
     templateUrl: './crud.component.html',
@@ -49,14 +29,11 @@ export class CrudComponent implements OnInit {
 
     deleteProductsDialog: boolean = false;
 
-    products: Product[] = [];
 
-    product: Product = {};
 
     items: MenuItem[] = [];
 
 
-    selectedProducts: Product[] = [];
 
     submitted: boolean = false;
 
@@ -73,7 +50,7 @@ export class CrudComponent implements OnInit {
     userLocked: any;
     passworUpdate: any;
     filesToUpload: any;
-
+    roles: any = [];
     
     
     //Propiedades Step 1
@@ -101,56 +78,21 @@ export class CrudComponent implements OnInit {
         sendEmail: false,
         image: ""
     }
-    //Propiedades Step 2
-    displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
-    selection = new SelectionModel<PeriodicElement>(true, []);
-
-    applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
-
-    /* Whether the number of selected elements matches the total number of rows. */
-    isAllSelected() {
-        const numSelected = this.selection.selected.length;
-        const numRows = this.dataSource.data.length;
-        return numSelected === numRows;
-    }
-
-    /* Selects all rows if they are not all selected; otherwise clear selection. */
-    toggleAllRows() {
-        if (this.isAllSelected()) {
-        this.selection.clear();
-        return;
-        }
-
-        this.selection.select(...this.dataSource.data);
-    }
-
-    /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: PeriodicElement): string {
-        if (!row) {
-        return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-        }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-    } 
-
-
-
-      
-
+          
     constructor(
         private userRest: UserRestService,
         private toastr: ToastrService,
         private router: Router,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private roleRest: RoleRestService
+
     ) { }
 
     
 
     ngOnInit() {
         this.getUsers();
+        this.getRoles();
         this.items = [
             {label: 'Step 1',
             routerLink: 'addUser'},
@@ -292,6 +234,16 @@ export class CrudComponent implements OnInit {
         })
      }
 
+     getRoles(){
+        this.roleRest.getRoles().subscribe({
+          next: (res: any) => {
+              this.roles = res.roles;
+          },
+          error: (err) => {
+              console.log(err);
+          }
+      });
+      }
     
 
     registerByAdmin(){
@@ -337,26 +289,11 @@ export class CrudComponent implements OnInit {
           });
       }
 
-    openNew() {
-        this.product = {};
-        this.submitted = false;
-        
-    }
-
+    
     deleteSelectedProducts() {
         this.deleteProductsDialog = true;
     }
 
-    editProduct(product: Product) {
-        this.product = { ...product };
-        this.userUpdateDialog = true;
-    }
-
-    confirmDeleteSelected() {
-        this.deleteProductsDialog = false;
-        this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-        this.selectedProducts = [];
-    }
 
     hideDialog() {
         this.userUpdateDialog = false;
@@ -364,6 +301,10 @@ export class CrudComponent implements OnInit {
     }
 
     onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
+
+    onGlobalFilterRole(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 
