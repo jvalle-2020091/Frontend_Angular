@@ -42,8 +42,7 @@
                         <td style="width:20%; min-width:20rem;"><span>{{role.description}}</span></td>
                         <td style="width:14%; min-width:10rem;">
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-users"
-                                    class="p-button-rounded p-button-secondary mr-2"></button>
+                                <button pButton pRipple icon="pi pi-users" class="p-button-rounded p-button-secondary mr-2" (click)="getUsersByAdmin(role.id)"></button>
                             </div>
                         </td>
                         <td style="width:14%; min-width:8rem;">
@@ -70,9 +69,6 @@
 
         <!--Modal para agregar un nuevo role-->
         <p-dialog [(visible)]="addRoles" [style]="{width: '350px'}" header="New Role" [modal]="true" class="p-fluid">
-
-
-
             <div class="field">
                 <label for="name">Name for this new role</label>
                 <input type="text" pInputText [(ngModel)]="this.newRole.name" />
@@ -92,9 +88,8 @@
                             <input pInputText type="text" placeholder="Search Users" (input)="onGlobalFilterUsers(dtusers, $event)" class="w-full sm:w-auto" />
                         </span>
                         <hr>   
-                        
-                        <p-table #dtusers [value]="users"  [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"    dataKey="id">
-                        
+                        <!-- TABLE USERS MODAL CREATE ROL -->
+                        <p-table #dtusers [value]="users" [(selection)]="idsArray" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"  dataKey="id">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th style="width: 3rem">
@@ -105,15 +100,15 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-user>
                                 <tr>
-                                    <td>
-                                        <p-tableCheckbox [value]="user"></p-tableCheckbox>
-                                    </td>
                                     <td style="width:14%; min-width:10rem;"><span class="p-column-title">Users</span>
+                                        <p-tableCheckbox [value]="user"></p-tableCheckbox>
                                         {{user.firstName}}  {{user.lastName}}
                                     </td>                                
+                                    <td></td>
                                 </tr>
                             </ng-template>
                         </p-table>
+                        <!-- --------------------------------------------------------------- -->
                     </p-tabPanel>
 
                     <p-tabPanel header="Permissions">
@@ -153,6 +148,26 @@
             </ng-template>
         </p-dialog>
 
+        <!--Modal para mostrar los usuarios asignados a un rol-->
+        <p-dialog [(visible)]="userRolDialog" [style]="{width: '450px'}" header="User rols" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <!-- TABLE USERS MODAL CREATE ROL -->
+                <p-table #dtusers [value]="rol_user" [(selection)]="idsArray" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"  dataKey="id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="Users">Users </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-user>
+                        <tr>
+                            <td style="width:14%; min-width:10rem;"><span class="p-column-title">Users</span>
+                                {{user}}
+                            </td>                                
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-template>
+        </p-dialog>
 
         <!--Modal para actualizar el role-->
         <p-dialog [(visible)]="roleUpdateDialog" [style]="{width: '450px'}" header="Update Role" [modal]="true"

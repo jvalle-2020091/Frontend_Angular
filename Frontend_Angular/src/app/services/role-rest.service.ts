@@ -36,4 +36,8 @@ export class RoleRestService {
     return this.http.post(environment.baseUri + "rols/createRol", params, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   } 
 
+  getUsersByAdmin(idRol: any){
+    return this.http.get(environment.baseUri + "rols/getUsersByAdmin/" + idRol, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+  }
+
 }
