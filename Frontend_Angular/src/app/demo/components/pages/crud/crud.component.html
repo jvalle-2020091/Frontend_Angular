@@ -248,7 +248,7 @@
                 <mat-step [stepControl]="secondFormGroup">
                     <form [formGroup]="secondFormGroup">
                         <ng-template matStepLabel>Rol user</ng-template>
-                        <h5>¿Qué Rol tendrá este usuario?</h5>
+                        <h5>What role will this user have?</h5>
                         <p>
                             <span class="block mt-2 md:mt-0 p-input-icon-left">
                                 <i class="pi pi-search"></i>
@@ -257,7 +257,7 @@
                             <hr>  
 
 
-                            <p-table  #dtrole [value]="roles"  [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['name']"  dataKey="id">
+                            <p-table  #dtrole [value]="roles" [(selection)]="idsRolArray" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['name']"  dataKey="id">
                         
                                 <ng-template pTemplate="header">
                                     <tr>

@@ -41,7 +41,7 @@ export class UserRestService {
   }
 
 
-  requestFiles( files: Array<File>, name: string, username: string, firstName: string, lastName: string, mail: string, sendEmail: any) {
+  requestFiles( files: Array<File>, name: string, username: string, firstName: string, lastName: string, mail: string, sendEmail: any, idsRol: any) {
     return new Promise((resolve, reject) => {
       let formData = new FormData();
       let xhr = new XMLHttpRequest();
@@ -52,6 +52,7 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
+      formData.append('idsRol', JSON.stringify([1,2]));
 
 
       let uri = environment.baseUri + 'users/register';
@@ -80,7 +81,7 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
-
+      formData.append('idsRol', JSON.stringify([1,2]));
 
       let uri = environment.baseUri + 'users/register';
 

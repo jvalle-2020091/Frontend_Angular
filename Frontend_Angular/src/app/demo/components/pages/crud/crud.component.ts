@@ -58,6 +58,8 @@ export class CrudComponent implements OnInit {
     passworUpdate: any;
     filesToUpload: any;
     roles: any = [];
+
+    idsRolArray: any = [];
     
     
     //Propiedades Step 1
@@ -86,7 +88,8 @@ export class CrudComponent implements OnInit {
         firstName:'',
         lastName:'',
         sendEmail: false,
-        image: ""
+        image: "",
+        idsRol: []
     }
 
     disabled: boolean = false;
@@ -284,16 +287,18 @@ export class CrudComponent implements OnInit {
       }
 
 
-      uploadImage() {
-        this.userRest
-          .requestFiles( this.filesToUpload, 'image', 
-          this.newUser.username, 
-          this.newUser.firstName, 
-          this.newUser.lastName, 
-          this.newUser.mail,
-          this.newUser.sendEmail )
+    uploadImage() {
+        this.newUser.idsRol = this.idsRolArray.map((role: any) => role.id);
+        this.userRest.requestFiles( this.filesToUpload, 'image', 
+                                    this.newUser.username, 
+                                    this.newUser.firstName, 
+                                    this.newUser.lastName, 
+                                    this.newUser.mail,
+                                    this.newUser.sendEmail,
+                                    this.newUser.idsRol)
           .then((res: any) => {
-
+            console.log(this.newUser.idsRol);
+            
             let resClear = JSON.parse(res);
             if (!resClear.error) {
                 this.getUsers();
@@ -302,8 +307,11 @@ export class CrudComponent implements OnInit {
             } else {
                 this.toastr.error(res);
             }
-          });
-      }
+          }).catch((err) => {
+                let error = JSON.parse(err)
+                this.toastr.error(error.message);
+          })
+    }
 
     
     deleteSelectedProducts() {
