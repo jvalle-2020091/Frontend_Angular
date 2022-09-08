@@ -34,6 +34,7 @@ export class RolesComponent implements OnInit {
 
   roleDelete:any;
   roleUpdate: any;
+  nameRole: any;
 
   newRole = {
     name: '',
@@ -77,14 +78,12 @@ export class RolesComponent implements OnInit {
 };
 
 // Obnter los usuarios asociados a un Rol
-getUsersByAdmin(idRol: any){
+getUsersByAdmin(idRol: any, name: any){
   this.userRolDialog = true;
   this.roleRest.getUsersByAdmin(idRol).subscribe({
     next: (res: any) => {
-      // let RolId = res.searchRol;
-      // let UserId = res.searchRol;
-      console.log(res.searchRol);
-      
+      this.nameRole = name;
+      this.rol_user = res.arrayUser; 
     },
     error: (err) => {
       console.log(err);
