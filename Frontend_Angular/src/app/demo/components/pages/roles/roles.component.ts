@@ -14,22 +14,6 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-
-];
-
-
-
-
 @Component({
   templateUrl: './roles.component.html',
   providers: [MessageService]
@@ -40,12 +24,13 @@ export class RolesComponent implements OnInit {
   addRoles: boolean = false;
   deleteRoleDialog: boolean = false;
   roleUpdateDialog: boolean = false;
-  checked: boolean = false;
-
-
+  userRolDialog: boolean = false;
+  
   cols: any[] = [];
   roles: any = [];
   users: any = [];
+  idsArray: any = [];
+  rol_user: any = [];
 
   roleDelete:any;
   roleUpdate: any;
@@ -53,44 +38,10 @@ export class RolesComponent implements OnInit {
   newRole = {
     name: '',
     description: '',
+    ids: []
   }
 
-  
-
-   //Propiedades Step 2
-   displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol'];
-   dataSource = new MatTableDataSource(ELEMENT_DATA);
-   selection = new SelectionModel<PeriodicElement>(true, []);
-
-   applyFilter(event: Event) {
-       const filterValue = (event.target as HTMLInputElement).value;
-       this.dataSource.filter = filterValue.trim().toLowerCase();
-   }
-
-   /* Whether the number of selected elements matches the total number of rows. */
-   isAllSelected() {
-       const numSelected = this.selection.selected.length;
-       const numRows = this.dataSource.data.length;
-       return numSelected === numRows;
-   }
-
-   /* Selects all rows if they are not all selected; otherwise clear selection. */
-   toggleAllRows() {
-       if (this.isAllSelected()) {
-       this.selection.clear();
-       return;
-       }
-
-       this.selection.select(...this.dataSource.data);
-   }
-
-   /** The label for the checkbox on the passed row */
-   checkboxLabel(row?: PeriodicElement): string {
-       if (!row) {
-       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-       }
-       return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-   } 
+  idsPrueba: any = [];
 
   constructor(
     private roleRest: RoleRestService,
@@ -118,7 +69,6 @@ export class RolesComponent implements OnInit {
     this.userRest.getUsers().subscribe({
         next: (res: any) => {
             this.users = res.users;
-            
         },
         error: (err) => {
             console.log(err);
@@ -126,7 +76,24 @@ export class RolesComponent implements OnInit {
     });
 };
 
+// Obnter los usuarios asociados a un Rol
+getUsersByAdmin(idRol: any){
+  this.userRolDialog = true;
+  this.roleRest.getUsersByAdmin(idRol).subscribe({
+    next: (res: any) => {
+      // let RolId = res.searchRol;
+      // let UserId = res.searchRol;
+      console.log(res.searchRol);
+      
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  });
+}
+
 addRole(){
+  this.newRole.ids = this.idsArray.map((user: any) => user.id);
   this.roleRest.createRole(this.newRole).subscribe({
       next:(res:any)=>{
           this.getRoles();          
@@ -145,8 +112,6 @@ getRoleDeleted(id:string){
       next: (res: any) => {
           this.deleteRoleDialog = true;
           this.roleDelete = res.rol;
-          console.log(res);
-          
       },
       error: (err) => {
           console.log(err);
@@ -162,7 +127,7 @@ deleteRole(){
           this.getRoles();
       },
       error:(err)=>{
-          console.log(err);
+        this.toastr.error(err.error.message || err.error);
       }
   })
 };
