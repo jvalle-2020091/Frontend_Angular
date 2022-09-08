@@ -185,11 +185,11 @@
                                     <td>
                                         <mat-form-field appearance="fill">
                                             <mat-label>Last Name</mat-label>
-                                            <input formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName"
+                                            <input type="text" formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName"
                                                 name="lastName" matInput placeholder="Lastname" required>
-
                                         </mat-form-field>
                                     </td>
+
                                 </tr>
                             </table>
 
@@ -209,7 +209,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Username</mat-label>
                                             <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username"
-                                                name="username" matInput placeholder="Username" required>
+                                                name="username" matInput placeholder="Username" required > 
                                         </mat-form-field>
                                     </td>
 
@@ -230,7 +230,7 @@
                                         credentials to email</mat-checkbox>
                                 </p>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl2">Username equal to email</mat-checkbox>
+                                    <mat-checkbox formControlName="checkCtrl2"  (change)="equalToEmail()">Username equal to email</mat-checkbox>
                                 </p>
                             </section>
                         </form>

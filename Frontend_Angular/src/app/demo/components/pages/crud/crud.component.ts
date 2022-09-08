@@ -70,6 +70,8 @@ export class CrudComponent implements OnInit {
         firstCtrll: ['', Validators.required],
       });
 
+      validateCheckBox: boolean = true;
+
     newUser ={
         username:'',
         mail:'',
@@ -108,8 +110,10 @@ export class CrudComponent implements OnInit {
 
     equalToEmail(){
         if(this.newUser.mail){
-
+            this.newUser.username = this.newUser.mail;
+            this.validateCheckBox = true;            
         }
+        
     }
 
  
