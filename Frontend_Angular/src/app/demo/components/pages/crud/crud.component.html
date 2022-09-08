@@ -215,7 +215,7 @@
 
                                 </tr>
                             </table>
-                            <input (change)="filesChange($event)" type="file" name="file" id="file" class="inputfile" />
+                            <input formControlName="fiveCtrl" (change)="filesChange($event)" [(ngModel)]="this.newUser.image" type="file" name="file" id="file" class="inputfile" />
                             <label for="file"><u>Subir imagen aqui </u></label>
 
                             <br>

@@ -46,7 +46,8 @@ export class UserRestService {
       let formData = new FormData();
       let xhr = new XMLHttpRequest();
 
-      formData.append('username', username );
+      if(files && name){
+        formData.append('username', username );
       formData.append('firstName', firstName );
       formData.append('lastName', lastName );
       formData.append('mail', mail );
@@ -72,7 +73,33 @@ export class UserRestService {
       xhr.open('POST', uri, true);
       xhr.setRequestHeader('Authorization', this.loginRest.getToken());
       xhr.send(formData);
+      }else{
+
+      formData.append('username', username );
+      formData.append('firstName', firstName );
+      formData.append('lastName', lastName );
+      formData.append('mail', mail );
+      formData.append('sendEmail', sendEmail );
+
+
+      let uri = environment.baseUri + 'users/register';
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
+
+      xhr.open('POST', uri, true);
+      xhr.setRequestHeader('Authorization', this.loginRest.getToken());
+      xhr.send(formData);
+    }
     });
+
   }
 
 }
