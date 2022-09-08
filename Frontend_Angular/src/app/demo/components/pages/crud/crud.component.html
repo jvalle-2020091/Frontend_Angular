@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="dialogCreateUser(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset() "></button>
+                            (click)="dialogCreateUser(); stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable() "></button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -207,10 +207,11 @@
                                     <td>
 
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Username</mat-label>
-                                            <input formControlName="fourthCtrl" [(ngModel)]="this.newUser.username"
-                                                name="username" matInput placeholder="Username" required > 
+                                            <mat-label>Username </mat-label>
+                                            <input  formControlName="fourthCtrl" [formControl]="stateCtrl" [(ngModel)]="this.newUser.username"
+                                                name="username" matInput  placeholder="Username" required  > 
                                         </mat-form-field>
+
                                     </td>
 
                                 </tr>
@@ -226,11 +227,11 @@
                             <section class="example-section">
                                 <h4>Configuration options:</h4>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl1" [(ngModel)]="this.newUser.sendEmail">Send
+                                    <mat-checkbox formControlName="checkCtrl1"  [(ngModel)]="this.newUser.sendEmail">Send
                                         credentials to email</mat-checkbox>
                                 </p>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl2"  (change)="equalToEmail()">Username equal to email</mat-checkbox>
+                                    <mat-checkbox formControlName="checkCtrl2" (change)="stateCtrl.disabled ? stateCtrl.enable() : equalToEmail()" >Username equal to email</mat-checkbox>
                                 </p>
                             </section>
                         </form>

@@ -7,14 +7,21 @@ import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder} from '@angular/forms';
 import { RoleRestService } from 'src/app/services/role-rest.service';
+import {FormControl} from '@angular/forms';
+
 
 
 
 @Component({
     templateUrl: './crud.component.html',
-    providers: [MessageService]
+    providers: [MessageService],
 })
+
 export class CrudComponent implements OnInit {
+
+    stateCtrl = new FormControl('');
+
+ 
 
     // Propiedades de plantilla
     userUpdateDialog: boolean = false;
@@ -81,6 +88,8 @@ export class CrudComponent implements OnInit {
         sendEmail: false,
         image: ""
     }
+
+    disabled: boolean = false;
           
     constructor(
         private userRest: UserRestService,
@@ -96,6 +105,7 @@ export class CrudComponent implements OnInit {
     ngOnInit() {
         this.getUsers();
         this.getRoles();
+        this.stateCtrl.enable();
         this.items = [
             {label: 'Step 1',
             routerLink: 'addUser'},
@@ -111,10 +121,11 @@ export class CrudComponent implements OnInit {
 
     equalToEmail(){
         if(this.newUser.mail){
-            this.newUser.username = this.newUser.mail;
-            this.validateCheckBox = true;            
-        }
-        
+            this.newUser.username = this.newUser.mail;    
+            this.stateCtrl.disable(); 
+        }else{
+            this.stateCtrl.enable(); 
+        }   
     }
 
  

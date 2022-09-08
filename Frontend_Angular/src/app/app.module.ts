@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NeedPasswordComponent } from './demo/components/need-password/need-password.component'
+import { NeedPasswordComponent } from './demo/components/need-password/need-password.component';
+import { TranslocoRootModule } from './transloco-root.module'
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { NeedPasswordComponent } from './demo/components/need-password/need-pass
         FormsModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        TranslocoRootModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

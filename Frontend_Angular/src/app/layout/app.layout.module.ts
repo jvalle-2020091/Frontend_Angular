@@ -16,6 +16,9 @@ import { AppTopBarComponent } from './app.topbar.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import { TreeSelectModule } from 'primeng/treeselect';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
+
 
 @NgModule({
     declarations: [
@@ -37,7 +40,9 @@ import { AppLayoutComponent } from "./app.layout.component";
         RadioButtonModule,
         InputSwitchModule,
         RippleModule,
-        RouterModule
+        RouterModule,
+        TreeSelectModule,
+        CascadeSelectModule
         
     ],
     exports: [AppLayoutComponent]
