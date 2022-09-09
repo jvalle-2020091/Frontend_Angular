@@ -158,20 +158,32 @@
         </p-dialog>
 
         <!--Modal para mostrar los usuarios asignados a un rol-->
-        <p-dialog [(visible)]="userRolDialog" [style]="{width: '250px'}" header="Users" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="userRolDialog" [style]="{width: '16%'}" header="Users" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
-                <!-- TABLE USERS MODAL CREATE ROL -->
-                <p-table #dtusers [value]="rol_user" [(selection)]="idsArray" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"  dataKey="id">
+                
+                <p-table #dtusers [value]="rol_user" [(selection)]="idsArray"  [columns]="cols" responsiveLayout="scroll"  dataKey="id">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="Users">{{nameRole}} </th>
+                            <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th style="width:auto" pSortableColumn="Users">{{nameRole}} </th>
+                            <th></th>
                         </tr>
+                        
                     </ng-template>
                     <ng-template pTemplate="body" let-user>
                         <tr>
-                            <td style="width:14%; min-width:10rem;"><span class="p-column-title">Users</span>
-                                {{user}}
-                            </td>                                
+                            <td>
+                                <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                            </td>
+                            <td style="width:10%; min-width:10rem;"><span class="p-column-title">Users</span>
+                                {{user.name}}
+                            </td>
+                            <td style="width:10%; min-width:10rem;"><span class="p-column-title">Users</span>
+                                {{user.include}}
+                            </td>
+                            <td></td>                                
                         </tr>
                     </ng-template>
                 </p-table>

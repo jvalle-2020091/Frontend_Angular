@@ -31,7 +31,7 @@ export class RolesComponent implements OnInit {
   roles: any = [];
   users: any = [];
   idsArray: any = [];
-  rol_user: any = [];
+  rol_user:any = [];
 
   roleDelete:any;
   roleUpdate: any;
@@ -92,7 +92,7 @@ getUsersByAdmin(idRol: any, name: any){
   this.roleRest.getUsersByAdmin(idRol).subscribe({
     next: (res: any) => {
       this.nameRole = name;
-      this.rol_user = res.arrayUser; 
+      this.rol_user = res.newArray; 
     },
     error: (err) => {
       console.log(err);
