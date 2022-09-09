@@ -4,6 +4,7 @@ import { Table } from 'primeng/table';
 import { RoleRestService } from 'src/app/services/role-rest.service'
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
+import { Validators, FormBuilder} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -41,13 +42,21 @@ export class RolesComponent implements OnInit {
     description: '',
     ids: []
   }
-
   idsPrueba: any = [];
+
+  //Form update rol
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+    secondCtrl: ['', Validators.required],
+  });
+  submitted: boolean = false;
+
 
   constructor(
     private roleRest: RoleRestService,
     private userRest: UserRestService, 
     private toastr: ToastrService,
+    private _formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -92,17 +101,20 @@ getUsersByAdmin(idRol: any, name: any){
 }
 
 addRole(){
-  this.newRole.ids = this.idsArray.map((user: any) => user.id);
-  this.roleRest.createRole(this.newRole).subscribe({
-      next:(res:any)=>{
-          this.getRoles();          
-          this.addRoles = false;
-          this.toastr.success(res.message);
-      },
-      error:(err)=>{
-          this.toastr.error(err.error.message || err.error);
-      }
-  });
+  if (this.newRole.name?.trim() && this.newRole.description?.trim()) {
+    this.newRole.ids = this.idsArray.map((user: any) => user.id);
+    this.roleRest.createRole(this.newRole).subscribe({
+        next:(res:any)=>{
+            this.getRoles();          
+            this.addRoles = false;
+            this.toastr.success(res.message);
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.message || err.error);
+        }
+    });
+  }
+  this.submitted = true;
 }
 
 // DELETE
@@ -145,6 +157,7 @@ getRoleUpdate(id:string){
 };
 
 updateRole(){
+  if (this.roleUpdate.name?.trim() && this.roleUpdate.description?.trim()) {
   this.roleRest.updateRole(this.roleUpdate.id, this.roleUpdate).subscribe({
       next:(res:any)=>{
           
@@ -157,7 +170,8 @@ updateRole(){
           console.log(err);
       }
   })
-  
+}
+this.submitted = true;
 }
 
 

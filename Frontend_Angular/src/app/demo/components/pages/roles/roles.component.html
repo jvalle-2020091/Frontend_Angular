@@ -71,12 +71,18 @@
         <p-dialog [(visible)]="addRoles" [style]="{width: '350px'}" header="New Role" [modal]="true" class="p-fluid">
             <div class="field">
                 <label for="name">Name for this new role</label>
-                <input type="text" pInputText [(ngModel)]="this.newRole.name" />
+                <input  type="text" pInputText [(ngModel)]="this.newRole.name" required autofocus
+                [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.newRole.name}"/>
+                <small  class="ng-dirty ng-invalid" *ngIf="submitted && !this.newRole.name">Name is
+                    required.</small>
                 <!-- <span class="requiredFile" >*Campo obligatorio</span> -->
             </div>
             <div class="field">
                 <label for="name">What is the description of this role?</label>
-                <input type="text" pInputText [(ngModel)]="this.newRole.description"/>
+                <input type="text" pInputText [(ngModel)]="this.newRole.description" required autodocus
+                [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.newRole.description}"/>
+                <small  class="ng-dirty ng-invalid" *ngIf="submitted && !this.newRole.description">Description is
+                    required.</small> 
                 <!-- <span class="requiredFile" >*Campo obligatorio</span> -->
             </div>
 
@@ -173,14 +179,20 @@
         <p-dialog [(visible)]="roleUpdateDialog" [style]="{width: '450px'}" header="Update Role" [modal]="true"
         class="p-fluid">
 
-        <ng-template pTemplate="content">
+        <ng-template  pTemplate="content">
             <div class="field">
                 <label for="name">Name</label>
-                <input type="text" pInputText id="name" [(ngModel)]="this.roleUpdate.name" required autofocu/>
+                <input  type="text" pInputText id="name" [(ngModel)]="this.roleUpdate.name" required autofocus
+                [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.roleUpdate.name}" />
+                <small  class="ng-dirty ng-invalid" *ngIf="submitted && !this.roleUpdate.name">Name is
+                    required.</small>
             </div>
             <div class="field">
-                <label for="name">Description</label>
-                <input type="text" pInputText id="description" [(ngModel)]="this.roleUpdate.description" required autofocus/>
+                <label for="description">Description</label>
+                <input  type="text" pInputText id="description" [(ngModel)]="this.roleUpdate.description" required autofocus
+                [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.roleUpdate.description}" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.roleUpdate.description">Description is
+                    required.</small> 
             </div>
             
         </ng-template>
