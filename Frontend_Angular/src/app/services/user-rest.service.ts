@@ -52,13 +52,15 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
-      formData.append('idsRol', idsRol);
-
 
       let uri = environment.baseUri + 'users/register';
 
       for (var x = 0; x < files.length; x++) {
         formData.append(name, files[x], files[x].name);
+      }
+
+      for(let i = 0; i < idsRol.length; i++){
+        formData.append('idsRol', idsRol[i]);
       }
 
       xhr.onreadystatechange = () => {
@@ -81,7 +83,10 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
-      formData.append('idsRol', idsRol);
+
+      for(let i = 0; i < idsRol.length; i++){
+        formData.append('idsRol', idsRol[i]);
+      }
 
       let uri = environment.baseUri + 'users/register';
 
