@@ -18,8 +18,8 @@
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
         <p-cascadeSelect [(ngModel)]="selectedLenguaje" [options]="lenguajes" optionLabel="name" 
-            [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '14rem'}"
-            placeholder="Select the language">
+            [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '8rem' }" [style]="{width: '95px'}"
+            placeholder="Language">
             <ng-template pTemplate="option" let-option>
                 <div class="country-item">
                     <i class="pi pi-map-marker mr-2" *ngIf="option.name"></i>
@@ -32,7 +32,7 @@
             <i class="pi pi-user"></i>
             <span>Profile</span>
         </button>
-        <button class="p-link layout-topbar-button" >
+        <button (click)="logOut()" class="p-link layout-topbar-button" >
             <i class="pi pi-cog"></i>
             <span>Settings</span>
         </button>
