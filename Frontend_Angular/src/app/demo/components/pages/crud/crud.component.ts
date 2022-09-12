@@ -310,6 +310,7 @@ export class CrudComponent implements OnInit {
           }).catch((err) => {
                 let error = JSON.parse(err)
                 this.toastr.error(error.message);
+                
           })
     }
 
