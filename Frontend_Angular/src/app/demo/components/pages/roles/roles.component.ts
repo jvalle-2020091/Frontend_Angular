@@ -30,6 +30,7 @@ export class RolesComponent implements OnInit {
   users: any = [];
   idsArray: any = [];
   rol_user:any = [];
+  id: any
   
   roleDelete:any;
   roleUpdate: any;
@@ -94,14 +95,30 @@ getUsersByAdmin(idRol: any, name: any){
   this.roleRest.getUsersByAdmin(idRol).subscribe({
     next: (res: any) => {
       this.nameRole = name;
+      this.id= idRol
       this.rol_user = res.newArray;     
       this.idsArray = this.rol_user.filter((user: any) => user.include);
+      console.log(this.idsArray)
     },
     error: (err) => {
       console.log(err);
     }
   });
   
+}
+
+//Acatualizar los usuarios asociados a un Rol
+postUsersByRol(){
+  let idsArray = this.idsArray
+  this.roleRest.postUsersByRol(this.id, idsArray).subscribe({
+    next:(res:any)=>{
+      this.toastr.success(res.message);
+      this.userRolDialog = false;
+    },
+    error:(err)=>{
+      console.log(err);
+    }
+  })
 }
 
 addRole(){
