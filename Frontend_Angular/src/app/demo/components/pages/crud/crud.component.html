@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="dialogCreateUser(); stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable() "></button>
+                            (click)="dialogCreateUser();  stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable() "></button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -162,7 +162,7 @@
         </p-dialog>
 
         <!--Modal y stepper para agregar usuario-->
-        <p-dialog [(visible)]="addUser" [style]="{width: '40%', height: '55%'}" header="Add User" [modal]="true"
+        <p-dialog [(visible)]="addUser" [style]="{width: '50%', height: '65%'}" header="Add User" [modal]="true"
             class="p-fluid">
             <mat-stepper linear #stepper>
                 <!--STEP 1-->
@@ -239,7 +239,7 @@
 
                     <p>
                     <div>
-                        <button mat-raised-button color="primary" matStepperNext>Next</button>
+                        <button mat-raised-button color="primary" matStepperNext >Next</button>
                     </div>
                 </mat-step>
 
@@ -256,8 +256,8 @@
                             <hr>  
 
 
-                            <p-table  #dtrole [value]="roles" [(selection)]="idsRolArray" [columns]="cols" [scrollable]="true" scrollHeight="220px"  [globalFilterFields]="['name']"  dataKey="id">
-                        
+                            <p-table  #dtrole [value]="roles" [(selection)]="idsRolArray" [columns]="cols" [scrollable]="true" scrollHeight="190px"  [globalFilterFields]="['name']"  dataKey="id">
+
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th style="width: 5rem">

@@ -48,6 +48,13 @@ export class RolesComponent implements OnInit {
     firstCtrl: ['', Validators.required],
     secondCtrl: ['', Validators.required],
   });
+
+  //Form add rol
+  secondFormGroup = this._formBuilder.group({
+    nameNewRol: ['', Validators.required],
+    descriptionNewRol: ['', Validators.required]
+  });
+
   submitted: boolean = false;
 
 
@@ -85,9 +92,6 @@ export class RolesComponent implements OnInit {
     });
 };
 
-prueba(){
-  console.log(this.idsArray);
-}
 
 // Obnter los usuarios asociados a un Rol
 getUsersByAdmin(idRol: any, name: any){
@@ -98,7 +102,6 @@ getUsersByAdmin(idRol: any, name: any){
       this.id= idRol
       this.rol_user = res.newArray;     
       this.idsArray = this.rol_user.filter((user: any) => user.include);
-      console.log(this.idsArray)
     },
     error: (err) => {
       console.log(err);
@@ -129,6 +132,7 @@ addRole(){
             this.getRoles();          
             this.addRoles = false;
             this.toastr.success(res.message);
+            this.idsArray = [];
         },
         error:(err)=>{
             this.toastr.error(err.error.message || err.error);
@@ -199,6 +203,7 @@ this.submitted = true;
 
   dialogCreateRole(){
     this.addRoles = true;
+    this.idsArray = [];
 }
 
 

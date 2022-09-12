@@ -4,7 +4,7 @@ import { Table } from 'primeng/table';
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import {MenuItem} from 'primeng/api';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Validators, FormBuilder} from '@angular/forms';
 import { RoleRestService } from 'src/app/services/role-rest.service';
 import {FormControl} from '@angular/forms';
@@ -20,6 +20,7 @@ import {FormControl} from '@angular/forms';
 export class CrudComponent implements OnInit {
 
     stateCtrl = new FormControl('');
+    stateCtrl2 = new FormControl(' ');
 
  
 
@@ -39,7 +40,7 @@ export class CrudComponent implements OnInit {
 
 
     items: MenuItem[] = [];
-
+    checkBox: any;
 
 
     submitted: boolean = false;
@@ -60,7 +61,6 @@ export class CrudComponent implements OnInit {
     roles: any = [];
 
     idsRolArray: any = [];
-    
     
     //Propiedades Step 1
 
@@ -117,9 +117,9 @@ export class CrudComponent implements OnInit {
         ];
     }
 
-    dialogCreateUser(){
-        
+    dialogCreateUser(){        
         this.addUser = true;
+        this.idsRolArray = []; 
     }
 
     equalToEmail(){
@@ -265,13 +265,12 @@ export class CrudComponent implements OnInit {
       }
     
 
+
     registerByAdmin(){
         this.userRest.registerByAdmin(this.newUser).subscribe({
             next:(res:any)=>{
                 this.getUsers();
-                this.uploadImage();
-                console.log(this.uploadImage());
-                
+                this.uploadImage();                
                 this.addUser = false;
                 this.toastr.success(res.message);
             },
@@ -296,9 +295,7 @@ export class CrudComponent implements OnInit {
                                     this.newUser.mail,
                                     this.newUser.sendEmail,
                                     this.newUser.idsRol)
-          .then((res: any) => {
-            console.log(this.newUser.idsRol);
-            
+          .then((res: any) => {            
             let resClear = JSON.parse(res);
             if (!resClear.error) {
                 this.getUsers();
