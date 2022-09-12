@@ -5,8 +5,6 @@ import { RoleRestService } from 'src/app/services/role-rest.service'
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import { Validators, FormBuilder} from '@angular/forms';
-import {MatTableDataSource} from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
 
 export interface PeriodicElement {
   name: string;
@@ -32,7 +30,7 @@ export class RolesComponent implements OnInit {
   users: any = [];
   idsArray: any = [];
   rol_user:any = [];
-
+  
   roleDelete:any;
   roleUpdate: any;
   nameRole: any;
@@ -72,7 +70,7 @@ export class RolesComponent implements OnInit {
       error: (err) => {
           console.log(err);
       }
-  });
+    });
   }
 
   getUsers(){
@@ -86,18 +84,24 @@ export class RolesComponent implements OnInit {
     });
 };
 
+prueba(){
+  console.log(this.idsArray);
+}
+
 // Obnter los usuarios asociados a un Rol
 getUsersByAdmin(idRol: any, name: any){
   this.userRolDialog = true;
   this.roleRest.getUsersByAdmin(idRol).subscribe({
     next: (res: any) => {
       this.nameRole = name;
-      this.rol_user = res.newArray; 
+      this.rol_user = res.newArray;     
+      this.idsArray = this.rol_user.filter((user: any) => user.include);
     },
     error: (err) => {
       console.log(err);
     }
   });
+  
 }
 
 addRole(){

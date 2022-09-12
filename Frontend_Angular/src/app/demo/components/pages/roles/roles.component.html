@@ -158,35 +158,36 @@
         </p-dialog>
 
         <!--Modal para mostrar los usuarios asignados a un rol-->
-        <p-dialog [(visible)]="userRolDialog" [style]="{width: '16%'}" header="Users" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="userRolDialog" [style]="{width: '25rem'}" header="Users" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 
-                <p-table #dtusers [value]="rol_user" [(selection)]="idsArray"  [columns]="cols" responsiveLayout="scroll"  dataKey="id">
+                <p-table [value]="rol_user" [(selection)]="idsArray"  [columns]="cols" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 3rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                
                             </th>
-                            <th style="width:auto" pSortableColumn="Users">{{nameRole}} </th>
+                            <th style="width:auto" pSortableColumn="Users">{{nameRole}}</th>
                             <th></th>
                         </tr>
-                        
                     </ng-template>
                     <ng-template pTemplate="body" let-user>
                         <tr>
                             <td>
-                                <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                                <p-tableCheckbox [value]="user" dataKey="user.username"></p-tableCheckbox>
                             </td>
                             <td style="width:10%; min-width:10rem;"><span class="p-column-title">Users</span>
                                 {{user.name}}
                             </td>
-                            <td style="width:10%; min-width:10rem;"><span class="p-column-title">Users</span>
-                                {{user.include}}
-                            </td>
                             <td></td>                                
                         </tr>
                     </ng-template>
+                    <ng-template pTemplate="footer">
+                        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="prueba"
+                            (click)="this.prueba()" ></button>
+                    </ng-template>
                 </p-table>
+
             </ng-template>
         </p-dialog>
 
