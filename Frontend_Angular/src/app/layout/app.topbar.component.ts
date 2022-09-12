@@ -12,6 +12,7 @@ export class AppTopBarComponent {
     selectedLenguaje: any;
 
     lenguajes: any = [];
+    options: any =[];
 
 
     items!: MenuItem[];
@@ -34,6 +35,13 @@ export class AppTopBarComponent {
                 code: 'CA',
             
             },
+            
+        ];
+        this.options = [
+            {
+                name: 'Log Out',
+            }
+            
             
         ];
     }

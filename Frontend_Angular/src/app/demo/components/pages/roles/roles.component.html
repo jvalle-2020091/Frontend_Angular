@@ -158,29 +158,30 @@
         </p-dialog>
 
         <!--Modal para mostrar los usuarios asignados a un rol-->
-        <p-dialog [(visible)]="userRolDialog" [style]="{width: '25rem'}" header="Users" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="userRolDialog" [style]="{width: '25%'}" header={{nameRole}} [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 
-                <p-table class="flex flex-wrap align-items-center justify-content-center card-container blue-container"  [value]="rol_user" [(selection)]="idsArray"  [columns]="cols" responsiveLayout="scroll">
+                <p-table [resizableColumns]="true" [autoLayout]="true" [responsive]="true" [value]="rol_user" [(selection)]="idsArray" [scrollable]="true" scrollHeight="250px" >
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="width: 3rem">
-                                
-                            </th>
-                            <th style="width:auto" pSortableColumn="Users">{{nameRole}}</th>
-                            <th></th>
+                            
                         </tr>
                     </ng-template>
   
                         <ng-template pTemplate="body" let-user>
-                            <tr>
-                                <td>
-                                    <p-tableCheckbox [value]="user" dataKey="user.username"></p-tableCheckbox>
-                                </td>
-                                <td style="width:10%; min-width:10rem;"><span class="p-column-title">Users</span>
+                            <tr>                            
+                                <td >
+                                    <img *ngIf="!user.image"
+                                    src="https://ui-avatars.com/api/?background=B8B8B8&rounded=true&name={{user.name}}" width="30"/>
+                                    <img *ngIf="user.image" src="http://localhost:3000/users/getImage/{{ user.image }}"
+                                    width="30" height="30" style="border-radius:20px"/>
+                                </td> 
+                                <td  ><span class="p-column-title">Users</span>
                                     {{user.name}}
-                                </td>
-                                <td></td>                                
+                                </td> 
+                                <td [style]="{width: '4px'}" >
+                                    <p-tableCheckbox [value]="user" dataKey="user.username"></p-tableCheckbox>
+                                </td>                              
                             </tr>
                         </ng-template>
                         
