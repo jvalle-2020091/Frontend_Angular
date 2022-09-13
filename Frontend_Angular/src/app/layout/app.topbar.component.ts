@@ -14,6 +14,7 @@ export class AppTopBarComponent {
     lenguajes: any = [];
     options: any =[];
 
+    model: any[] = [];
 
     items!: MenuItem[];
 
@@ -50,5 +51,7 @@ export class AppTopBarComponent {
          localStorage.clear();
          this.router.navigateByUrl('');
        }
+
+       
     
 }

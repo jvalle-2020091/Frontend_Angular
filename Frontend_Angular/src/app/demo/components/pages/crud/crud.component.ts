@@ -14,328 +14,311 @@ import {TranslateService} from '../../../../../../node_modules/@ngx-translate/co
 
 
 @Component({
-    templateUrl: './crud.component.html',
-    providers: [MessageService],
+  templateUrl: './crud.component.html',
+  providers: [MessageService],
 })
-
 export class CrudComponent implements OnInit {
+  stateCtrl = new FormControl('');
+  stateCtrl2 = new FormControl(' ');
 
-    stateCtrl = new FormControl('');
-    stateCtrl2 = new FormControl(' ');
+  // Propiedades de plantilla
+  userUpdateDialog: boolean = false;
+  lockUserDialog: boolean = false;
 
- 
+  addUser: boolean = false;
 
-    // Propiedades de plantilla
-    userUpdateDialog: boolean = false;
+  changePassword: boolean = false;
 
-    lockedUser: boolean = false;
+  deleteUserDialog: boolean = false;
 
-    addUser: boolean = false;
+  deleteProductsDialog: boolean = false;
 
-    changePassword: boolean = false;    
+  items: MenuItem[] = [];
+  checkBox: any;
 
-    deleteUserDialog: boolean = false;
+  submitted: boolean = false;
 
-    deleteProductsDialog: boolean = false;
+  cols: any[] = [];
 
+  statuses: any[] = [];
 
+  rowsPerPageOptions = [5, 10, 20];
 
-    items: MenuItem[] = [];
-    checkBox: any;
+  // Propiedades de proyecto BDG
+  users: any = [];
+  userDelete: any;
+  userUpdate: any;
+  userLocked: any;
+  passworUpdate: any;
+  filesToUpload: any;
+  roles: any = [];
 
+  nameLock: any;
+  idsRolArray: any = [];
 
-    submitted: boolean = false;
+  //Propiedades Step 1
 
-    cols: any[] = [];
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+    secondCtrl: ['', Validators.required],
+    thirdCtrl: ['', Validators.required],
+    fourthCtrl: ['', Validators.required],
+    fiveCtrl: [],
+    checkCtrl1: [],
+    checkCtrl2: [],
+  });
+  secondFormGroup = this._formBuilder.group({
+    a: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    firstCtrll: ['', Validators.required],
+  });
 
-    statuses: any[] = [];
+  validateCheckBox: boolean = true;
 
-    rowsPerPageOptions = [5, 10, 20];
+  newUser = {
+    username: '',
+    mail: '',
+    firstName: '',
+    lastName: '',
+    sendEmail: false,
+    image: '',
+    idsRol: [],
+  };
 
-    // Propiedades de proyecto BDG
-    users: any = [];
-    userDelete:any;
-    userUpdate: any;
-    userLocked: any;
-    passworUpdate: any;
-    filesToUpload: any;
-    roles: any = [];
+  disabled: boolean = false;
 
-    idsRolArray: any = [];
-    
-    //Propiedades Step 1
+  constructor(
+    private userRest: UserRestService,
+    private toastr: ToastrService,
+    private router: Router,
+    private _formBuilder: FormBuilder,
+    private roleRest: RoleRestService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(['es', 'en']);
+    this.translate.setDefaultLang('es');
+  }
 
-    firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required],
-        secondCtrl: ['', Validators.required],
-        thirdCtrl: ['', Validators.required],
-        fourthCtrl: ['', Validators.required],
-        fiveCtrl: [],
-        checkCtrl1: [],
-        checkCtrl2: []
-      });
-      secondFormGroup = this._formBuilder.group({
-        a: ['', Validators.required],
-      });
-      thirdFormGroup = this._formBuilder.group({
-        firstCtrll: ['', Validators.required],
-      });
+  ngOnInit() {
+    this.getUsers();
+    this.getRoles();
+    this.stateCtrl.enable();
+    this.items = [
+      { label: 'Step 1', routerLink: 'addUser' },
+      { label: 'Step 2', routerLink: 'settings' },
+    ];
+  }
 
-      validateCheckBox: boolean = true;
+  dialogCreateUser() {
+    this.addUser = true;
+    this.idsRolArray = [];
+  }
 
-    newUser ={
-        username:'',
-        mail:'',
-        firstName:'',
-        lastName:'',
-        sendEmail: false,
-        image: "",
-        idsRol: []
+  equalToEmail() {
+    if (this.newUser.mail) {
+      this.newUser.username = this.newUser.mail;
+      this.stateCtrl.disable();
+    } else {
+      this.stateCtrl.enable();
     }
+  }
 
-    disabled: boolean = false;
-          
-    constructor(
-        private userRest: UserRestService,
-        private toastr: ToastrService,
-        private router: Router,
-        private _formBuilder: FormBuilder,
-        private roleRest: RoleRestService,
-        public translate: TranslateService
+  // GET
+  getUsers() {
+    this.userRest.getUsers().subscribe({
+      next: (res: any) => {
+        this.users = res.users;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    ) { 
-        this.translate.addLangs(['es', 'en']);
-        this.translate.setDefaultLang('es');
-        
-    }
+  // DELETE
+  getUserDelete(id: string) {
+    this.userRest.getUser(id).subscribe({
+      next: (res: any) => {
+        this.deleteUserDialog = true;
+        this.userDelete = res.user;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    
+  getUserLocked(id: string, nameLock:string) {
+    this.userRest.getUser(id).subscribe({
+      next: (res: any) => {
+        this.lockUserDialog = true;
+        this.userLocked = res.user;
+        this.nameLock = res.user.firstName + ' ' + res.user.lastName ;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    ngOnInit() {
+  deleteUser() {
+    this.userRest.deleteUser(this.userDelete.id).subscribe({
+      next: (res: any) => {
+        this.toastr.success(res.message);
+        this.deleteUserDialog = false;
         this.getUsers();
-        this.getRoles();
-        this.stateCtrl.enable();
-        this.items = [
-            {label: 'Step 1',
-            routerLink: 'addUser'},
-            {label: 'Step 2',
-             routerLink: 'settings'}
-        ];
-    }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    dialogCreateUser(){        
-        this.addUser = true;
-        this.idsRolArray = []; 
-    }
+  // UPDATE
+  getUserUpdate(id: string) {
+    this.userRest.getUser(id).subscribe({
+      next: (res: any) => {
+        this.userUpdateDialog = true;
+        this.userUpdate = res.user;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    equalToEmail(){
-        if(this.newUser.mail){
-            this.newUser.username = this.newUser.mail;    
-            this.stateCtrl.disable(); 
-        }else{
-            this.stateCtrl.enable(); 
-        }   
-    }
+  getPasswordUpdate(id: string) {
+    this.userRest.getUser(id).subscribe({
+      next: (res: any) => {
+        this.changePassword = true;
+        this.passworUpdate = res.user;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
- 
-    // GET
-    getUsers(){
-        this.userRest.getUsers().subscribe({
-            next: (res: any) => {
-                this.users = res.users;
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-    };
+  updatePasswordByAdmin() {
+    this.userRest.updatePasswordByAdmin(this.passworUpdate.id).subscribe({
+      next: (res: any) => {
+        this.changePassword = false;
+        this.toastr.success(res.message);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    // DELETE
-    getUserDelete(id:string){
-        this.userRest.getUser(id).subscribe({
-            next: (res: any) => {
-                this.deleteUserDialog = true;
-                this.userDelete = res.user;
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-     };
-
-     getUserLocked(id:string){
-        this.userRest.getUser(id).subscribe({
-            next: (res: any) => {
-                this.lockedUser = true;
-                this.userLocked = res.user;
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-     };
-
-     deleteUser(){
-        this.userRest.deleteUser(this.userDelete.id).subscribe({
-            next:(res:any)=>{
-                this.toastr.success(res.message);
-                this.deleteUserDialog = false;
-                this.getUsers();
-            },
-            error:(err)=>{
-                console.log(err);
-            }
-        })
-     };
-
-     // UPDATE
-    getUserUpdate(id:string){
-        this.userRest.getUser(id).subscribe({
-            next: (res: any) => {
-                this.userUpdateDialog = true;
-                this.userUpdate = res.user;
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-     };
-
-     getPasswordUpdate(id:string){
-        this.userRest.getUser(id).subscribe({
-            next: (res: any) => {
-                this.changePassword = true;
-                this.passworUpdate = res.user;
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-     };
-
-     updatePasswordByAdmin(){
-        this.userRest.updatePasswordByAdmin(this.passworUpdate.id).subscribe({
-            next: (res: any) => {
-                this.changePassword = false;
-                this.toastr.success(res.message);
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-     };
-
-     updateUser(){
-        if (this.userUpdate.firstName?.trim() && this.userUpdate.lastName?.trim()) {
-        this.userRest.updateUser(this.userUpdate.id, this.userUpdate).subscribe({
-            next:(res:any)=>{
-                
-                    this.getUsers();
-                    this.userUpdateDialog = false;
-                    this.toastr.success(res.message);
-                
-            },
-            error:(err)=>{
-                console.log(err);
-            }
-        })
-        }
-        this.submitted = true;
-     }
-     
-
-
-     updateUserLock(){
-        this.userRest.updateUser(this.userLocked.id, this.userLocked).subscribe({
-            next:(res:any)=>{
-                this.getUsers();
-                this.lockedUser = false;
-                this.toastr.success(res.message);
-                
-            },
-            error:(err)=>{
-                console.log(err);
-            }
-        })
-     }
-
-     getRoles(){
-        this.roleRest.getRoles().subscribe({
-          next: (res: any) => {
-              this.roles = res.roles;
-          },
-          error: (err) => {
-              console.log(err);
-          }
+  updateUser() {
+    if (this.userUpdate.firstName?.trim() && this.userUpdate.lastName?.trim()) {
+      this.userRest.updateUser(this.userUpdate.id, this.userUpdate).subscribe({
+        next: (res: any) => {
+          this.getUsers();
+          this.userUpdateDialog = false;
+          this.toastr.success(res.message);
+        },
+        error: (err) => {
+          console.log(err);
+        },
       });
-      }
-    
-
-
-    registerByAdmin(){
-        this.userRest.registerByAdmin(this.newUser).subscribe({
-            next:(res:any)=>{
-                this.getUsers();
-                this.uploadImage();                
-                this.addUser = false;
-                this.toastr.success(res.message);
-            },
-            error:(err)=>{
-                this.toastr.error(err.error.message || err.error);
-            }
-        });
     }
+    this.submitted = true;
+  }
 
-    filesChange(inputFile: any) {
-        this.filesToUpload = <Array<File>>inputFile.target.files;
-        console.log(this.filesToUpload);
-      }
-
-
-    uploadImage() {
-        this.newUser.idsRol = this.idsRolArray.map((role: any) => role.id);
-        this.userRest.requestFiles( this.filesToUpload, 'image', 
-                                    this.newUser.username, 
-                                    this.newUser.firstName, 
-                                    this.newUser.lastName, 
-                                    this.newUser.mail,
-                                    this.newUser.sendEmail,
-                                    this.newUser.idsRol)
-          .then((res: any) => {            
-            let resClear = JSON.parse(res);
-            if (!resClear.error) {
-                this.getUsers();
-                this.addUser = false;
-                this.toastr.success(resClear.message);
-            } else {
-                this.toastr.error(res);
-            }
-          }).catch((err) => {
-                let error = JSON.parse(err)
-                this.toastr.error(error.message);
-                
-          })
+  updateUserLock() {
+    if (this.userLocked.isLocked == true) {
+      this.userLocked.isLocked = false;
+    } else if (this.userLocked.isLocked == false) {
+      this.userLocked.isLocked = true;
     }
+    this.userRest.updateUser(this.userLocked.id, this.userLocked).subscribe({
+      next: (res: any) => {
+        this.getUsers();
+        this.lockUserDialog = false;
+        this.toastr.success(res.message);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-    
-    deleteSelectedProducts() {
-        this.deleteProductsDialog = true;
-    }
+  getRoles() {
+    this.roleRest.getRoles().subscribe({
+      next: (res: any) => {
+        this.roles = res.roles;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
+  registerByAdmin() {
+    this.userRest.registerByAdmin(this.newUser).subscribe({
+      next: (res: any) => {
+        this.getUsers();
+        this.uploadImage();
+        this.addUser = false;
+        this.toastr.success(res.message);
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message || err.error);
+      },
+    });
+  }
 
-    hideDialog() {
-        this.userUpdateDialog = false;
-        this.submitted = false;
-    }
+  filesChange(inputFile: any) {
+    this.filesToUpload = <Array<File>>inputFile.target.files;
+    console.log(this.filesToUpload);
+  }
 
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
+  uploadImage() {
+    this.newUser.idsRol = this.idsRolArray.map((role: any) => role.id);
+    this.userRest
+      .requestFiles(
+        this.filesToUpload,
+        'image',
+        this.newUser.username,
+        this.newUser.firstName,
+        this.newUser.lastName,
+        this.newUser.mail,
+        this.newUser.sendEmail,
+        this.newUser.idsRol
+      )
+      .then((res: any) => {
+        let resClear = JSON.parse(res);
+        if (!resClear.error) {
+          this.getUsers();
+          this.addUser = false;
+          this.toastr.success(resClear.message);
+        } else {
+          this.toastr.error(res);
+        }
+      })
+      .catch((err) => {
+        let error = JSON.parse(err);
+        this.toastr.error(error.message);
+      });
+  }
 
-    onGlobalFilterRole(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
+  deleteSelectedProducts() {
+    this.deleteProductsDialog = true;
+  }
 
+  hideDialog() {
+    this.userUpdateDialog = false;
+    this.submitted = false;
+  }
 
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
 
+  onGlobalFilterRole(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
 }
