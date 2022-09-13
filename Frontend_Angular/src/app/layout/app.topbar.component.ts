@@ -4,6 +4,8 @@ import { LayoutService } from "./service/app.layout.service";
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { RoleRestService } from '../services/role-rest.service';
+import { LoginRestService } from 'src/app/services/login-rest.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -15,6 +17,13 @@ export class AppTopBarComponent {
     language: any;
     lenguajes: any = [];
     options: any =[];
+    token: any;
+
+    lang: any;
+
+    lastname: any;
+    firstname: any;
+    image:any;
 
     model: any[] = [];
 
@@ -25,9 +34,24 @@ export class AppTopBarComponent {
     constructor(public layoutService: LayoutService,
                 private router: Router,
                 public translate: TranslateService,
-                private roleRest: RoleRestService) { }
+                private roleRest: RoleRestService,
+                private loginRest: LoginRestService 
+                ) { }
+
+                disableSelect = new FormControl(false);
+
     
     ngOnInit() {
+        this.lang =   this.roleRest.getLanguage();
+        this.firstname = this.loginRest.getUser().firstName;
+        console.log(this.firstname);
+
+        
+        this.lastname = this.loginRest.getUser().lastName;
+        this.image = this.loginRest.getUser().image;
+
+        this.token = this.loginRest.getToken();
+
         this.lenguajes = [
             {
                 name: 'Es',
@@ -52,6 +76,8 @@ export class AppTopBarComponent {
         this.translate.addLangs(['es', 'en']);
         this.translate.setDefaultLang(this.language);
     }
+
+
 
     logOut(){
          localStorage.clear();
