@@ -56,7 +56,11 @@
                             <button pButton pRipple icon="pi pi-key" class="p-button-rounded p-button-warning"
                                 (click)="getPasswordUpdate(user.id)"></button>
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span>{{user.isLocked}}</span></td>
+                        <td style="width:14%; min-width: 10rem;" ><button *ngIf="user.isLocked == true" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2"
+                            (click)="getUserLocked(user.id, nameLock)"></button>
+                            <button *ngIf="user.isLocked == false" pButton pRipple icon="pi pi-lock-open" class="p-button-rounded p-button-primary mr-2"
+                            (click)="getUserLocked(user.id, nameLock)"></button>
+                        </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
@@ -64,8 +68,6 @@
                                     (click)="getUserUpdate(user.id)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
                                     (click)="getUserDelete(user.id)"></button>
-                                <button pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2"
-                                    (click)="getUserLocked(user.id)"></button>
                             </div>
                         </td>
                     </tr>
@@ -126,22 +128,20 @@
             </ng-template>
         </p-dialog>
 
-        <!--Modal para bloquear usuario-->
-        <p-dialog [(visible)]="lockedUser" [style]="{width: '450px'}" header="Locked user" [modal]="true"
-            class="p-fluid">
-            <ng-template pTemplate="content">
-                <br>
-                <p-toggleButton onLabel="Locked" offLabel="Unlocked" [(ngModel)]="this.userLocked.isLocked">
-                </p-toggleButton>
-            </ng-template>
-
+         <!--Modal para bloquear el usuario-->
+         <p-dialog [(visible)]="lockUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Are you sure you want to block {{nameLock}}?</span>
+            </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
-                    (click)="lockedUser = false"></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
-                    (click)="updateUserLock()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="lockUserDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                (click)="updateUserLock()"></button>
             </ng-template>
         </p-dialog>
+
 
         <!--Modal para cambio de contraseña-->
         <p-dialog [(visible)]="changePassword" header="Confirm change password" [modal]="true"
