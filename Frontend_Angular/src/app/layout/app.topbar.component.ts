@@ -50,5 +50,10 @@ export class AppTopBarComponent {
          localStorage.clear();
          this.router.navigateByUrl('');
        }
+
+    setLanguage(language: string){
+        localStorage.setItem('language', language)
+        
+    }
     
 }

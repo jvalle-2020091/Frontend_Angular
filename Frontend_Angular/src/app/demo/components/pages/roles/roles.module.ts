@@ -25,9 +25,16 @@ import {CardModule} from 'primeng/card';
  import {MatCheckboxModule} from '@angular/material/checkbox';
  import { ReactiveFormsModule } from '@angular/forms';
  import {TabViewModule} from 'primeng/tabview';
-
-
 import { RolesRoutingModule } from './roles-routing.module';
+
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+ 
+
+export function HttpLoaderFactory(http: HttpClient){
+    return new TranslateHttpLoader(http, '../../../../../assets/i18n/')
+}
 
 
 @NgModule({
@@ -57,7 +64,15 @@ import { RolesRoutingModule } from './roles-routing.module';
         MatInputModule,
         MatCheckboxModule,
         ReactiveFormsModule,
-        TabViewModule
+        TabViewModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader:{
+                provide:TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }) 
   ],
 
   declarations: [RolesComponent],

@@ -1,3 +1,15 @@
 {
-  "USERNAME": "Username"
+  "USERS":{
+
+  },
+  "ROLES":{
+      "ID": "Id",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "USERS": "Users",
+      "PERMISSIONS": "Permissions",
+      "ACTIONS": "Actions"
+  }
+
+
 }

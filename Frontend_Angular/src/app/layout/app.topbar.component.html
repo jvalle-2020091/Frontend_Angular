@@ -17,16 +17,9 @@
     <div #menu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
-        <p-cascadeSelect [(ngModel)]="selectedLenguaje" [options]="lenguajes" optionLabel="name" 
-            [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '8rem' }" [style]="{width: '95px'}"
-            placeholder="Language" class="mr-3">
-            <ng-template pTemplate="option" let-option>
-                <div class="country-item">
-                    <i class="pi pi-map-marker mr-2" *ngIf="option.name"></i>
-                    <span>{{option.name}}</span>
-                </div>
-            </ng-template>
-        </p-cascadeSelect>
+        
+        <button (click)="setLanguage('es')">es</button>
+        <button (click)="setLanguage('en')">en</button>
         
         <p-cascadeSelect [(ngModel)]="selectedLenguaje" [options]="options" optionLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '8rem' }" [style]="{width: '95px'}"

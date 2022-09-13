@@ -5,6 +5,8 @@ import { RoleRestService } from 'src/app/services/role-rest.service'
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import { Validators, FormBuilder} from '@angular/forms';
+import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
+
 
 export interface PeriodicElement {
   name: string;
@@ -62,8 +64,13 @@ export class RolesComponent implements OnInit {
     private roleRest: RoleRestService,
     private userRest: UserRestService, 
     private toastr: ToastrService,
-    private _formBuilder: FormBuilder
-  ) { }
+    private _formBuilder: FormBuilder,
+    public translate: TranslateService
+
+  ) {
+    this.translate.addLangs(['es', 'en']);
+    this.translate.setDefaultLang('es');
+   }
 
   ngOnInit(): void {
     this.getRoles();
