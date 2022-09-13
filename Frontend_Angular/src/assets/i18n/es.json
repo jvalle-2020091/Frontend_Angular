@@ -1,3 +1,25 @@
+
+
 {
-    "USERNAME": "Nombre de Usuario"
+    "USERS":{
+
+    },
+    "ROLES":{
+        "ID": "Código",
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "USERS": "Usuarios",
+        "PERMISSIONS": "Permisos",
+        "ACTIONS": "Acciones"
+    }
+
+
 }
+
+
+
+
+
+
+
+

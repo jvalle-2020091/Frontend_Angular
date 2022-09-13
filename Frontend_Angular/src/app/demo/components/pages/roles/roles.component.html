@@ -27,12 +27,12 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="id">ID </th>
-                        <th pSortableColumn="name">Name </th>
-                        <th pSortableColumn="name">Description </th>
-                        <th pSortableColumn="users">Users </th>
-                        <th pSortableColumn="permissions">Permissions </th>
-                        <th>Actions</th>
+                        <th pSortableColumn="id">{{"ROLES.ID"| translate}}</th>
+                        <th pSortableColumn="name">{{"ROLES.NAME"| translate}} </th>
+                        <th pSortableColumn="description">{{"ROLES.DESCRIPTION"| translate}} </th>
+                        <th pSortableColumn="users">{{"ROLES.USERS"| translate}} </th>
+                        <th pSortableColumn="permissions">{{"ROLES.PERMISSIONS"| translate}} </th>
+                        <th>{{"ROLES.ACTIONS"| translate}}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-role>
