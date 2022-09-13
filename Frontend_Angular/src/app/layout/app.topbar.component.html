@@ -19,7 +19,7 @@
 
         <p-cascadeSelect [(ngModel)]="selectedLenguaje" [options]="lenguajes" optionLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '8rem' }" [style]="{width: '95px'}"
-            placeholder="Language">
+            placeholder="Language" class="mr-3">
             <ng-template pTemplate="option" let-option>
                 <div class="country-item">
                     <i class="pi pi-map-marker mr-2" *ngIf="option.name"></i>

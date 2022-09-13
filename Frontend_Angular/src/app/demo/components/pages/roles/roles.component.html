@@ -74,17 +74,11 @@
                 <label for="name">Name for this new role</label>
                 <input formControlName="nameNewRol"  type="text" pInputText [(ngModel)]="this.newRole.name" required autofocus
                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.newRole.name}"/>
-                <small  class="ng-dirty ng-invalid" style="color: red;" *ngIf="submitted && !this.newRole.name">Name is
-                    required.</small>
-                <!-- <span class="requiredFile" >*Campo obligatorio</span> -->
             </div>
             <div class="field">
                 <label for="name">What is the description of this role?</label>
-                <input formControlName="descriptionNewRol" type="text" pInputText [(ngModel)]="this.newRole.description" required autodocus
+                <input formControlName="descriptionNewRol" type="text" pInputText [(ngModel)]="this.newRole.description" required autofocus
                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.newRole.description}"/>
-                <small  class="ng-dirty ng-invalid" style="color: red;" *ngIf="submitted && !this.newRole.description">Description is
-                    required.</small> 
-                <!-- <span class="requiredFile" >*Campo obligatorio</span> -->
             </div>
 
             <div class="card">
