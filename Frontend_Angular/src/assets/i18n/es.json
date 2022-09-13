@@ -10,7 +10,14 @@
         "DESCRIPTION": "Descripción",
         "USERS": "Usuarios",
         "PERMISSIONS": "Permisos",
-        "ACTIONS": "Acciones"
+        "ACTIONS": "Acciones",
+        "TABLE": "Roles y Permisos",
+        "BUTTON": "Nuevo Rol",
+        "NAMENEWROLE": "Nombre del nuevo rol",
+        "DESCRIPTIONNEWROL": "Descripción del nuevo rol",
+        "DELETEROL": "¿Está seguro de que desea eliminar este rol?",
+        "REQUERIDNAME": "El nombre es requerido",
+        "REQUERIDDESCRIPTION":"La descripción es requerida"
     }
 
 

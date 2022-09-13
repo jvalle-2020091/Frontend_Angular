@@ -5,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New Role" icon="pi pi-plus" class="p-button-success mr-2"
+                        <button pButton pRipple label ="New rol" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="dialogCreateRole(); secondFormGroup.reset()"></button>
                     </div>
                 </ng-template>
@@ -18,7 +18,7 @@
              selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Roles and Permissions</h5>
+                        <h5 class="m-0">{{"ROLES.TABLE" | translate}}</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"  placeholder="Search..." class="w-full sm:w-auto" />
@@ -71,12 +71,12 @@
         <p-dialog [(visible)]="addRoles" [style]="{width: '350px'}" header="New Role" [modal]="true" class="p-fluid">
             <form [formGroup]="secondFormGroup">
             <div class="field">
-                <label for="name">Name for this new role</label>
+                <label for="name">{{"ROLES.NAMENEWROLE" | translate}}</label>
                 <input formControlName="nameNewRol"  type="text" pInputText [(ngModel)]="this.newRole.name" required autofocus
                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.newRole.name}"/>
             </div>
             <div class="field">
-                <label for="name">What is the description of this role?</label>
+                <label for="name">{{"ROLES.DESCRIPTIONNEWROL" | translate}}</label>
                 <input formControlName="descriptionNewRol" type="text" pInputText [(ngModel)]="this.newRole.description" required autofocus
                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.newRole.description}"/>
             </div>
@@ -96,7 +96,7 @@
                                     <th style="width: 3rem">
                                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                     </th>
-                                    <th pSortableColumn="Users">Users </th>
+                                    <th pSortableColumn="Users">{{"ROLES.USERS" | translate}} </th>
                                     <th></th>
                                 </tr>
                             </ng-template>
@@ -105,7 +105,7 @@
                                     <td>
                                         <p-tableCheckbox [value]="user"></p-tableCheckbox>
                                     </td>
-                                    <td style="width:14%; min-width:10rem;"><span class="p-column-title">Users</span>
+                                    <td style="width:14%; min-width:10rem;"><span class="p-column-title">{{"ROLES.USERS" | translate}}</span>
                                         {{user.firstName}}  {{user.lastName}}
                                     </td>                                
                                     <td></td>
@@ -143,7 +143,7 @@
           <p-dialog [(visible)]="deleteRoleDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to delete this role?</span>
+                <span>{{"ROLES.DELETEROL" | translate}}</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
@@ -172,7 +172,7 @@
                                     <img *ngIf="user.image" src="http://localhost:3000/users/getImage/{{ user.image }}"
                                     width="30" height="30" style="border-radius:20px"/>
                                 </td> 
-                                <td  ><span class="p-column-title">Users</span>
+                                <td  ><span class="p-column-title">{{"ROLES.USERS" | translate}}</span>
                                     {{user.name}}
                                 </td> 
                                 <td [style]="{width: '4px'}" >
@@ -197,18 +197,16 @@
 
         <ng-template  pTemplate="content">
             <div class="field">
-                <label for="name">Name</label>
+                <label for="name">{{"ROLES.NAME" | translate}}</label>
                 <input  type="text" pInputText id="name" [(ngModel)]="this.roleUpdate.name" required autofocus
                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.roleUpdate.name}" />
-                <small  class="ng-dirty ng-invalid" *ngIf="submitted && !this.roleUpdate.name">Name is
-                    required.</small>
+                <small  class="ng-dirty ng-invalid" *ngIf="submitted && !this.roleUpdate.name">{{"ROLES.REQUERIDNAME"| translate}}</small>
             </div>
             <div class="field">
-                <label for="description">Description</label>
+                <label for="description">{{"ROLES.DESCRIPTION"| translate}}</label>
                 <input  type="text" pInputText id="description" [(ngModel)]="this.roleUpdate.description" required autofocus
                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.roleUpdate.description}" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.roleUpdate.description">Description is
-                    required.</small> 
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.roleUpdate.description">{{"ROLES.REQUERIDDESCRIPTION"| translate}}</small> 
             </div>
             
         </ng-template>

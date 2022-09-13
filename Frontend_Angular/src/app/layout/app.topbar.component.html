@@ -17,9 +17,22 @@
     <div #menu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
-        
-        <button (click)="setLanguage('es')">es</button>
-        <button (click)="setLanguage('en')">en</button>
+        <div>
+            <section >
+                <mat-form-field appearance="outline">
+                <mat-label>Language</mat-label>
+                <mat-select >
+                    <mat-option (click)="setLanguage('es')" >
+                    es
+                </mat-option>
+                <mat-option  (click)="setLanguage('en')" >
+                    en
+                </mat-option>
+                </mat-select>
+                </mat-form-field>
+            </section>
+        </div>
+         
         
         <p-cascadeSelect [(ngModel)]="selectedLenguaje" [options]="options" optionLabel="name" 
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '8rem' }" [style]="{width: '95px'}"

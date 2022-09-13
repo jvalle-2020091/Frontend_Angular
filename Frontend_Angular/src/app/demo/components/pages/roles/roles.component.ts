@@ -26,6 +26,8 @@ export class RolesComponent implements OnInit {
   deleteRoleDialog: boolean = false;
   roleUpdateDialog: boolean = false;
   userRolDialog: boolean = false;
+  //Lenguaje
+  language: any
   
   cols: any[] = [];
   roles: any = [];
@@ -58,6 +60,8 @@ export class RolesComponent implements OnInit {
   });
 
   submitted: boolean = false;
+  //Lenguaje
+  
 
 
   constructor(
@@ -68,13 +72,16 @@ export class RolesComponent implements OnInit {
     public translate: TranslateService
 
   ) {
-    this.translate.addLangs(['es', 'en']);
-    this.translate.setDefaultLang('es');
+    
+    
    }
 
   ngOnInit(): void {
     this.getRoles();
     this.getUsers();
+    this.language = this.roleRest.getLanguage();
+    this.translate.addLangs(['es', 'en']);
+    this.translate.setDefaultLang(this.language);
   }
 
   getRoles(){

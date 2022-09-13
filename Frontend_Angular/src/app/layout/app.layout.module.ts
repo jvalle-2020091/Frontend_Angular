@@ -21,6 +21,9 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
 
 export function HttpLoaderFactory(http: HttpClient){
     return new TranslateHttpLoader(http, '../../assets/i18n/')
@@ -56,7 +59,11 @@ export function HttpLoaderFactory(http: HttpClient){
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
-        })
+        }),
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule
+        
         
     ],
     exports: [AppLayoutComponent]

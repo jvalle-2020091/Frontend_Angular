@@ -45,4 +45,9 @@ export class RoleRestService {
     return this.http.post(environment.baseUri + "rols/postUsersByRol/" + idRol, idsArray, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 
+  getLanguage(){
+    let language = localStorage.getItem('language');
+    return language
+  };
+
 }
