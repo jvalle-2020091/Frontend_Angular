@@ -14,35 +14,32 @@
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #menu class="layout-topbar-menu"
-        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+    <div #menu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
-        <div>
-            <section >
-                <mat-form-field appearance="outline">
+        
+        <div style="font-size: 8px" class="mt-3 mr-3">
+            <mat-form-field appearance="outline">
                 <mat-label>Language</mat-label>
                 <mat-select >
                     <mat-option (click)="setLanguage('es')" >
-                    es
-                </mat-option>
-                <mat-option  (click)="setLanguage('en')" >
-                    en
-                </mat-option>
+                        ES
+                    </mat-option>
+                    <mat-option  (click)="setLanguage('en')" >
+                        EN
+                    </mat-option>
                 </mat-select>
-                </mat-form-field>
-            </section>
+            </mat-form-field>
         </div>
-         
-        
-        <p-cascadeSelect [(ngModel)]="selectedLenguaje" [options]="options" optionLabel="name" 
-            [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '8rem' }" [style]="{width: '95px'}"
-            placeholder="Settings">
-            <ng-template pTemplate="option" let-option>
-                <div (click)="logOut()" class="country-item">
-                    <i class="pi pi-arrow-left mr-2" *ngIf="option.name"></i>
-                    <span >{{option.name}} </span>
-                </div>
-            </ng-template>
-        </p-cascadeSelect>
+            
+        <div style="font-size: 8px" class="mt-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Settings</mat-label>
+                <mat-select >
+                    <mat-option (click)="logOut()">
+                        Log Out
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
 </div>

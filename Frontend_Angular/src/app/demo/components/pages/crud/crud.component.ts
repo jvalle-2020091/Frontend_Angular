@@ -86,6 +86,8 @@ export class CrudComponent implements OnInit {
     idsRol: [],
   };
 
+  language: any
+
   disabled: boolean = false;
 
   constructor(
@@ -94,12 +96,11 @@ export class CrudComponent implements OnInit {
     private router: Router,
     private _formBuilder: FormBuilder,
     private roleRest: RoleRestService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public rolRest: RoleRestService
   ) {
-    this.translate.addLangs(['es', 'en']);
-    this.translate.setDefaultLang('es');
   }
-
+  
   ngOnInit() {
     this.getUsers();
     this.getRoles();
@@ -108,6 +109,9 @@ export class CrudComponent implements OnInit {
       { label: 'Step 1', routerLink: 'addUser' },
       { label: 'Step 2', routerLink: 'settings' },
     ];
+    this.language = this.rolRest.getLanguage();
+    this.translate.addLangs(['es', 'en']);
+    this.translate.setDefaultLang(this.language);
   }
 
   dialogCreateUser() {

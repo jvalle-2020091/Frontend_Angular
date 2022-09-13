@@ -2,7 +2,16 @@
 
 {
     "USERS":{
-
+        "ID": "Código",
+        "USER": "Usuario",
+        "FIRSTNAME": "Nombre",
+        "LASTNAME": "Apellido",
+        "EMAIL": "Correo",
+        "PASSWORD": "Cambio de Contraseña",
+        "LOCKED": "Bloqueado",
+        "ACTIONS": "Acciones",
+        "DELETEUSER": "¿Está seguro que desea eliminar este usuario?",
+        "NEEDPASSWORD": "¿Está seguro de que desea confirmar el cambio de contraseña?"
     },
     "ROLES":{
         "ID": "Código",
@@ -18,6 +27,10 @@
         "DELETEROL": "¿Está seguro de que desea eliminar este rol?",
         "REQUERIDNAME": "El nombre es requerido",
         "REQUERIDDESCRIPTION":"La descripción es requerida"
+    },
+    "MENU":{
+        "ES": "Español",
+        "EN": "Ingles"
     }
 
 

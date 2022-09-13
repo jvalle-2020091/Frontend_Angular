@@ -29,14 +29,14 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>   </th>
-                        <th pSortableColumn="code">Id</th>
-                        <th pSortableColumn="name">{{"USERNAME" | translate}}</th>
-                        <th pSortableColumn="price">First Name </th>
-                        <th pSortableColumn="category">Last Name </th>
-                        <th pSortableColumn="rating">Email </th>
-                        <th pSortableColumn="inventoryStatus">Password Change </th>
-                        <th pSortableColumn="inventoryStatus">Is locked </th>
-                        <th>Actions</th>
+                        <th pSortableColumn="code">{{"USERS.ID" | translate}}</th>
+                        <th pSortableColumn="name">{{"USERS.USER" | translate}}</th>
+                        <th pSortableColumn="price">{{"USERS.FIRSTNAME" | translate}} </th>
+                        <th pSortableColumn="category">{{"USERS.LASTNAME" | translate}}</th>
+                        <th pSortableColumn="rating">{{"USERS.EMAIL" | translate}} </th>
+                        <th pSortableColumn="inventoryStatus">{{"USERS.PASSWORD" | translate}} </th>
+                        <th pSortableColumn="inventoryStatus">{{"USERS.LOCKED" | translate}} </th>
+                        <th>{{"USERS.ACTIONS" | translate}}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
@@ -118,7 +118,7 @@
         <p-dialog [(visible)]="deleteUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to delete this user?</span>
+                <span>{{"USERS.DELETEUSER" | translate}}</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
@@ -149,7 +149,7 @@
 
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to confirm the password change?
+                <span>{{"USERS.NEEDPASSWORD" | translate}}
                 </span>
             </div>
             <ng-template pTemplate="footer">

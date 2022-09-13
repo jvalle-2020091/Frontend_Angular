@@ -1,21 +1,34 @@
 {
   "USERS":{
-
+    "ID": "Id",
+    "USER": "Username",
+    "FIRSTNAME": "First Name",
+    "LASTNAME": "Last Name",
+    "EMAIL": "Email",
+    "PASSWORD": "Password Change",
+    "LOCKED": "Is locked",
+    "ACTIONS": "Actions",
+    "DELETEUSER": "Are you sure you want to delete this user?",
+    "NEEDPASSWORD": "Are you sure you want to confirm the password change?"
   },
   "ROLES":{
-      "ID": "Id",
-      "NAME": "Name",
-      "DESCRIPTION": "Description",
-      "USERS": "Users",
-      "PERMISSIONS": "Permissions",
-      "ACTIONS": "Actions",
-      "TABLE": "Roles and Permissions",
-      "BUTTON": "New Rol",
-      "NAMENEWROLE": "Name of the new role",
-      "DESCRIPTIONNEWROL": "Description of the new role",
-      "DELETEROL": "Are you sure you want to delete this role?",
-      "REQUERIDNAME": "Name is required",
-      "REQUERIDDESCRIPTION":"Description is required"
+    "ID": "Id",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "USERS": "Users",
+    "PERMISSIONS": "Permissions",
+    "ACTIONS": "Actions",
+    "TABLE": "Roles and Permissions",
+    "BUTTON": "New Rol",
+    "NAMENEWROLE": "Name of the new role",
+    "DESCRIPTIONNEWROL": "Description of the new role",
+    "DELETEROL": "Are you sure you want to delete this role?",
+    "REQUERIDNAME": "Name is required",
+    "REQUERIDDESCRIPTION":"Description is required"
+},
+"MENU":{
+    "ES": "Espanish",
+    "EN": "English"
 }
 
 }
