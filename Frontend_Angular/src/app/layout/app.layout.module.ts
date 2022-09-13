@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
@@ -18,7 +18,13 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { TreeSelectModule } from 'primeng/treeselect';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+export function HttpLoaderFactory(http: HttpClient){
+    return new TranslateHttpLoader(http, '../../assets/i18n/')
+}
 
 @NgModule({
     declarations: [
@@ -28,6 +34,7 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
+        
     ],
     imports: [
         BrowserModule,
@@ -42,7 +49,14 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
         RippleModule,
         RouterModule,
         TreeSelectModule,
-        CascadeSelectModule
+        CascadeSelectModule,
+        TranslateModule.forRoot({
+            loader:{
+                provide:TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
         
     ],
     exports: [AppLayoutComponent]

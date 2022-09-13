@@ -1,6 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import {TranslateService} from '../../../node_modules/@ngx-translate/core';
 
 @Component({
     selector: 'app-menu',
@@ -10,7 +11,11 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService,
+                public translate: TranslateService) {
+                    this.translate.addLangs(['es', 'en']);
+                    //this.translate.setDefaultLang('es');
+                 }
 
     ngOnInit() {
         this.model = [

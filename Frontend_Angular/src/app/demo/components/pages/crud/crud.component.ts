@@ -8,6 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Validators, FormBuilder} from '@angular/forms';
 import { RoleRestService } from 'src/app/services/role-rest.service';
 import {FormControl} from '@angular/forms';
+import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
 
 
 
@@ -99,9 +100,14 @@ export class CrudComponent implements OnInit {
         private toastr: ToastrService,
         private router: Router,
         private _formBuilder: FormBuilder,
-        private roleRest: RoleRestService
+        private roleRest: RoleRestService,
+        public translate: TranslateService
 
-    ) { }
+    ) { 
+        this.translate.addLangs(['es', 'en']);
+        this.translate.setDefaultLang('es');
+        
+    }
 
     
 

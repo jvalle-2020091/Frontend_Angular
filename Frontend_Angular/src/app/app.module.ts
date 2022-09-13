@@ -5,11 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NeedPasswordComponent } from './demo/components/need-password/need-password.component';
 import { TranslocoRootModule } from './transloco-root.module'
+
+
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+export function HttpLoaderFactory(http: HttpClient){
+    return new TranslateHttpLoader(http, '../assets/i18n')
+}
 
 @NgModule({
     declarations: [
@@ -23,7 +31,14 @@ import { TranslocoRootModule } from './transloco-root.module'
         HttpClientModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
-        TranslocoRootModule
+        TranslocoRootModule,
+        TranslateModule.forRoot({
+            loader:{
+                provide:TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

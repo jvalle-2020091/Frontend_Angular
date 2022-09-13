@@ -25,9 +25,14 @@ import {CardModule} from 'primeng/card';
  import {MatInputModule} from '@angular/material/input';
  import {MatCheckboxModule} from '@angular/material/checkbox';
  import { ReactiveFormsModule } from '@angular/forms';
+ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
  
 
-
+export function HttpLoaderFactory(http: HttpClient){
+    return new TranslateHttpLoader(http, '../../../../../assets/i18n/')
+}
 
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -59,7 +64,15 @@ import {CardModule} from 'primeng/card';
         MatButtonModule,
         MatInputModule,
         MatCheckboxModule,
-        ReactiveFormsModule        
+        ReactiveFormsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader:{
+                provide:TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })     
     ],
     
     declarations: [CrudComponent],
