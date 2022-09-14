@@ -26,6 +26,7 @@ import {CardModule} from 'primeng/card';
  import { ReactiveFormsModule } from '@angular/forms';
  import {TabViewModule} from 'primeng/tabview';
 import { RolesRoutingModule } from './roles-routing.module';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -66,6 +67,7 @@ export function HttpLoaderFactory(http: HttpClient){
         ReactiveFormsModule,
         TabViewModule,
         HttpClientModule,
+        MultiSelectModule,
         TranslateModule.forRoot({
             loader:{
                 provide:TranslateLoader,

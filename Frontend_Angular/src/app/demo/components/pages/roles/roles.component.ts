@@ -7,6 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 import { Validators, FormBuilder} from '@angular/forms';
 import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
 
+interface City {
+  name: string,
+  code: string
+}
 
 export interface PeriodicElement {
   name: string;
@@ -26,6 +30,11 @@ export class RolesComponent implements OnInit {
   deleteRoleDialog: boolean = false;
   roleUpdateDialog: boolean = false;
   userRolDialog: boolean = false;
+  rolPermissionDialog: boolean = false;
+
+  cities: City[];
+  selectedCities1: any;
+
   //Lenguaje
   language: any
   
@@ -72,7 +81,13 @@ export class RolesComponent implements OnInit {
     public translate: TranslateService
 
   ) {
-    
+    this.cities = [
+      {name: 'New York', code: 'NY'},
+      {name: 'Rome', code: 'RM'},
+      {name: 'London', code: 'LDN'},
+      {name: 'Istanbul', code: 'IST'},
+      {name: 'Paris', code: 'PRS'}
+  ];
     
    }
 
@@ -93,6 +108,10 @@ export class RolesComponent implements OnInit {
           console.log(err);
       }
     });
+  }
+  
+  getPermmissions(){
+    this.rolPermissionDialog = true
   }
 
   getUsers(){
