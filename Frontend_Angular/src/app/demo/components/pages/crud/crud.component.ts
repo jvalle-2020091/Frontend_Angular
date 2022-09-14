@@ -89,6 +89,7 @@ export class CrudComponent implements OnInit {
   language: any
 
   disabled: boolean = false;
+  mensaje: any;
 
   constructor(
     private userRest: UserRestService,
@@ -98,7 +99,11 @@ export class CrudComponent implements OnInit {
     private roleRest: RoleRestService,
     public translate: TranslateService,
     public rolRest: RoleRestService
-  ) {
+  ) 
+  {
+    this.translate.get("USERS.FIRSTNAME").subscribe(data => {
+    this.mensaje = data;
+    });
   }
   
   ngOnInit() {
@@ -169,7 +174,7 @@ export class CrudComponent implements OnInit {
   deleteUser() {
     this.userRest.deleteUser(this.userDelete.id).subscribe({
       next: (res: any) => {
-        this.toastr.success(res.message);
+        this.toastr.success(this.mensaje);
         this.deleteUserDialog = false;
         this.getUsers();
       },

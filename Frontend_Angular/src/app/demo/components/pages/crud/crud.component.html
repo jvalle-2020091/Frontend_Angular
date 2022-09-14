@@ -21,7 +21,7 @@
                         <h5 class="m-0">{{"USERS.USERS" | translate}}</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="{{'ROLES.SEARCH' | translate}}"
                                 class="w-full sm:w-auto" />
                         </span>
                     </div>
@@ -113,21 +113,21 @@
         </p-dialog>
 
         <!--Modal para eliminar el usuario-->
-        <p-dialog [(visible)]="deleteUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>{{"USERS.DELETEUSER" | translate}}</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="{{'ROLES.NO' | translate}}"
                     (click)="deleteUserDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="{{'ROLES.YES' | translate}}"
                     (click)="deleteUser()"> </button>
             </ng-template>
         </p-dialog>
 
          <!--Modal para bloquear el usuario-->
-         <p-dialog [(visible)]="lockUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+         <p-dialog [(visible)]="lockUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>Are you sure you want to block {{nameLock}}?</span>
@@ -142,7 +142,7 @@
 
 
         <!--Modal para cambio de contraseña-->
-        <p-dialog [(visible)]="changePassword" header="Confirm change password" [modal]="true"
+        <p-dialog [(visible)]="changePassword" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true"
             [style]="{width:'450px'}">
 
             <div class="flex align-items-center justify-content-center">
@@ -248,7 +248,7 @@
                         <p>
                             <span class="block mt-2 md:mt-0 p-input-icon-left">
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" placeholder="Search Roles" (input)="onGlobalFilterRole(dtrole, $event)" class="w-full sm:w-auto" />
+                                <input pInputText type="text" placeholder="{{'USERS.SEARCHROLES' | translate}}" (input)="onGlobalFilterRole(dtrole, $event)" class="w-full sm:w-auto" />
                             </span>
                             <hr>  
 

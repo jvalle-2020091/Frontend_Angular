@@ -21,7 +21,7 @@
                         <h5 class="m-0">{{"ROLES.TABLE" | translate}}</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"  placeholder="Search..." class="w-full sm:w-auto" />
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"  placeholder="{{'ROLES.SEARCH' | translate}}" class="w-full sm:w-auto" />
                         </span>
                     </div>
                 </ng-template>
@@ -83,10 +83,10 @@
 
             <div class="card">
                 <p-tabView>
-                    <p-tabPanel header="Users" >
+                    <p-tabPanel header="{{'ROLES.USERS' | translate}}" >
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" placeholder="Search Users" (input)="onGlobalFilterUsers(dtusers, $event)" class="w-full sm:w-auto" />
+                            <input pInputText type="text" placeholder="{{'ROLES.SEARCHUSERS' | translate}}" (input)="onGlobalFilterUsers(dtusers, $event)" class="w-full sm:w-auto" />
                         </span>
                         <hr>   
                         <!-- TABLE USERS MODAL CREATE ROL -->
@@ -115,10 +115,10 @@
                         <!-- --------------------------------------------------------------- -->
                     </p-tabPanel>
 
-                    <p-tabPanel header="Permissions">
+                    <p-tabPanel header="{{'ROLES.PERMISSIONS' | translate}}">
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" placeholder="Search Permissions" class="w-full sm:w-auto" />
+                            <input pInputText type="text" placeholder="{{'ROLES.SEARCHPERMISSIONS' | translate}}" class="w-full sm:w-auto" />
                         </span>
                         <hr>
 
@@ -161,15 +161,15 @@
         </p-dialog>
 
           <!--Modal para eliminar el role-->
-          <p-dialog [(visible)]="deleteRoleDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+          <p-dialog [(visible)]="deleteRoleDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>{{"ROLES.DELETEROL" | translate}}</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="{{'ROLES.NO' | translate}}"
                     (click)="deleteRoleDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="{{'ROLES.YES' | translate}}"
                     (click)="deleteRole()"></button>
             </ng-template>
         </p-dialog>

@@ -27,7 +27,8 @@
         "ADDUSER": "Agregar Usuario",
         "USERS": "Usuarios",
         "REQUERIDNAME": "El nombre es requerido",
-        "REQUERIDLASTNAME": "El apellido es requerido"
+        "REQUERIDLASTNAME": "El apellido es requerido",
+        "SEARCHROLES": "Buscar Roles"
     },
     "ROLES":{
         "ID": "Código",
@@ -43,7 +44,13 @@
         "DELETEROL": "¿Está seguro de que desea eliminar este rol?",
         "REQUERIDNAME": "El nombre es requerido",
         "REQUERIDDESCRIPTION":"La descripción es requerida",
-        "ADDROLE": "Agregar Rol"
+        "ADDROLE": "Agregar Rol",
+        "SEARCH": "Buscar...",
+        "SEARCHUSERS": "Buscar Usuarios",
+        "SEARCHPERMISSIONS": "Buscar Permisos",
+        "YES": "Sí",
+        "NO": "No",
+        "CONFIRM": "Confirmar"
     },
     "MENU":{
         "ES": "Español",

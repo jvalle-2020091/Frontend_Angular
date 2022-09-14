@@ -25,7 +25,8 @@
     "ADDUSER": "Add User",
     "USERS": "Users",
     "REQUERIDNAME": "First Name required",
-    "REQUERIDLASTNAME": "Last Name is required"
+    "REQUERIDLASTNAME": "Last Name is required",
+    "SEARCHROLES": "Search Roles"
   },
   "ROLES":{
     "ID": "Id",
@@ -41,7 +42,13 @@
     "DELETEROL": "Are you sure you want to delete this role?",
     "REQUERIDNAME": "Name is required",
     "REQUERIDDESCRIPTION":"Description is required",
-    "ADDROLE": "Add Role"
+    "ADDROLE": "Add Role",
+    "SEARCH": "Search...",
+    "SEARCHUSERS": "Search Users",
+    "SEARCHPERMISSIONS": "Search Permissions",
+    "YES": "Yes",
+    "NO": "No",
+    "CONFIRM": "Confirm"
 },
 "MENU":{
     "ES": "Espanish",

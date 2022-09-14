@@ -38,12 +38,17 @@ export class AppTopBarComponent  {
                 public translate: TranslateService,
                 private roleRest: RoleRestService,
                 private loginRest: LoginRestService,
+                
                 ) { }
 
                 disableSelect = new FormControl(false);
 
     
     ngOnInit() {
+        this.language = this.roleRest.getLanguage();
+        this.translate.addLangs(['es', 'en']);
+        this.translate.setDefaultLang(this.language);
+
         this.log = [
             {label: 'Log Out', icon: 'pi pi-sign-out', command: () => {
                 this.logOut()
@@ -51,7 +56,7 @@ export class AppTopBarComponent  {
         ]
 
         this.languages = [
-            {label: 'Spanish', icon: 'pi pi-globe', command: () => {
+            {label: "Spanish", icon: 'pi pi-globe', command: () => {
                 this.setLanguage('es')
             }},
             {label: 'English', icon: 'pi pi-globe', command: () => {
@@ -89,9 +94,7 @@ export class AppTopBarComponent  {
             
             
         ];
-        this.language = this.roleRest.getLanguage();
-        this.translate.addLangs(['es', 'en']);
-        this.translate.setDefaultLang(this.language);
+        
     }
 
 
