@@ -4,9 +4,9 @@
             <p-toast></p-toast>
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-                    <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="dialogCreateUser();  stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable() "></button>
+                    <div  class="my-2">
+                        <button style="width: auto; text-align: center;"  pButton pRipple  class="p-button-success "
+                            (click)="dialogCreateUser();  stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable() "><i class="pi pi-plus mr-2"></i> <b>{{"USERS.ADDUSER" | translate}}</b> </button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -18,7 +18,7 @@
               selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Users</h5>
+                        <h5 class="m-0">{{"USERS.USERS" | translate}}</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
@@ -82,7 +82,7 @@
 
             <ng-template pTemplate="content">
                 <div class="field">
-                    <label for="name">Username</label>
+                    <label for="name">{{"USERS.USERNAME" | translate}}</label>
                     <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.username" required autofocus
                         disabled [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.username}" />
                     <span class="requiredFile"
@@ -90,18 +90,16 @@
                         obligatorio</span>
                 </div>
                 <div class="field">
-                    <label for="name">First Name</label>
+                    <label for="name">{{"USERS.FIRSTNAME" | translate}}</label>
                     <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.firstName" required autofocus
                         #name="ngModel" [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.firstName}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">First Name is
-                        required.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">{{"USERS.REQUERIDNAME" | translate}}</small>
                 </div>
                 <div class="field">
-                    <label for="lastname">Last Name</label>
+                    <label for="lastname">{{"USERS.LASTNAME" | translate}}</label>
                     <input type="text" pInputText id="lastname" [(ngModel)]="this.userUpdate.lastName" required
                         autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.lastname}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">Last Name is
-                        required.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">{{"USERS.REQUERIDLASTNAME" | translate}}</small>
                 </div>
             </ng-template>
 
@@ -124,7 +122,7 @@
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
                     (click)="deleteUserDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="deleteUser()"></button>
+                    (click)="deleteUser()"> </button>
             </ng-template>
         </p-dialog>
 
@@ -169,13 +167,13 @@
                 <mat-step [stepControl]="firstFormGroup">
                     <div style="justify-content: center;">
                         <form [formGroup]="firstFormGroup">
-                            <ng-template matStepLabel>Create user</ng-template>
+                            <ng-template matStepLabel>{{"USERS.CREATEUSER" | translate}}</ng-template>
 
                             <table cellspacing="0">
                                 <tr>
                                     <td style="margin: 5px;">
                                         <mat-form-field appearance="fill">
-                                            <mat-label>First Name</mat-label>
+                                            <mat-label>{{"USERS.FIRSTNAME" | translate}}</mat-label>
                                             <input formControlName="firstCtrl" [(ngModel)]="this.newUser.firstName"
                                                 matInput placeholder="Firstname" required>
                                         </mat-form-field>
@@ -183,7 +181,7 @@
 
                                     <td>
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Last Name</mat-label>
+                                            <mat-label>{{"USERS.LASTNAME" | translate}}</mat-label>
                                             <input type="text" formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName"
                                                 name="lastName" matInput placeholder="Lastname" required>
                                         </mat-form-field>
@@ -197,7 +195,7 @@
                                 <tr>
                                     <td>
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Email</mat-label>
+                                            <mat-label>{{"USERS.EMAIL" | translate}}</mat-label>
                                             <input formControlName="thirdCtrl" name="gmail"
                                                 [(ngModel)]="this.newUser.mail" type="email" matInput
                                                 placeholder="Ex. pat@example.com" required>
@@ -206,7 +204,7 @@
                                     <td>
 
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Username </mat-label>
+                                            <mat-label>{{"USERS.USERNAME" | translate}} </mat-label>
                                             <input  formControlName="fourthCtrl" [formControl]="stateCtrl" [(ngModel)]="this.newUser.username"
                                                 name="username" matInput  placeholder="Username" required  > 
                                         </mat-form-field>
@@ -216,7 +214,7 @@
                                 </tr>
                             </table>
                             <input formControlName="fiveCtrl" (change)="filesChange($event)" [(ngModel)]="this.newUser.image" type="file" name="file" id="file" class="inputfile" />
-                            <label for="file"><u>Subir imagen aqui </u></label>
+                            <label for="file"><u>{{"USERS.IMG" | translate}}</u></label>
 
                             <br>
                             <br>
@@ -224,13 +222,12 @@
                                 width="30"/>
                             <p>
                             <section class="example-section">
-                                <h4>Configuration options:</h4>
+                                <h4>{{"USERS.OPTIONS" | translate}}</h4>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl1"  [(ngModel)]="this.newUser.sendEmail">Send
-                                        credentials to email</mat-checkbox>
+                                    <mat-checkbox formControlName="checkCtrl1"  [(ngModel)]="this.newUser.sendEmail">{{"USERS.SENDCREDENTIALS" | translate}}</mat-checkbox>
                                 </p>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl2" (change)="stateCtrl.disabled ? stateCtrl.enable() : equalToEmail()" >Username equal to email</mat-checkbox>
+                                    <mat-checkbox formControlName="checkCtrl2" (change)="stateCtrl.disabled ? stateCtrl.enable() : equalToEmail()" >{{"USERS.USEREMAIL" | translate}}</mat-checkbox>
                                 </p>
                             </section>
                         </form>
@@ -239,15 +236,15 @@
 
                     <p>
                     <div>
-                        <button mat-raised-button color="primary" matStepperNext >Next</button>
+                        <button mat-raised-button color="primary" matStepperNext >{{"USERS.NEXT" | translate}}</button>
                     </div>
                 </mat-step>
 
                 <!--STEP 2-->
                 <mat-step [stepControl]="secondFormGroup">
                     <form [formGroup]="secondFormGroup">
-                        <ng-template matStepLabel>Rol user</ng-template>
-                        <h5>What role will this user have?</h5>
+                        <ng-template matStepLabel>{{"USERS.ROLUSER" | translate}}</ng-template>
+                        <h5>{{"USERS.WHATROL" | translate}}</h5>
                         <p>
                             <span class="block mt-2 md:mt-0 p-input-icon-left">
                                 <i class="pi pi-search"></i>
@@ -263,7 +260,7 @@
                                         <th style="width: 5rem">
                                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                         </th>
-                                        <th pSortableColumn="Users">Roles </th>
+                                        <th pSortableColumn="Users">{{"USERS.ROLS" | translate}}</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-role>
@@ -271,7 +268,7 @@
                                         <td>
                                             <p-tableCheckbox [value]="role"></p-tableCheckbox>
                                         </td>
-                                        <td ><span class="p-column-title">Users</span>
+                                        <td >
                                             {{role.name}}
                                         </td>                                
                                     </tr>
@@ -280,8 +277,8 @@
 
                         <div style="text-align: center; margin: 5px">
                             <button style="margin: 5px;" mat-raised-button matStepperPrevious
-                                color="primary">Back</button>
-                            <button style="margin: 5px;" mat-raised-button color="primary" matStepperNext (click)="uploadImage()">Confirm</button>
+                                color="primary">{{"USERS.BACK" | translate}}</button>
+                            <button style="margin: 5px;" mat-raised-button color="primary" matStepperNext (click)="uploadImage()">{{"USERS.SAVE" | translate}}</button>
                         </div>
 
                     </form>
