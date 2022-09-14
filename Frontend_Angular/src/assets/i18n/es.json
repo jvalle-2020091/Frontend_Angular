@@ -42,7 +42,8 @@
         "DESCRIPTIONNEWROL": "Descripción del nuevo rol",
         "DELETEROL": "¿Está seguro de que desea eliminar este rol?",
         "REQUERIDNAME": "El nombre es requerido",
-        "REQUERIDDESCRIPTION":"La descripción es requerida"
+        "REQUERIDDESCRIPTION":"La descripción es requerida",
+        "ADDROLE": "Agregar Rol"
     },
     "MENU":{
         "ES": "Español",

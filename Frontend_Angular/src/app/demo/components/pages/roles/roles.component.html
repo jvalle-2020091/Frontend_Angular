@@ -5,8 +5,8 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label ="New rol" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="dialogCreateRole(); secondFormGroup.reset()"></button>
+                        <button style="width: auto; text-align: center;" pButton pRipple class="p-button-success mr-2"
+                            (click)="dialogCreateRole(); secondFormGroup.reset()"><i class="pi pi-plus mr-2"></i> <b>{{"ROLES.ADDROLE" | translate}}</b></button>
                     </div>
                 </ng-template>
             </p-toolbar>

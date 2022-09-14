@@ -28,7 +28,8 @@ export class AppTopBarComponent  {
     model: any[] = [];
 
     items!: MenuItem[];
-    i5!: MenuItem [];
+    log!: MenuItem [];
+    languages!: MenuItem [];
 
     @ViewChild('menu') menu!: ElementRef;
 
@@ -43,9 +44,18 @@ export class AppTopBarComponent  {
 
     
     ngOnInit() {
-        this.i5 = [
+        this.log = [
             {label: 'Log Out', icon: 'pi pi-sign-out', command: () => {
                 this.logOut()
+            }}
+        ]
+
+        this.languages = [
+            {label: 'Spanish', icon: 'pi pi-globe', command: () => {
+                this.setLanguage('es')
+            }},
+            {label: 'English', icon: 'pi pi-globe', command: () => {
+                this.setLanguage('en')
             }}
         ]
 

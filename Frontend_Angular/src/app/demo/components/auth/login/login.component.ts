@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   };
 
   idUser: any;
+  language = 'es'
 
   constructor(
     public layoutService: LayoutService,
@@ -59,8 +60,9 @@ export class LoginComponent implements OnInit {
         let userPass = res.usernameExist;
         if (userPass.needChangePassword == false) {
           localStorage.setItem('token', res.token);
-          localStorage.setItem('user', JSON.stringify(res.newUserSearch || res.usernameExist)
-          );
+          localStorage.setItem('user', JSON.stringify(res.newUserSearch || res.usernameExist));
+          localStorage.setItem('language', this.language)
+
           this.toastr.success(res.message);
           this.router.navigateByUrl('layout');
         } else if (userPass.needChangePassword == true) {
