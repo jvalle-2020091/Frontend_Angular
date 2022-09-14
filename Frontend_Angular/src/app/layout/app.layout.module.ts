@@ -24,6 +24,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
+import {SplitButtonModule} from 'primeng/splitbutton';
+
 
 export function HttpLoaderFactory(http: HttpClient){
     return new TranslateHttpLoader(http, '../../assets/i18n/')
@@ -62,7 +64,8 @@ export function HttpLoaderFactory(http: HttpClient){
         }),
         MatSelectModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        SplitButtonModule
         
         
     ],

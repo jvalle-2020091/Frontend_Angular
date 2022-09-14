@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
 })
-export class AppTopBarComponent {
+export class AppTopBarComponent  {
     selectedLenguaje: any;
     language: any;
     lenguajes: any = [];
@@ -28,6 +28,7 @@ export class AppTopBarComponent {
     model: any[] = [];
 
     items!: MenuItem[];
+    i5!: MenuItem [];
 
     @ViewChild('menu') menu!: ElementRef;
 
@@ -35,13 +36,19 @@ export class AppTopBarComponent {
                 private router: Router,
                 public translate: TranslateService,
                 private roleRest: RoleRestService,
-                private loginRest: LoginRestService 
+                private loginRest: LoginRestService,
                 ) { }
 
                 disableSelect = new FormControl(false);
 
     
     ngOnInit() {
+        this.i5 = [
+            {label: 'Log Out', icon: 'pi pi-sign-out', command: () => {
+                this.logOut()
+            }}
+        ]
+
         this.lang =   this.roleRest.getLanguage();
         this.firstname = this.loginRest.getUser().firstName;
         console.log(this.firstname);

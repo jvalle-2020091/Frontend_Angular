@@ -31,26 +31,15 @@
             </mat-form-field>
         </div>
 
-   
-
-       
-            
-        <div style="font-size: 8px" class="mt-3 mr-3">
-            <img *ngIf="!this.image"src="https://ui-avatars.com/api/?background=B8B8B8&rounded=true&name={{this.firstname}}+{{this.lastname}}" width="33"/>
-            <img *ngIf="this.image" src="http://localhost:3000/users/getImage/{{ this.image }}" width="33" height="33" style="border-radius:20px"/>
-        </div>
-
 
         <div style="font-size: 8px" class="mt-3">
-            <mat-form-field appearance="outline">
-                <mat-label>
-                    {{this.firstname}} {{this.lastname}}</mat-label>
-                <mat-select >
-                    <mat-option (click)="logOut()">
-                        Log Out
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <p-splitButton style="width: 10rem;" styleClass="p-button-outlined p-button-secondary mr-2 mb-2"  [model]="this.i5" >
+                <ng-template pTemplate="content" >
+                    <img *ngIf="!this.image"src="https://ui-avatars.com/api/?background=B8B8B8&rounded=true&name={{this.firstname}}+{{this.lastname}}" width="25"/>
+                    <img *ngIf="this.image" src="http://localhost:3000/users/getImage/{{ this.image }}" width="25" height="25" style="border-radius:20px"/>
+                    <span class="ml-2 flex align-items-center font-bold">{{this.firstname}} {{this.lastname}}</span>
+                </ng-template>
+            </p-splitButton>
         </div>
     </div>
 </div>
