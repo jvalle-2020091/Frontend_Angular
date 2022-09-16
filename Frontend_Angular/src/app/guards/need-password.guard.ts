@@ -3,11 +3,11 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { LoginRestService } from '../services/login-rest.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class UserGuard implements CanActivate {
-
+export class NeedPasswordGuard implements CanActivate {
 
   constructor(
     public loginRest: LoginRestService,
@@ -16,12 +16,11 @@ export class UserGuard implements CanActivate {
   }
 
   canActivate() {
-    if(this.loginRest.getToken() != ''){
+    if(this.loginRest.getUser().needChangePassword == true){
       return true;
     }{
       this.router.navigateByUrl("");
       return false;
     }
   }
-
 }
