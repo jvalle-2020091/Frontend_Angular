@@ -6,6 +6,8 @@ import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
 import { Validators, FormBuilder} from '@angular/forms';
 import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
+import { LoginRestService } from 'src/app/services/login-rest.service';
+
 
 interface City {
   name: string,
@@ -79,7 +81,9 @@ export class RolesComponent implements OnInit {
     private userRest: UserRestService, 
     private toastr: ToastrService,
     private _formBuilder: FormBuilder,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private loginRest: LoginRestService
+
 
   ) {
     this.cities = [
@@ -300,6 +304,97 @@ assignPermissions(){
   })
   
 }
+
+permissionGetRoles(){
+  let permissions = this.loginRest.getPermmissions();
+  let bandera: boolean = false;
+  if(permissions != undefined){
+    for(let x = 0; x < permissions.length; x++){
+        if(permissions[x] == 'getRoles'){
+          bandera = true;
+          break;
+        
+        }
+    }
+  }
+  return bandera;
+}
+
+permissionGetUsersByRol(){
+  let permissions = this.loginRest.getPermmissions();
+  let bandera: boolean = false;
+  if(permissions != undefined){
+    for(let x = 0; x < permissions.length; x++){
+        if(permissions[x] == 'getUsersByRol'){
+          bandera = true;
+          break;
+        
+        }
+    }
+  }
+  return bandera;
+}
+
+permissionAssignFunctions(){
+  let permissions = this.loginRest.getPermmissions();
+  let bandera: boolean = false;
+  if(permissions != undefined){
+    for(let x = 0; x < permissions.length; x++){
+        if(permissions[x] == 'permissions'){
+          bandera = true;
+          break;
+        
+        }
+    }
+  }
+  return bandera;
+}
+
+permissionEditRol(){
+  let permissions = this.loginRest.getPermmissions();
+  let bandera: boolean = false;
+  if(permissions != undefined){
+    for(let x = 0; x < permissions.length; x++){
+        if(permissions[x] == 'editRol'){
+          bandera = true;
+          break;
+        
+        }
+    }
+  }
+  return bandera;
+}
+
+permissionDeleteRol(){
+  let permissions = this.loginRest.getPermmissions();
+  let bandera: boolean = false;
+  if(permissions != undefined){
+    for(let x = 0; x < permissions.length; x++){
+        if(permissions[x] == 'deleteRol'){
+          bandera = true;
+          break;
+        
+        }
+    }
+  }
+  return bandera;
+}
+
+permissionCreateRol(){
+  let permissions = this.loginRest.getPermmissions();
+  let bandera: boolean = false;
+  if(permissions != undefined){
+    for(let x = 0; x < permissions.length; x++){
+        if(permissions[x] == 'createRol'){
+          bandera = true;
+          break;
+        
+        }
+    }
+  }
+  return bandera;
+}
+
 
 
 }

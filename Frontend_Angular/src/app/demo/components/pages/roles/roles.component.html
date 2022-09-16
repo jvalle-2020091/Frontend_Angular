@@ -5,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button style="width: auto; text-align: center;" pButton pRipple class="p-button-success mr-2"
+                        <button *ngIf="permissionCreateRol();" style="width: auto; text-align: center;" pButton pRipple class="p-button-success mr-2"
                             (click)="dialogCreateRole(); secondFormGroup.reset()"><i class="pi pi-plus mr-2"></i> <b>{{"ROLES.ADDROLE" | translate}}</b></button>
                     </div>
                 </ng-template>
@@ -30,9 +30,10 @@
                         <th pSortableColumn="id">{{"ROLES.ID"| translate}}</th>
                         <th pSortableColumn="name">{{"ROLES.NAME"| translate}} </th>
                         <th pSortableColumn="description">{{"ROLES.DESCRIPTION"| translate}} </th>
-                        <th pSortableColumn="users">{{"ROLES.USERS"| translate}} </th>
-                        <th pSortableColumn="permissions">{{"ROLES.PERMISSIONS"| translate}} </th>
-                        <th>{{"ROLES.ACTIONS"| translate}}</th>
+                        <th *ngIf="permissionGetUsersByRol()" pSortableColumn="users">{{"ROLES.USERS"| translate}} </th>
+                        <th *ngIf="permissionAssignFunctions()" pSortableColumn="permissions">{{"ROLES.PERMISSIONS"| translate}} </th>
+                        <th *ngIf="!permissionEditRol() && !permissionDeleteRol()"></th>
+                        <th *ngIf="permissionEditRol() || permissionDeleteRol()">{{"ROLES.ACTIONS"| translate}}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-role>
@@ -40,23 +41,23 @@
                         <td style="width:14%; min-width:10rem;"><span>{{role.id}}</span></td>
                         <td style="width:14%; min-width:10rem;"><span>{{role.name}}</span></td>
                         <td style="width:20%; min-width:20rem;"><span>{{role.description}}</span></td>
-                        <td style="width:14%; min-width:10rem;">
+                        <td *ngIf="permissionGetUsersByRol()" style="width:14%; min-width:10rem;">
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-users" class="p-button-rounded p-button-secondary mr-2" (click)="getUsersByAdmin(role.id, role.name)"></button>
                             </div>
                         </td>
-                        <td style="width:14%; min-width:8rem;">
+                        <td *ngIf="permissionAssignFunctions()" style="width:14%; min-width:8rem;">
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-check-circle"
                                     class="p-button-rounded p-button-primary mr-2" (click)="getPermmissions(role.id)"></button>
                             </div>
                         </td>
-                        <td>
+                        <td >
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil"
+                                <button *ngIf="permissionEditRol()" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-warning mr-2"
                                     (click)="getRoleUpdate(role.id)"></button>
-                                <button pButton pRipple icon="pi pi-trash"
+                                <button *ngIf="permissionDeleteRol()" pButton pRipple icon="pi pi-trash"
                                     class="p-button-rounded p-button-danger mr-2"
                                     (click)="getRoleDeleted(role.id)"
                                     ></button>

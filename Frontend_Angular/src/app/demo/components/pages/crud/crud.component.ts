@@ -9,6 +9,7 @@ import { Validators, FormBuilder} from '@angular/forms';
 import { RoleRestService } from 'src/app/services/role-rest.service';
 import {FormControl} from '@angular/forms';
 import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
+import { LoginRestService } from 'src/app/services/login-rest.service';
 
 
 
@@ -98,7 +99,8 @@ export class CrudComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private roleRest: RoleRestService,
     public translate: TranslateService,
-    public rolRest: RoleRestService
+    public rolRest: RoleRestService,
+    private loginRest: LoginRestService
   ) 
   {
     
@@ -328,4 +330,100 @@ export class CrudComponent implements OnInit {
   onGlobalFilterRole(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
+
+
+  permissionCreateUser(){
+    let permissions = this.loginRest.getPermmissions();
+    let bandera: boolean = false;
+    if(permissions != undefined){
+      for(let x = 0; x < permissions.length; x++){
+          if(permissions[x] == 'createUser'){
+            bandera = true;
+            break;
+          
+          }
+      }
+    }
+    return bandera;
+  }
+
+  permissionGetUsers(){
+    let permissions = this.loginRest.getPermmissions();
+    let bandera: boolean = false;
+    if(permissions != undefined){
+      for(let x = 0; x < permissions.length; x++){
+          if(permissions[x] == 'getUsuarios'){
+            bandera = true;
+            break;
+          
+          }
+      }
+    }
+    return bandera;
+  }
+
+
+  permissionPasswordChange(){
+    let permissions = this.loginRest.getPermmissions();
+    let bandera: boolean = false;
+    if(permissions != undefined){
+      for(let x = 0; x < permissions.length; x++){
+          if(permissions[x] == 'passwordChange'){
+            bandera = true;
+            break;
+          
+          }
+      }
+    }
+    return bandera;
+  }
+
+  permissionIsLocked(){
+    let permissions = this.loginRest.getPermmissions();
+    let bandera: boolean = false;
+    if(permissions != undefined){
+      for(let x = 0; x < permissions.length; x++){
+          if(permissions[x] == 'isLocked'){
+            bandera = true;
+            break;
+          
+          }
+      }
+    }
+    return bandera;
+  }
+
+  permissionEditUser(){
+    let permissions = this.loginRest.getPermmissions();
+    let bandera: boolean = false;
+    if(permissions != undefined){
+      for(let x = 0; x < permissions.length; x++){
+          if(permissions[x] == 'editUser'){
+            bandera = true;
+            break;
+          
+          }
+      }
+    }
+    return bandera;
+  }
+
+  permissiondeleteUser(){
+    let permissions = this.loginRest.getPermmissions();
+    let bandera: boolean = false;
+    if(permissions != undefined){
+      for(let x = 0; x < permissions.length; x++){
+          if(permissions[x] == 'deleteUser'){
+            bandera = true;
+            break;
+          
+          }
+      }
+    }
+    return bandera;
+  }
+
+  
+
+
 }

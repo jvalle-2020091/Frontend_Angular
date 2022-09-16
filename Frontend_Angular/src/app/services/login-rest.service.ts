@@ -26,6 +26,19 @@ export class LoginRestService {
     return this.http.get(environment.baseUri + 'users/permissions/' + id, {headers: this.httpOption.set("Authorization",this.getToken())});
   }
 
+  getPermmissions(){
+    let globalPermissions = localStorage.getItem('permissions');
+    let permission;
+    let arrayFunc; 
+    if(globalPermissions != undefined){
+      permission = globalPermissions
+      arrayFunc = permission.split(',');
+    }else{
+      permission = "";
+    }
+    return arrayFunc;
+  }
+
   //Método para obtener el usuario del local storage
   getUser(){
     let globalUser = localStorage.getItem("user");
