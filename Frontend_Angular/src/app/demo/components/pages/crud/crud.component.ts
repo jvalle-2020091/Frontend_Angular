@@ -101,9 +101,7 @@ export class CrudComponent implements OnInit {
     public rolRest: RoleRestService
   ) 
   {
-    this.translate.get("USERS.FIRSTNAME").subscribe(data => {
-    this.mensaje = data;
-    });
+    
   }
   
   ngOnInit() {
@@ -174,7 +172,7 @@ export class CrudComponent implements OnInit {
   deleteUser() {
     this.userRest.deleteUser(this.userDelete.id).subscribe({
       next: (res: any) => {
-        this.toastr.success(this.mensaje);
+        this.toastr.success(res.message);
         this.deleteUserDialog = false;
         this.getUsers();
       },

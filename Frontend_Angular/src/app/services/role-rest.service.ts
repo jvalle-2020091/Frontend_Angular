@@ -50,4 +50,8 @@ export class RoleRestService {
     return language
   };
 
+  getFunctions(idRol:any){
+    return this.http.get(environment.baseUri + "functions/getFunctions/" + idRol, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+  }
+
 }

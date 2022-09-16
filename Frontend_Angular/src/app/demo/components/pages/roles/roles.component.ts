@@ -52,7 +52,8 @@ export class RolesComponent implements OnInit {
   newRole = {
     name: '',
     description: '',
-    ids: []
+    ids: [],
+    idsPermissions: []
   }
   idsPrueba: any = [];
 
@@ -110,9 +111,7 @@ export class RolesComponent implements OnInit {
     });
   }
   
-  getPermmissions(){
-    this.rolPermissionDialog = true
-  }
+  
 
   getUsers(){
     this.userRest.getUsers().subscribe({
@@ -252,6 +251,29 @@ onGlobalFilterUsers(table: Table, event: Event) {
   table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
 
+
+//Functions
+arrayUsers: any = [];
+arrayRoles: any = [];
+idsUsers: any = [];
+idsRoles: any = [];
+
+
+
+getPermmissions(idRole: string){
+  this.rolPermissionDialog = true
+  this.roleRest.getFunctions(idRole).subscribe({
+    next:(res:any)=>{
+      this.arrayUsers = res.arrayUsers;
+      this.arrayRoles = res.arrayRoles;
+      console.log(this.arrayUsers)
+      console.log( this.arrayRoles)
+    },
+    error:(err)=>{
+      console.log(err)
+    }
+  })
+}
 
 
 }
