@@ -27,7 +27,7 @@ import {CardModule} from 'primeng/card';
  import {TabViewModule} from 'primeng/tabview';
 import { RolesRoutingModule } from './roles-routing.module';
 import {MultiSelectModule} from 'primeng/multiselect';
-
+import {AccordionModule} from 'primeng/accordion';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -68,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient){
         TabViewModule,
         HttpClientModule,
         MultiSelectModule,
+        AccordionModule,
         TranslateModule.forRoot({
             loader:{
                 provide:TranslateLoader,

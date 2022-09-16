@@ -221,53 +221,45 @@
                                 <input pInputText type="text" placeholder="Search permissions" (input)="onGlobalFilterUsers(dtusers, $event)" class="w-full sm:w-auto" />
                             </span>
                             <br>
-                 <p-table  [value]="this.arrayUsers" [(selection)]="idsUsers" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"  dataKey="idUser" [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
-                    <ng-template  pTemplate="groupheader" let-user let-expanded="expanded">
-                        <tr>                
-                            <th pSortableColumn="Users" class="mt-2" >Modulo de Usuarios </th>
-                            <th >
-                                <button type="button" pButton pRipple [pRowToggler]="user" class="p-button-text p-button-plain " [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    
-                    <ng-template pTemplate="rowexpansion" let-user>
-                        <tr >
-                            <td>
-                                <p-tableCheckbox  [value]="user" dataKey="user.id"></p-tableCheckbox>
-                            </td>
-                            <td style="width:5%; min-width:3rem;">{{user.name}}</td>                         
-                        </tr>
-                    </ng-template>
-
-                </p-table>
-                <p-table  [value]="this.arrayRoles" [(selection)]="idsRoles" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"  dataKey="idRole" [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
-                    <ng-template  pTemplate="groupheader" let-role let-expanded="expanded">
-                        <tr>
-                            <th pSortableColumn="Users" class="mt-2" >Modulo de Roles </th>
-                            <th >
-                                <button type="button" pButton pRipple [pRowToggler]="role" class="p-button-text p-button-plain " [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    
-                    <ng-template pTemplate="rowexpansion" let-role>
-                        <tr>
-                            <td>
-                                <p-tableCheckbox  [value]="role" dataKey="role.id"></p-tableCheckbox>
-                            </td>
-                            <td style="width:5%; min-width:3rem;">{{role.name}}</td>                                
-                        </tr>
-                        
-                    </ng-template>
-                    
-                </p-table>
-
-          
-
-    </div>
-
-            </ng-template>
+                <!-- TABLA MODULO USUARIOS -->
+                <p-accordion>
+                    <p-accordionTab header="Modulo de Usuarios">
+                        <p-table  [value]="arrayUsers" [(selection)]="idsUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                            <ng-template pTemplate="body" let-user>
+                                <tr>
+                                    <td>
+                                        <p-tableCheckbox [value]="user" dataKey="user.name"></p-tableCheckbox>
+                                    </td>
+                                    <td style="width:5%; min-width:3rem;">{{user.name}}</td>                                
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-accordionTab>
+                </p-accordion>
+                <!-- TABLA MODULO ROLES -->
+                <p-accordion>
+                    <p-accordionTab header="Modulo de roles">
+                        <p-table  [value]="arrayRoles" [(selection)]="idsRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                            <ng-template pTemplate="body" let-role>
+                                <tr>
+                                    <td>
+                                        <p-tableCheckbox [value]="role" dataKey="role.name"></p-tableCheckbox>
+                                    </td>
+                                    <td style="width:5%; min-width:3rem;">{{role.name}}</td>                                
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        </p-accordionTab>
+                </p-accordion>
+                
+                
+            </div>
+            
+        </ng-template>
+        <ng-template   pTemplate="footer" >
+            <button  pButton pRipple type="button" icon="pi pi-check" class="p-button-primary mt-2" label="Save"
+              (click)="assignPermissions()"></button>
+        </ng-template>
         </p-dialog>
 
         <!--Modal para actualizar el role-->

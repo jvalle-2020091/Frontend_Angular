@@ -54,4 +54,8 @@ export class RoleRestService {
     return this.http.get(environment.baseUri + "functions/getFunctions/" + idRol, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 
+  assignPermissions(idRol:any, idsPermissionsArray: any){
+    return this.http.post(environment.baseUri + "functions/assignPermissions/" + idRol, idsPermissionsArray, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+  }
+
 }

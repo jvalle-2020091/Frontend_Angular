@@ -257,22 +257,48 @@ arrayUsers: any = [];
 arrayRoles: any = [];
 idsUsers: any = [];
 idsRoles: any = [];
+idRolSelected: any;
 
-
+idsRoleSelected: any = [];
+idsUserSelected: any = [];
 
 getPermmissions(idRole: string){
   this.rolPermissionDialog = true
+  this.idRolSelected = idRole;
   this.roleRest.getFunctions(idRole).subscribe({
     next:(res:any)=>{
       this.arrayUsers = res.arrayUsers;
       this.arrayRoles = res.arrayRoles;
-      console.log(this.arrayUsers)
-      console.log( this.arrayRoles)
+      this.idsUsers = this.arrayUsers.filter((user: any) => user.include);
+      this.idsRoles = this.arrayRoles.filter((role: any) => role.include);
     },
     error:(err)=>{
       console.log(err)
     }
   })
+}
+assignPermissions(){
+  this.idsUserSelected = [];
+  this.idsRoleSelected = [];
+  //Se recorre el arreglo de las funciones seleccionadas
+  for(let i = 0; i < this.idsUsers.length; i++){
+    this.idsUserSelected.push(this.idsUsers[i].id);
+  }
+  for(let j = 0; j < this.idsRoles.length; j++){
+    this.idsRoleSelected.push(this.idsRoles[j].id);
+  }
+  
+  let idsPermissionsArray = this.idsUserSelected.concat(this.idsRoleSelected);
+  this.roleRest.assignPermissions(this.idRolSelected, idsPermissionsArray).subscribe({
+    next: (res: any) =>{
+      this.rolPermissionDialog = false;
+      this.toastr.success(res.message);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+  
 }
 
 

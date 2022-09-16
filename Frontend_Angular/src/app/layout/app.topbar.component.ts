@@ -47,7 +47,7 @@ export class AppTopBarComponent  {
     ngOnInit() {
         this.language = this.roleRest.getLanguage();
         this.translate.addLangs(['es', 'en']);
-        this.translate.setDefaultLang(this.language);
+        //this.translate.setDefaultLang(this.language);
 
         this.log = [
             {label: 'Log Out', icon: 'pi pi-sign-out', command: () => {
