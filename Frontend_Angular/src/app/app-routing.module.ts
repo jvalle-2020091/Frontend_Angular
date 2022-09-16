@@ -34,7 +34,7 @@ import { NeedPasswordGuard } from './guards/need-password.guard'
             ),
         },
         { path: 'pages/notfound', component: NotfoundComponent },
-     { path: 'needChangePassword/:idUser', canActivate: [NeedPasswordGuard], component: NeedPasswordComponent },
+     { path: 'needChangePassword/:idUser', component: NeedPasswordComponent },
 
         { path: '**', redirectTo: 'pages/notfound' },
       ],

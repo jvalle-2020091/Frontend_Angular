@@ -22,6 +22,10 @@ export class LoginRestService {
     return this.http.put(environment.baseUri + 'users/updatePassword/', params, {headers: this.httpOption.set("Authorization",this.getToken())}  )
   }
 
+  permissions(id: any){
+    return this.http.get(environment.baseUri + 'users/permissions/' + id, {headers: this.httpOption.set("Authorization",this.getToken())});
+  }
+
   //Método para obtener el usuario del local storage
   getUser(){
     let globalUser = localStorage.getItem("user");
