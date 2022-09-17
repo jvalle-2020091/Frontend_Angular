@@ -160,14 +160,18 @@ postUsersByRol(){
   })
 }
 
+//Aqui se almacenan las funciones como objetos completos.
 functionsUsers: any = [];
 functionsRoles: any = [];
+
 idsFunctionUsers: any = [];
 idsFunctionRoles: any = [];
 
 dialogCreateRole(){
     this.addRoles = true;
     this.idsArray = [];
+    this.idsFunctionUsers = [];
+    this.idsFunctionRoles = [];
     this.roleRest.getFunctionsCreateRol().subscribe({
       next: (res: any) => {
         this.functionsUsers = res.functionsUsers;
@@ -185,6 +189,7 @@ newIdsRoles: any = [];
 addRole(){
   if (this.newRole.name?.trim() && this.newRole.description?.trim()) {
     this.newRole.ids = this.idsArray.map((user: any) => user.id);
+
     // PREUBA
     for(let i = 0; i < this.idsFunctionUsers.length; i++){
       this.newIdsUser.push(this.idsFunctionUsers[i].id);
@@ -203,8 +208,10 @@ addRole(){
             this.addRoles = false;
             this.toastr.success(res.message);
             this.idsArray = [];
-            // this.idsFunctionUsers = []
-            // this.idsFunctionRoles = []
+            this.newIdsUser = [];
+            this.newIdsRoles = [];
+            this.idsFunctionUsers = [];
+            this.idsFunctionRoles = [];
         },
         error:(err)=>{
             this.toastr.error(err.error.message || err.error);
@@ -295,8 +302,6 @@ idsRoleSelected: any = [];
 idsUserSelected: any = [];
 
 getPermmissions(idRole: string){
-  // this.idsUsers = []
-  // this.idsRoles = []
   this.rolPermissionDialog = true
   this.idRolSelected = idRole;
   this.roleRest.getFunctions(idRole).subscribe({
@@ -323,6 +328,7 @@ assignPermissions(){
   }
   
   let idsPermissionsArray = this.idsUserSelected.concat(this.idsRoleSelected);
+
   this.roleRest.assignPermissions(this.idRolSelected, idsPermissionsArray).subscribe({
     next: (res: any) =>{
       this.rolPermissionDialog = false;
