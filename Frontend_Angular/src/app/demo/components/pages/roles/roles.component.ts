@@ -160,15 +160,51 @@ postUsersByRol(){
   })
 }
 
+functionsUsers: any = [];
+functionsRoles: any = [];
+idsFunctionUsers: any = [];
+idsFunctionRoles: any = [];
+
+dialogCreateRole(){
+    this.addRoles = true;
+    this.idsArray = [];
+    this.roleRest.getFunctionsCreateRol().subscribe({
+      next: (res: any) => {
+        this.functionsUsers = res.functionsUsers;
+        this.functionsRoles = res.functionsRoles;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+}
+
+newIdsUser: any = [];
+newIdsRoles: any = [];
+
 addRole(){
   if (this.newRole.name?.trim() && this.newRole.description?.trim()) {
     this.newRole.ids = this.idsArray.map((user: any) => user.id);
+    // PREUBA
+    for(let i = 0; i < this.idsFunctionUsers.length; i++){
+      this.newIdsUser.push(this.idsFunctionUsers[i].id);
+    }
+
+    for(let j = 0; j < this.idsFunctionRoles.length; j++){
+      this.newIdsRoles.push(this.idsFunctionRoles[j].id);
+    }
+
+    this.newRole.idsPermissions = this.newIdsUser.concat(this.newIdsRoles);
+    // FIN PRUEBA
+
     this.roleRest.createRole(this.newRole).subscribe({
         next:(res:any)=>{
             this.getRoles();          
             this.addRoles = false;
             this.toastr.success(res.message);
             this.idsArray = [];
+            // this.idsFunctionUsers = []
+            // this.idsFunctionRoles = []
         },
         error:(err)=>{
             this.toastr.error(err.error.message || err.error);
@@ -235,14 +271,6 @@ updateRole(){
 this.submitted = true;
 }
 
-
-
-  dialogCreateRole(){
-    this.addRoles = true;
-    this.idsArray = [];
-}
-
-
 deleteRolDialog(){
   this.deleteRoleDialog = true;
 }
@@ -267,6 +295,8 @@ idsRoleSelected: any = [];
 idsUserSelected: any = [];
 
 getPermmissions(idRole: string){
+  // this.idsUsers = []
+  // this.idsRoles = []
   this.rolPermissionDialog = true
   this.idRolSelected = idRole;
   this.roleRest.getFunctions(idRole).subscribe({

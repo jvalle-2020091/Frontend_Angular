@@ -36,7 +36,7 @@
                         <th pSortableColumn="rating">{{"USERS.EMAIL" | translate}} </th>
                         <th *ngIf="permissionPasswordChange()" pSortableColumn="inventoryStatus">{{"USERS.PASSWORD" | translate}} </th>
                         <th *ngIf="permissionIsLocked()" pSortableColumn="inventoryStatus">{{"USERS.LOCKED" | translate}} </th>
-                        <th *ngIf="!permissionEditUser() && !permissiondeleteUser()"></th>
+                        
                         <th *ngIf="permissionEditUser() || permissiondeleteUser()">{{"USERS.ACTIONS" | translate}}</th>
                     </tr>
                 </ng-template>
@@ -71,6 +71,7 @@
                                     (click)="getUserDelete(user.id)"></button>
                             </div>
                         </td>
+                    
                     </tr>
                 </ng-template>
             </p-table>

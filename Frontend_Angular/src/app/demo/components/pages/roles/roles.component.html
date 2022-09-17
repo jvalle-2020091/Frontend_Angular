@@ -123,25 +123,36 @@
                         </span>
                         <hr>
 
-                        <p-table #dtusers [value]="users" [(selection)]="idsArray" [columns]="cols" responsiveLayout="scroll"  [globalFilterFields]="['firstName', 'lastName']"  dataKey="id" [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
-                            <ng-template  pTemplate="groupheader" let-user let-expanded="expanded">
-                                <tr>
-                                
-                                    <th pSortableColumn="Users" class="mt-2" >Modulo usuario </th>
-                                    <th >
-                                        <button type="button" pButton pRipple [pRowToggler]="user" class="p-button-text p-button-plain " [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                                    </th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="rowexpansion" let-user>
+                <!-- TABLA MODULO USUARIOS TRABAJNDO-->
+                <p-accordion>
+                    <p-accordionTab header="Modulo de Usuarios">
+                        <p-table  [value]="functionsUsers" [(selection)]="idsFunctionUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                            <ng-template pTemplate="body" let-user>
                                 <tr>
                                     <td>
-                                        <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                                        <p-tableCheckbox [value]="user" dataKey="user.name"></p-tableCheckbox>
                                     </td>
-                                    <td style="width:5%; min-width:3rem;">puede ver los usuarios</td>                                
+                                    <td style="width:5%; min-width:3rem;">{{user.name}}</td>                                
                                 </tr>
                             </ng-template>
                         </p-table>
+                    </p-accordionTab>
+                </p-accordion>
+                <!-- TABLA MODULO ROLES -->
+                <p-accordion>
+                    <p-accordionTab header="Modulo de roles">
+                        <p-table  [value]="functionsRoles" [(selection)]="idsFunctionRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                            <ng-template pTemplate="body" let-role>
+                                <tr>
+                                    <td>
+                                        <p-tableCheckbox [value]="role" dataKey="role.name"></p-tableCheckbox>
+                                    </td>
+                                    <td style="width:5%; min-width:3rem;">{{role.name}}</td>                                
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        </p-accordionTab>
+                </p-accordion>
         
 
                     </p-tabPanel>
