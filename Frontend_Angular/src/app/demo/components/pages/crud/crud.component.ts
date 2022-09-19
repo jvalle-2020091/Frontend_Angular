@@ -92,6 +92,8 @@ export class CrudComponent implements OnInit {
   disabled: boolean = false;
   mensaje: any;
 
+  permissionsStrings: any = [];
+
   constructor(
     private userRest: UserRestService,
     private toastr: ToastrService,
@@ -117,6 +119,18 @@ export class CrudComponent implements OnInit {
     this.language = this.rolRest.getLanguage();
     this.translate.addLangs(['es', 'en']);
     this.translate.setDefaultLang(this.language);
+    this.permissions();
+  }
+
+  permissions(){
+    this.loginRest.permissions(this.loginRest.getUser().id).subscribe({
+      next: (res: any)=> {
+        this.permissionsStrings = res.nameFunctions;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   dialogCreateUser() {
@@ -333,7 +347,7 @@ export class CrudComponent implements OnInit {
 
 
   permissionCreateUser(){
-    let permissions = this.loginRest.getPermmissions();
+    let permissions = this.permissionsStrings;
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
@@ -348,7 +362,7 @@ export class CrudComponent implements OnInit {
   }
 
   permissionGetUsers(){
-    let permissions = this.loginRest.getPermmissions();
+    let permissions = this.permissionsStrings;
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
@@ -364,7 +378,7 @@ export class CrudComponent implements OnInit {
 
 
   permissionPasswordChange(){
-    let permissions = this.loginRest.getPermmissions();
+    let permissions = this.permissionsStrings;
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
@@ -379,7 +393,7 @@ export class CrudComponent implements OnInit {
   }
 
   permissionIsLocked(){
-    let permissions = this.loginRest.getPermmissions();
+    let permissions = this.permissionsStrings;
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
@@ -394,7 +408,7 @@ export class CrudComponent implements OnInit {
   }
 
   permissionEditUser(){
-    let permissions = this.loginRest.getPermmissions();
+    let permissions = this.permissionsStrings;
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
@@ -409,7 +423,7 @@ export class CrudComponent implements OnInit {
   }
 
   permissiondeleteUser(){
-    let permissions = this.loginRest.getPermmissions();
+    let permissions = this.permissionsStrings;
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){

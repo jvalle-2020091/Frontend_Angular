@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', res.token);
           localStorage.setItem('user', JSON.stringify(res.newUserSearch || res.usernameExist));
           localStorage.setItem('language', this.language)
-          this.permissions();
           this.toastr.success(res.message);
           this.router.navigateByUrl('layout');
         } else if (userPass.needChangePassword == true) {
@@ -76,16 +75,5 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  permissions(){
-    console.log(this.loginRest.getUser().id);
-    
-    this.loginRest.permissions(this.loginRest.getUser().id).subscribe({
-      next: (res: any)=> {
-        localStorage.setItem("permissions", res.nameFunctions);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  }
+
 }
