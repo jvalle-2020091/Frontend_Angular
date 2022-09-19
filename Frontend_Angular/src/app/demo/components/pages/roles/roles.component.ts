@@ -74,6 +74,7 @@ export class RolesComponent implements OnInit {
   submitted: boolean = false;
   //Lenguaje
   
+  permissionsStrings: any = [];
 
 
   constructor(
@@ -102,6 +103,18 @@ export class RolesComponent implements OnInit {
     this.language = this.roleRest.getLanguage();
     this.translate.addLangs(['es', 'en']);
     this.translate.setDefaultLang(this.language);
+    this.permissions();
+  }
+
+  permissions(){
+    this.loginRest.permissions(this.loginRest.getUser().id).subscribe({
+      next: (res: any)=> {
+        this.permissionsStrings = res.nameFunctions;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   getRoles(){
@@ -319,6 +332,7 @@ getPermmissions(idRole: string){
 assignPermissions(){
   this.idsUserSelected = [];
   this.idsRoleSelected = [];
+  location.reload();
   //Se recorre el arreglo de las funciones seleccionadas
   for(let i = 0; i < this.idsUsers.length; i++){
     this.idsUserSelected.push(this.idsUsers[i].id);
@@ -342,7 +356,7 @@ assignPermissions(){
 }
 
 permissionGetRoles(){
-  let permissions = this.loginRest.getPermmissions();
+  let permissions = this.permissionsStrings;
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
@@ -357,7 +371,7 @@ permissionGetRoles(){
 }
 
 permissionGetUsersByRol(){
-  let permissions = this.loginRest.getPermmissions();
+  let permissions = this.permissionsStrings;
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
@@ -372,7 +386,7 @@ permissionGetUsersByRol(){
 }
 
 permissionAssignFunctions(){
-  let permissions = this.loginRest.getPermmissions();
+  let permissions = this.permissionsStrings;
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
@@ -387,7 +401,7 @@ permissionAssignFunctions(){
 }
 
 permissionEditRol(){
-  let permissions = this.loginRest.getPermmissions();
+  let permissions = this.permissionsStrings;
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
@@ -402,7 +416,7 @@ permissionEditRol(){
 }
 
 permissionDeleteRol(){
-  let permissions = this.loginRest.getPermmissions();
+  let permissions = this.permissionsStrings;
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
@@ -417,7 +431,7 @@ permissionDeleteRol(){
 }
 
 permissionCreateRol(){
-  let permissions = this.loginRest.getPermmissions();
+  let permissions = this.permissionsStrings;
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
