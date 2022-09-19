@@ -28,7 +28,10 @@
         "USERS": "Usuarios",
         "REQUERIDNAME": "El nombre es requerido",
         "REQUERIDLASTNAME": "El apellido es requerido",
-        "SEARCHROLES": "Buscar Roles"
+        "SEARCHROLES": "Buscar Roles",
+        "DATAUSER": "INFORMACIÓN USUARIO",
+        "CANCEL": "Cancelar",
+        "ISlOCKED": "¿Estas seguro de realizar esta acción a"
     },
     "ROLES":{
         "ID": "Código",
@@ -50,7 +53,14 @@
         "SEARCHPERMISSIONS": "Buscar Permisos",
         "YES": "Sí",
         "NO": "No",
-        "CONFIRM": "Confirmar"
+        "CONFIRM": "Confirmar",
+        "UPDATE": "ACTUALIZAR ROL",
+        "PERMISSION": "PERMISOS",
+        "MUSERS": "Módulo Usuario",
+        "MROLE": "Módulo Rol",
+        "SAVE": "Guardar",
+        "CANCEL": "Cancelar"
+        
     },
     "MENU":{
         "ES": "Español",

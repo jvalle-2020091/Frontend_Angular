@@ -26,7 +26,10 @@
     "USERS": "Users",
     "REQUERIDNAME": "First Name required",
     "REQUERIDLASTNAME": "Last Name is required",
-    "SEARCHROLES": "Search Roles"
+    "SEARCHROLES": "Search Roles",
+    "DATAUSER": "DATA USER",
+    "CANCEL": "Cancel",
+    "ISlOCKED": "Are you sure to perform this action on"
   },
   "ROLES":{
     "ID": "Code",
@@ -48,7 +51,13 @@
     "SEARCHPERMISSIONS": "Search Permissions",
     "YES": "Yes",
     "NO": "No",
-    "CONFIRM": "Confirm"
+    "CONFIRM": "Confirm",
+    "UPDATE": "UPDATE ROLE",
+    "PERMISSION": "PERMISSION",
+    "MUSERS": "Module User",
+    "MROLE": "Module Role",
+    "SAVE": "Save",
+    "CANCEL": "Cancel"
 },
 "MENU":{
     "ES": "Espanish",

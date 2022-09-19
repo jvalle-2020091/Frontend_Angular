@@ -36,8 +36,12 @@
                         <th pSortableColumn="rating">{{"USERS.EMAIL" | translate}} </th>
                         <th *ngIf="permissionPasswordChange()" pSortableColumn="inventoryStatus">{{"USERS.PASSWORD" | translate}} </th>
                         <th *ngIf="permissionIsLocked()" pSortableColumn="inventoryStatus">{{"USERS.LOCKED" | translate}} </th>
+                        <th *ngIf="!permissionPasswordChange()"></th>
+                        <th *ngIf="!permissionIsLocked()"></th>
+                        <th *ngIf="!permissionEditUser() && !permissiondeleteUser()"></th>
                         
                         <th *ngIf="permissionEditUser() || permissiondeleteUser()">{{"USERS.ACTIONS" | translate}}</th>
+                        
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
@@ -71,6 +75,7 @@
                                     (click)="getUserDelete(user.id)"></button>
                             </div>
                         </td>
+                        
                     
                     </tr>
                 </ng-template>
@@ -79,7 +84,7 @@
 
         <!--Modal para actualizar al usuario-->
 
-        <p-dialog [(visible)]="userUpdateDialog" [style]="{width: '450px'}" header="User Details" [modal]="true"
+        <p-dialog [(visible)]="userUpdateDialog" [style]="{width: '450px'}" header="{{'USERS.DATAUSER' | translate}}" [modal]="true"
             class="p-fluid">
 
             <ng-template pTemplate="content">
@@ -106,9 +111,9 @@
             </ng-template>
 
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                <button pButton pRipple label="{{'USERS.CANCEL' | translate}}" icon="pi pi-times" class="p-button-text"
                     (click)="userUpdateDialog = false"></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                <button pButton pRipple label="{{'USERS.SAVE' | translate}}" icon="pi pi-check" class="p-button-text"
                     (click)="updateUser()"></button>
             </ng-template>
 
@@ -132,12 +137,12 @@
          <p-dialog [(visible)]="lockUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to block {{nameLock}}?</span>
+                <span>{{"USERS.ISlOCKED" | translate}} {{nameLock}}?</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="{{'ROLES.NO' | translate}}"
                     (click)="lockUserDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="{{'ROLES.YES' | translate}}"
                 (click)="updateUserLock()"></button>
             </ng-template>
         </p-dialog>
@@ -153,9 +158,9 @@
                 </span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="{{'ROLES.NO' | translate}}"
                     (click)="changePassword = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="{{'ROLES.YES' | translate}}"
                     (click)="updatePasswordByAdmin()"></button>
             </ng-template>
 

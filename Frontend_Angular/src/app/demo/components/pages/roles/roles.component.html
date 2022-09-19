@@ -125,7 +125,7 @@
 
                 <!-- TABLA MODULO USUARIOS TRABAJNDO-->
                 <p-accordion>
-                    <p-accordionTab header="Modulo de Usuarios">
+                    <p-accordionTab header="{{'ROLES.MUSERS' | translate}}">
                         <p-table  [value]="functionsUsers" [(selection)]="idsFunctionUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
                             <ng-template pTemplate="body" let-user>
                                 <tr>
@@ -140,7 +140,7 @@
                 </p-accordion>
                 <!-- TABLA MODULO ROLES -->
                 <p-accordion>
-                    <p-accordionTab header="Modulo de roles">
+                    <p-accordionTab header="{{'ROLES.MROLE' | translate}}">
                         <p-table  [value]="functionsRoles" [(selection)]="idsFunctionRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
                             <ng-template pTemplate="body" let-role>
                                 <tr>
@@ -163,9 +163,9 @@
 
         </form>
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                <button pButton pRipple label="{{'ROLES.CANCEL' | translate}}" icon="pi pi-times" class="p-button-text"
                     (click)="addRoles = false"></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                <button pButton pRipple label="{{'ROLES.SAVE' | translate}}" icon="pi pi-check" class="p-button-text"
                     (click)="addRole()"></button>
             </ng-template>
 
@@ -215,7 +215,7 @@
                         </ng-template>
                         
                         <ng-template   pTemplate="footer" >
-                            <button  pButton pRipple type="button" icon="pi pi-check" class="p-button-primary mt-2" label="Save"
+                            <button  pButton pRipple type="button" icon="pi pi-check" class="p-button-primary mt-2" label="{{'ROLES.SAVE' | translate}}"
                                 (click)="this.postUsersByRol()" ></button>
                         </ng-template>
 
@@ -225,17 +225,17 @@
         </p-dialog>
 
         <!--Modal para mostrar los permisos asignados a un rol-->
-        <p-dialog [(visible)]="rolPermissionDialog" [style]="{width: '40%', height: '70%'} "   header="Permissions" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="rolPermissionDialog" [style]="{width: '40%', height: '70%'} "   header="{{'ROLES.PERMISSION' | translate}}" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="card">
                             <span class="block mt-2 md:mt-0 p-input-icon-left">
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" placeholder="Search permissions" (input)="onGlobalFilterUsers(dtusers, $event)" class="w-full sm:w-auto" />
+                                <input pInputText type="text" placeholder="{{'ROLES.SEARCHPERMISSIONS' | translate}}" (input)="onGlobalFilterUsers(dtusers, $event)" class="w-full sm:w-auto" />
                             </span>
                             <br>
                 <!-- TABLA MODULO USUARIOS -->
                 <p-accordion>
-                    <p-accordionTab header="Modulo de Usuarios">
+                    <p-accordionTab header="{{'ROLES.MUSERS' | translate}}">
                         <p-table  [value]="arrayUsers" [(selection)]="idsUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
                             <ng-template pTemplate="body" let-user>
                                 <tr>
@@ -250,7 +250,7 @@
                 </p-accordion>
                 <!-- TABLA MODULO ROLES -->
                 <p-accordion>
-                    <p-accordionTab header="Modulo de roles">
+                    <p-accordionTab header="{{'ROLES.MROLE' | translate}}">
                         <p-table  [value]="arrayRoles" [(selection)]="idsRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
                             <ng-template pTemplate="body" let-role>
                                 <tr>
@@ -269,13 +269,13 @@
             
         </ng-template>
         <ng-template   pTemplate="footer" >
-            <button  pButton pRipple type="button" icon="pi pi-check" class="p-button-primary mt-2" label="Save"
+            <button  pButton pRipple type="button" icon="pi pi-check" class="p-button-primary mt-2" label="{{'ROLES.SAVE' | translate}}"
               (click)="assignPermissions()"></button>
         </ng-template>
         </p-dialog>
 
         <!--Modal para actualizar el role-->
-        <p-dialog [(visible)]="roleUpdateDialog" [style]="{width: '450px'}" header="Update Role" [modal]="true"
+        <p-dialog [(visible)]="roleUpdateDialog" [style]="{width: '450px'}" header="{{'ROLES.UPDATE' | translate}}" [modal]="true"
         class="p-fluid">
 
         <ng-template  pTemplate="content">
@@ -295,9 +295,9 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            <button pButton pRipple label="{{'ROLES.NO' | translate}}" icon="pi pi-times" class="p-button-text"
                 (click)="roleUpdateDialog = false"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+            <button pButton pRipple label="{{'ROLES.YES' | translate}}" icon="pi pi-check" class="p-button-text"
                 (click)="updateRole()"></button>
         </ng-template>
 
