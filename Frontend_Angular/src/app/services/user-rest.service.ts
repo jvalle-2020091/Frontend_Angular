@@ -2,17 +2,22 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginRestService } from './login-rest.service';
+import { RoleRestService } from './role-rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserRestService {
 
-  httpOption = new HttpHeaders().set("Content-Type", "application/json");
-
+  httpOption = new HttpHeaders({
+    "Accept-Language": this.roleRest.getLanguage()
+  }).set("Content-Type", "application/json");
+  
+  
   constructor(
     private http: HttpClient,
-    private loginRest: LoginRestService
+    private loginRest: LoginRestService,
+    private roleRest: RoleRestService
   ) { }
 
   getUsers(){

@@ -47,6 +47,9 @@ export class RoleRestService {
 
   getLanguage(){
     let language = localStorage.getItem('language');
+    if(language === null){
+      language = ""
+    }
     return language
   };
 
