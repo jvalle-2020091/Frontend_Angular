@@ -15,21 +15,28 @@ import { FormControl } from '@angular/forms';
 export class AppTopBarComponent  {
     selectedLenguaje: any;
     language: any;
-    lenguajes: any = [];
-    options: any =[];
+
     token: any;
-
-    lang: any;
-
     lastname: any;
     firstname: any;
     image:any;
 
     model: any[] = [];
 
-    items!: MenuItem[];
-    log!: MenuItem [];
-    languages!: MenuItem [];
+    log: any = [
+        {label: 'TOPBAR.LOGOUT', icon: 'pi pi-sign-out', command: () => {
+            this.logOut()
+        }}
+    ];
+
+    languages:any = [
+        {label: 'TOPBAR.SPANISH', icon: 'pi pi-globe', command: () => {
+            this.setLanguage('es')
+        }},
+        {label: 'TOPBAR.ENGLISH', icon: 'pi pi-globe', command: () => {
+            this.setLanguage('en')
+        }}
+    ]
 
     @ViewChild('menu') menu!: ElementRef;
 
@@ -47,54 +54,25 @@ export class AppTopBarComponent  {
     ngOnInit() {
         this.language = this.roleRest.getLanguage();
         this.translate.addLangs(['es', 'en']);
-        //this.translate.setDefaultLang(this.language);
+        this.translate.setDefaultLang(this.language);
 
-        this.log = [
-            {label: 'Log Out', icon: 'pi pi-sign-out', command: () => {
-                this.logOut()
-            }}
-        ]
+        for(const item of this.log){
+            this.translate.get(item.label).subscribe(res =>{
+                item.label = res
+            })
+        }
 
-        this.languages = [
-            {label: "Spanish", icon: 'pi pi-globe', command: () => {
-                this.setLanguage('es')
-            }},
-            {label: 'English', icon: 'pi pi-globe', command: () => {
-                this.setLanguage('en')
-            }}
-        ]
-
-        this.lang =   this.roleRest.getLanguage();
-        this.firstname = this.loginRest.getUser().firstName;
-        console.log(this.firstname);
-
+        for(const item of this.languages){
+            this.translate.get(item.label).subscribe(res =>{
+                item.label = res
+            })
+        }
         
+
+        this.firstname = this.loginRest.getUser().firstName;
         this.lastname = this.loginRest.getUser().lastName;
         this.image = this.loginRest.getUser().image;
-
         this.token = this.loginRest.getToken();
-
-        this.lenguajes = [
-            {
-                name: 'Es',
-                code: 'AU',
-
-            },
-            {
-                name: 'En', 
-                code: 'CA',
-            
-            },
-            
-        ];
-        this.options = [
-            {
-                name: 'Log Out',
-            }
-            
-            
-        ];
-        
     }
 
 

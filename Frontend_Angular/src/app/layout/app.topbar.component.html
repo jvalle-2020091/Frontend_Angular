@@ -19,8 +19,8 @@
         <div style="font-size: 8px" class="mt-3">
             <p-splitButton  styleClass="p-button-outlined p-button-secondary mr-2 mb-2"  [model]="this.languages" >
                 <ng-template pTemplate="content" >
-                    <span style="font-size: 1.7rem; color: #B2BABB;">Language</span>               
-                    <span style="font-size: 1.7rem;" class="ml-2 flex align-items-center font-bold">{{this.lang}}</span>
+                    <span style="font-size: 1.7rem; color: #B2BABB;">{{"TOPBAR.LANGUAGE" | translate}}</span>               
+                    <span style="font-size: 1.7rem;" class="ml-2 flex align-items-center font-bold">{{this.language}}</span>
                 </ng-template>
             </p-splitButton>
         </div>

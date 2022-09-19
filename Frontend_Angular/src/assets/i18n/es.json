@@ -54,7 +54,17 @@
     },
     "MENU":{
         "ES": "Español",
-        "EN": "Ingles"
+        "EN": "Ingles",
+        "COMPONENTS": "Módulos",
+        "USERS": "Usuarios",
+        "ROLES": "Roles",
+        "HOME": "Inicio"
+    },
+    "TOPBAR":{
+        "LANGUAGE": "Lenguaje",
+        "SPANISH": "ESPAÑOL",
+        "ENGLISH": "INGLES",
+        "LOGOUT": "Cerrar Sesión"
     }
 
 

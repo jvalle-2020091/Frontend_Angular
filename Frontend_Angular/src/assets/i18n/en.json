@@ -1,6 +1,6 @@
 {
   "USERS":{
-    "ID": "Id",
+    "ID": "Code",
     "USER": "Username",
     "FIRSTNAME": "First Name",
     "LASTNAME": "Last Name",
@@ -29,7 +29,7 @@
     "SEARCHROLES": "Search Roles"
   },
   "ROLES":{
-    "ID": "Id",
+    "ID": "Code",
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "USERS": "Users",
@@ -52,7 +52,17 @@
 },
 "MENU":{
     "ES": "Espanish",
-    "EN": "English"
+    "EN": "English",
+    "COMPONENTS": "Modules",
+    "USERS": "Users",
+    "ROLES": "Roles",
+    "HOME": "Home"
+},
+"TOPBAR":{
+    "LANGUAGE": "Language",
+    "SPANISH": "SPANISH",
+    "ENGLISH": "ENGLISH",
+    "LOGOUT": "Log Out"
 }
 
 }

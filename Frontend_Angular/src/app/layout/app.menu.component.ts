@@ -10,27 +10,27 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppMenuComponent implements OnInit {
 
-    model: any= [
+    model: any = [
         // {
-        //     label: 'Home',
+        //     label: 'MENU.HOME',
         //     items: [
         //         { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/layout'] }
         //     ]
         // },
        
         {
-            label: 'ROLES.ID',
+            label: 'MENU.COMPONENTS',
             icon: 'pi pi-fw pi-briefcase',
             routerLink: ['/pages'],
             items: [
               
                 {
-                    label: "ROLES.ID",
+                    label: "MENU.USERS",
                     icon: 'pi pi-fw pi-users',
                     routerLink: ['/layout/pages/crud']
                 },
                 {
-                    label: 'Roles',
+                    label: 'MENU.ROLES',
                     icon: 'pi pi-fw pi-cog',
                     routerLink: ['/layout/pages/roles']
                 },
@@ -46,7 +46,6 @@ export class AppMenuComponent implements OnInit {
         public translate: TranslateService,
         private roleRest: RoleRestService) 
                 {
-                    console.log("Hola")
                     
                 }
 
