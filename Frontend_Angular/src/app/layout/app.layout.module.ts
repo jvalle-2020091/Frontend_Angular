@@ -27,10 +27,6 @@ import { MatInputModule } from '@angular/material/input'
 import {SplitButtonModule} from 'primeng/splitbutton';
 
 
-export function HttpLoaderFactory(http: HttpClient){
-    return new TranslateHttpLoader(http, '../../assets/i18n/')
-}
-
 @NgModule({
     declarations: [
         AppMenuitemComponent,
@@ -55,19 +51,10 @@ export function HttpLoaderFactory(http: HttpClient){
         RouterModule,
         TreeSelectModule,
         CascadeSelectModule,
-        TranslateModule.forRoot({
-            loader:{
-                provide:TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
         MatSelectModule,
         MatFormFieldModule,
         MatInputModule,
         SplitButtonModule
-        
-        
     ],
     exports: [AppLayoutComponent]
 })

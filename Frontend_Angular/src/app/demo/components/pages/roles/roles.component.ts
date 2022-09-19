@@ -346,7 +346,7 @@ permissionGetRoles(){
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'getRoles'){
+        if(permissions[x] == 'Get Roles'){
           bandera = true;
           break;
         
@@ -361,7 +361,7 @@ permissionGetUsersByRol(){
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'getUsersByRol'){
+        if(permissions[x] == 'Get users by role'){
           bandera = true;
           break;
         
@@ -376,7 +376,7 @@ permissionAssignFunctions(){
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'permissions'){
+        if(permissions[x] == 'Permission Assignment'){
           bandera = true;
           break;
         
@@ -391,7 +391,7 @@ permissionEditRol(){
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'editRol'){
+        if(permissions[x] == 'Role edition'){
           bandera = true;
           break;
         
@@ -406,7 +406,7 @@ permissionDeleteRol(){
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'deleteRol'){
+        if(permissions[x] == 'Role removal'){
           bandera = true;
           break;
         
@@ -421,7 +421,7 @@ permissionCreateRol(){
   let bandera: boolean = false;
   if(permissions != undefined){
     for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'createRol'){
+        if(permissions[x] == 'Role creation'){
           bandera = true;
           break;
         

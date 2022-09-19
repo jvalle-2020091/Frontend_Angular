@@ -337,7 +337,7 @@ export class CrudComponent implements OnInit {
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'createUser'){
+          if(permissions[x] == 'User creation'){
             bandera = true;
             break;
           
@@ -352,7 +352,7 @@ export class CrudComponent implements OnInit {
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'getUsuarios'){
+          if(permissions[x] == 'Get users'){
             bandera = true;
             break;
           
@@ -368,7 +368,7 @@ export class CrudComponent implements OnInit {
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'passwordChange'){
+          if(permissions[x] == 'Change of password'){
             bandera = true;
             break;
           
@@ -383,7 +383,7 @@ export class CrudComponent implements OnInit {
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'isLocked'){
+          if(permissions[x] == 'User blocking'){
             bandera = true;
             break;
           
@@ -398,7 +398,7 @@ export class CrudComponent implements OnInit {
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'editUser'){
+          if(permissions[x] == 'User Edition'){
             bandera = true;
             break;
           
@@ -413,7 +413,7 @@ export class CrudComponent implements OnInit {
     let bandera: boolean = false;
     if(permissions != undefined){
       for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'deleteUser'){
+          if(permissions[x] == 'Deletion of users'){
             bandera = true;
             break;
           
