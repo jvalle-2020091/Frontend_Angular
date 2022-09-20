@@ -9,16 +9,22 @@ import { RoleRestService } from './role-rest.service';
 })
 export class UserRestService {
 
-  httpOption = new HttpHeaders({
-    "Accept-Language": this.roleRest.getLanguage()
-  }).set("Content-Type", "application/json");
-  
-  
+  httpOption;
+  locale: any;
+
   constructor(
     private http: HttpClient,
     private loginRest: LoginRestService,
     private roleRest: RoleRestService
-  ) { }
+    ) { 
+    this.httpOption = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": this.loginRest.getToken() 
+    });
+    this.locale = {
+      locale: this.roleRest.getLanguage()
+    }
+  }
 
   getUsers(){
     return this.http.get(environment.baseUri + "users/getUsers", {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
@@ -29,11 +35,12 @@ export class UserRestService {
   };
 
   deleteUser(idUser: string){
-    return this.http.put(environment.baseUri + "users/deleteUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+    return this.http.put(environment.baseUri + "users/deleteUser/" + idUser, this.locale, {headers: this.httpOption});
   };
 
   updateUser(idUser: string, params: {}){
-    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, params,{headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+    params = {...params, ...this.locale};
+    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, params, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
   }
 
 
