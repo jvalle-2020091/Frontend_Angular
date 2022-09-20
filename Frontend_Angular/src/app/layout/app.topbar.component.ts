@@ -27,6 +27,7 @@ export class AppTopBarComponent  {
         {label: 'TOPBAR.LOGOUT', icon: 'pi pi-sign-out', command: () => {
             this.logOut()
         }}
+        
     ];
 
     languages:any = [

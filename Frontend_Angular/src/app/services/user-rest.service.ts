@@ -10,7 +10,7 @@ import { RoleRestService } from './role-rest.service';
 export class UserRestService {
 
   httpOption = new HttpHeaders({
-    "Accept-Language": this.roleRest.getLanguage()
+    "accept-language": this.roleRest.getLanguage()
   }).set("Content-Type", "application/json");
   
   

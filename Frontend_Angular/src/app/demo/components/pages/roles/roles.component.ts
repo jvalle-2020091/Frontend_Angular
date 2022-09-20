@@ -179,7 +179,9 @@ functionsRoles: any = [];
 
 idsFunctionUsers: any = [];
 idsFunctionRoles: any = [];
-
+//translate
+translateFunctionUsers: any =[];
+translateFunctionRoles: any =[];
 dialogCreateRole(){
     this.addRoles = true;
     this.idsArray = [];
@@ -187,8 +189,22 @@ dialogCreateRole(){
     this.idsFunctionRoles = [];
     this.roleRest.getFunctionsCreateRol().subscribe({
       next: (res: any) => {
+        //Traducción de las funciones de user
         this.functionsUsers = res.functionsUsers;
+        for(let item of this.functionsUsers){
+          this.translateFunctionUsers.push({
+            id: item.id,
+            name: "FUNCTION." + [item.id]
+          })
+        }
+        //Traducción de las funciones de roles
         this.functionsRoles = res.functionsRoles;
+        for(let child of this.functionsRoles){
+          this.translateFunctionRoles.push({
+            id: child.id,
+            name: "FUNCTION." + [child.id]
+          })
+        }
       },
       error: (err) => {
         console.log(err);
@@ -303,6 +319,10 @@ onGlobalFilterUsers(table: Table, event: Event) {
   table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
 
+onGlobalFilterFunctions(table: Table, event: Event) {
+  table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+}
+
 
 //Functions
 arrayUsers: any = [];
@@ -313,16 +333,39 @@ idRolSelected: any;
 
 idsRoleSelected: any = [];
 idsUserSelected: any = [];
+//translate
+getTranslateFunctionUser: any =[];
+getTranslateFunctionRole: any =[]
 
 getPermmissions(idRole: string){
   this.rolPermissionDialog = true
   this.idRolSelected = idRole;
+
+  this.getTranslateFunctionUser =[];
+  this.getTranslateFunctionRole =[];
+
   this.roleRest.getFunctions(idRole).subscribe({
     next:(res:any)=>{
+      //Traducción de fucnicones de usuario
       this.arrayUsers = res.arrayUsers;
+      for(let item of this.arrayUsers){
+        this.getTranslateFunctionUser.push({
+          id: item.id,
+          name: "FUNCTION." + [item.id],
+          include: item.include
+        })
+      }
+      //Traducción de fucnicones de role
       this.arrayRoles = res.arrayRoles;
-      this.idsUsers = this.arrayUsers.filter((user: any) => user.include);
-      this.idsRoles = this.arrayRoles.filter((role: any) => role.include);
+      for(let child of this.arrayRoles){
+        this.getTranslateFunctionRole.push({
+          id: child.id,
+          name: "FUNCTION." + [child.id],
+          include: child.include
+        })
+      }
+      this.idsUsers = this.getTranslateFunctionUser.filter((user: any) => user.include);
+      this.idsRoles = this.getTranslateFunctionRole.filter((role: any) => role.include);
     },
     error:(err)=>{
       console.log(err)
@@ -363,7 +406,7 @@ permissionGetRoles(){
         if(permissions[x] == 'Get Roles'){
           bandera = true;
           break;
-        
+    
         }
     }
   }

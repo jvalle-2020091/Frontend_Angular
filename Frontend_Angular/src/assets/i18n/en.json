@@ -72,6 +72,21 @@
     "SPANISH": "SPANISH",
     "ENGLISH": "ENGLISH",
     "LOGOUT": "Log Out"
+},
+
+"FUNCTION":{
+  "1": "Get users",
+  "2": "User creation",
+  "3": "Change of password",
+  "4": "User blocking",
+  "5": "User Edition",
+  "6": "Deletion of users",
+  "7": "Get Roles",
+  "8": "Get users by role",
+  "9": "Permission Assignment",
+  "10": "Role edition",
+  "11": "Role removal",
+  "12": "Role creation"
 }
 
 }
