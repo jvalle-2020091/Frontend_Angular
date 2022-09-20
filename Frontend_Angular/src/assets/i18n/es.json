@@ -75,7 +75,22 @@
         "SPANISH": "ESPAÑOL",
         "ENGLISH": "INGLES",
         "LOGOUT": "Cerrar Sesión"
-    }
+    },
+    "FUNCTION":{
+        "1": "Ver Usuarios",
+        "2": "Crear Usuarios",
+        "3": "Cambio de Contraseña",
+        "4": "Bloquear Usuarios",
+        "5": "Editar Usuarios",
+        "6": "Eliminar Usuarios",
+        "7": "Ver Roles",
+        "8": "Ver usuarios de un Rol",
+        "9": "Asignación de Permisos",
+        "10": "Editar Roles",
+        "11": "Eliminar Roles",
+        "12": "Crear Roles"
+      }
+      
 
 
 }

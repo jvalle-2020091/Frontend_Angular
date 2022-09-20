@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button *ngIf="permissionCreateRol();" style="width: auto; text-align: center;" pButton pRipple class="p-button-success mr-2"
-                            (click)="dialogCreateRole(); secondFormGroup.reset()"><i class="pi pi-plus mr-2"></i> <b>{{"ROLES.ADDROLE" | translate}}</b></button>
+                            (click)="dialogCreateRole(); secondFormGroup.reset() "><i class="pi pi-plus mr-2"></i> <b>{{"ROLES.ADDROLE" | translate}}</b></button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -69,7 +69,7 @@
         </div>
 
         <!--Modal para agregar un nuevo role-->
-        <p-dialog [(visible)]="addRoles" [style]="{width: '350px'}" header="New Role" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="addRoles" [style]="{width: '30%', height: '80%'}"  header="New Role" [modal]="true" class="p-fluid">
             <form [formGroup]="secondFormGroup">
             <div class="field">
                 <label for="name">{{"ROLES.NAMENEWROLE" | translate}}</label>
@@ -117,44 +117,44 @@
                     </p-tabPanel>
 
                     <p-tabPanel header="{{'ROLES.PERMISSIONS' | translate}}">
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+
+                        <!-- <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" placeholder="{{'ROLES.SEARCHPERMISSIONS' | translate}}" class="w-full sm:w-auto" />
+                            <input pInputText type="text" placeholder="{{'ROLES.SEARCHPERMISSIONS' | translate}}" (input)="onGlobalFilterFunctions(dtfunctions, $event)" class="w-full sm:w-auto" />
                         </span>
-                        <hr>
+                        <hr> -->
 
-                <!-- TABLA MODULO USUARIOS TRABAJNDO-->
-                <p-accordion>
-                    <p-accordionTab header="{{'ROLES.MUSERS' | translate}}">
-                        <p-table  [value]="functionsUsers" [(selection)]="idsFunctionUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
-                            <ng-template pTemplate="body" let-user>
-                                <tr>
-                                    <td>
-                                        <p-tableCheckbox [value]="user" dataKey="user.name"></p-tableCheckbox>
-                                    </td>
-                                    <td style="width:5%; min-width:3rem;">{{user.name}}</td>                                
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </p-accordionTab>
-                </p-accordion>
-                <!-- TABLA MODULO ROLES -->
-                <p-accordion>
-                    <p-accordionTab header="{{'ROLES.MROLE' | translate}}">
-                        <p-table  [value]="functionsRoles" [(selection)]="idsFunctionRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
-                            <ng-template pTemplate="body" let-role>
-                                <tr>
-                                    <td>
-                                        <p-tableCheckbox [value]="role" dataKey="role.name"></p-tableCheckbox>
-                                    </td>
-                                    <td style="width:5%; min-width:3rem;">{{role.name}}</td>                                
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                        </p-accordionTab>
-                </p-accordion>
-        
-
+                        <!-- TABLA MODULO USUARIOS -->
+                        <p-accordion  >
+                            <p-accordionTab  header="{{'ROLES.MUSERS' | translate}}">
+                                <p-table [value]="translateFunctionUsers" [(selection)]="idsFunctionUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                                    <ng-template pTemplate="body" let-user>
+                                        <tr>
+                                            <td>
+                                                <p-tableCheckbox [value]="user" dataKey="user.name"></p-tableCheckbox>
+                                            </td>
+                                            <td style="width:5%; min-width:3rem;">{{user.name | translate}}</td>                                
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </p-accordionTab>
+                        </p-accordion>
+                        <!-- TABLA MODULO ROLES -->
+                        <p-accordion>
+                            <p-accordionTab header="{{'ROLES.MROLE' | translate}}">
+                                <p-table  [value]="translateFunctionRoles" [(selection)]="idsFunctionRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                                    <ng-template pTemplate="body" let-role>
+                                        <tr>
+                                            <td>
+                                                <p-tableCheckbox [value]="role" dataKey="role.name"></p-tableCheckbox>
+                                            </td>
+                                            <td style="width:5%; min-width:3rem;">{{role.name | translate}}</td>                                
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                </p-accordionTab>
+                        </p-accordion>
+            
                     </p-tabPanel>
 
                 </p-tabView>
@@ -236,13 +236,13 @@
                 <!-- TABLA MODULO USUARIOS -->
                 <p-accordion>
                     <p-accordionTab header="{{'ROLES.MUSERS' | translate}}">
-                        <p-table  [value]="arrayUsers" [(selection)]="idsUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                        <p-table  [value]="getTranslateFunctionUser" [(selection)]="idsUsers" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
                             <ng-template pTemplate="body" let-user>
                                 <tr>
                                     <td>
                                         <p-tableCheckbox [value]="user" dataKey="user.name"></p-tableCheckbox>
                                     </td>
-                                    <td style="width:5%; min-width:3rem;">{{user.name}}</td>                                
+                                    <td style="width:5%; min-width:3rem;">{{user.name | translate}}</td>                                
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -251,13 +251,13 @@
                 <!-- TABLA MODULO ROLES -->
                 <p-accordion>
                     <p-accordionTab header="{{'ROLES.MROLE' | translate}}">
-                        <p-table  [value]="arrayRoles" [(selection)]="idsRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
+                        <p-table  [value]="getTranslateFunctionRole" [(selection)]="idsRoles" [columns]="cols" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="220px"  rowGroupMode="subheader">
                             <ng-template pTemplate="body" let-role>
                                 <tr>
                                     <td>
                                         <p-tableCheckbox [value]="role" dataKey="role.name"></p-tableCheckbox>
                                     </td>
-                                    <td style="width:5%; min-width:3rem;">{{role.name}}</td>                                
+                                    <td style="width:5%; min-width:3rem;">{{role.name | translate}}</td>                                
                                 </tr>
                             </ng-template>
                         </p-table>

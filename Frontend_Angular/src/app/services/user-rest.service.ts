@@ -8,10 +8,9 @@ import { RoleRestService } from './role-rest.service';
   providedIn: 'root'
 })
 export class UserRestService {
-
   httpOption;
   locale: any;
-
+  
   constructor(
     private http: HttpClient,
     private loginRest: LoginRestService,
