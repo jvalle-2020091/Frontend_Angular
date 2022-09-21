@@ -59,6 +59,8 @@ export class CrudComponent implements OnInit {
 
   listPermission: any;
 
+  locale: any;
+
   //Propiedades Step 1
 
   firstFormGroup = this._formBuilder.group({

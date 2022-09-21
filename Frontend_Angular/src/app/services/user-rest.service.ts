@@ -64,6 +64,7 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
+      
 
       let uri = environment.baseUri + 'users/register';
 
@@ -97,6 +98,7 @@ export class UserRestService {
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
       
+
       for(let i = 0; i < idsRol.length; i++){
         formData.append('idsRol', idsRol[i]);
       }

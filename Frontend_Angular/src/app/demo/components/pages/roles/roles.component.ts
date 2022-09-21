@@ -365,10 +365,15 @@ getPermmissions(idRole: string){
     }
   })
 }
+
+object = {
+  idsPermissionsArray: []
+}
+
 assignPermissions(){
   this.idsUserSelected = [];
   this.idsRoleSelected = [];
-  location.reload();
+  
   //Se recorre el arreglo de las funciones seleccionadas
   for(let i = 0; i < this.idsUsers.length; i++){
     this.idsUserSelected.push(this.idsUsers[i].id);
@@ -379,10 +384,13 @@ assignPermissions(){
   
   let idsPermissionsArray = this.idsUserSelected.concat(this.idsRoleSelected);
 
-  this.roleRest.assignPermissions(this.idRolSelected, idsPermissionsArray).subscribe({
+  this.object.idsPermissionsArray = idsPermissionsArray;
+
+  this.roleRest.assignPermissions(this.idRolSelected, this.object).subscribe({
     next: (res: any) =>{
       this.rolPermissionDialog = false;
       this.toastr.success(res.message);
+      //location.reload();
     },
     error: (err) => {
       console.log(err);

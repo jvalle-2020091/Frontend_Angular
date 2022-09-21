@@ -50,8 +50,13 @@ export class RoleRestService {
   }
 
   postUsersByRol(idRol:any, idsArray:any){
-    
+    //idsArray = {...idsArray, ...this.locale};
     return this.http.post(environment.baseUri + "rols/postUsersByRol/" + idRol, idsArray, {headers: this.httpOption});
+  }
+  
+  assignPermissions(idRol:any, params: any){
+    params = {...params, ...this.locale};
+    return this.http.post(environment.baseUri + "functions/assignPermissions/" + idRol, params, {headers: this.httpOption});
   }
 
   getLanguage(){
@@ -66,9 +71,6 @@ export class RoleRestService {
     return this.http.get(environment.baseUri + "functions/getFunctions/" + idRol, {headers: this.httpOption});
   }
 
-  assignPermissions(idRol:any, idsPermissionsArray: any){
-    return this.http.post(environment.baseUri + "functions/assignPermissions/" + idRol, idsPermissionsArray, {headers: this.httpOption});
-  }
 
   getFunctionsCreateRol(){
     return this.http.get(environment.baseUri + "rols/getFunctions", {headers: this.httpOption});
