@@ -49,9 +49,9 @@ export class RoleRestService {
     return this.http.get(environment.baseUri + "rols/getUsersByAdmin/" + idRol, {headers: this.httpOption});
   }
 
-  postUsersByRol(idRol:any, idsArray:any){
-    //idsArray = {...idsArray, ...this.locale};
-    return this.http.post(environment.baseUri + "rols/postUsersByRol/" + idRol, idsArray, {headers: this.httpOption});
+  postUsersByRol(idRol:any, params:any){
+    params = {...params, ...this.locale};
+    return this.http.post(environment.baseUri + "rols/postUsersByRol/" + idRol, params, {headers: this.httpOption});
   }
   
   assignPermissions(idRol:any, params: any){

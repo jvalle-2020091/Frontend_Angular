@@ -152,10 +152,16 @@ getUsersByAdmin(idRol: any, name: any){
   
 }
 
+objectpostUsersByRol={
+  idsArray: []
+}
+
+
 //Acatualizar los usuarios asociados a un Rol
 postUsersByRol(){
   let idsArray = this.idsArray
-  this.roleRest.postUsersByRol(this.id, idsArray).subscribe({
+  this.objectpostUsersByRol.idsArray = idsArray;
+  this.roleRest.postUsersByRol(this.id, this.objectpostUsersByRol).subscribe({
     next:(res:any)=>{
       this.toastr.success(res.message);
       this.userRolDialog = false;
@@ -390,13 +396,12 @@ assignPermissions(){
     next: (res: any) =>{
       this.rolPermissionDialog = false;
       this.toastr.success(res.message);
-      //location.reload();
     },
     error: (err) => {
       console.log(err);
     }
   })
-  
+  location.reload();
 }
 
 public getPermission(id_Function: number): boolean {
