@@ -64,9 +64,8 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
-      
-
-      let uri = environment.baseUri + 'users/register';
+    
+      let uri = environment.baseUri + 'users/register/?locale='+this.locale.locale;
 
       for (var x = 0; x < files.length; x++) {
         formData.append(name, files[x], files[x].name);
@@ -89,6 +88,8 @@ export class UserRestService {
       xhr.open('POST', uri, true);
       
       xhr.setRequestHeader('Authorization', this.loginRest.getToken());
+      
+      
       xhr.send(formData);
       }else{
 
@@ -97,13 +98,12 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
-      
 
       for(let i = 0; i < idsRol.length; i++){
         formData.append('idsRol', idsRol[i]);
       }
 
-      let uri = environment.baseUri + 'users/register';
+      let uri = environment.baseUri + 'users/register/?locale='+this.locale.locale;
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4) {
