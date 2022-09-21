@@ -3,14 +3,14 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UserRestService } from 'src/app/services/user-rest.service';
 import { ToastrService } from 'ngx-toastr';
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { NavigationEnd, Router } from '@angular/router';
-import { Validators, FormBuilder} from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { RoleRestService } from 'src/app/services/role-rest.service';
-import {FormControl} from '@angular/forms';
-import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
+import { FormControl } from '@angular/forms';
+import { TranslateService } from '../../../../../../node_modules/@ngx-translate/core';
 import { LoginRestService } from 'src/app/services/login-rest.service';
-
+import { permissions } from '../roles/permissions'
 
 
 
@@ -57,6 +57,8 @@ export class CrudComponent implements OnInit {
   nameLock: any;
   idsRolArray: any = [];
 
+  listPermission: any;
+
   //Propiedades Step 1
 
   firstFormGroup = this._formBuilder.group({
@@ -92,7 +94,7 @@ export class CrudComponent implements OnInit {
   disabled: boolean = false;
   mensaje: any;
 
-  permissionsStrings: any = [];
+  permissionsIdFunctions: any = [];
 
   constructor(
     private userRest: UserRestService,
@@ -103,11 +105,10 @@ export class CrudComponent implements OnInit {
     public translate: TranslateService,
     public rolRest: RoleRestService,
     private loginRest: LoginRestService
-  ) 
-  {
-    
+  ) {
+    this.listPermission = permissions;
   }
-  
+
   ngOnInit() {
     this.getUsers();
     this.getRoles();
@@ -122,10 +123,10 @@ export class CrudComponent implements OnInit {
     this.permissions();
   }
 
-  permissions(){
+  permissions() {
     this.loginRest.permissions(this.loginRest.getUser().id).subscribe({
-      next: (res: any)=> {
-        this.permissionsStrings = res.nameFunctions;
+      next: (res: any) => {
+        this.permissionsIdFunctions = res.idFunctions;
       },
       error: (err) => {
         console.log(err);
@@ -172,12 +173,12 @@ export class CrudComponent implements OnInit {
     });
   }
 
-  getUserLocked(id: string, nameLock:string) {
+  getUserLocked(id: string, nameLock: string) {
     this.userRest.getUser(id).subscribe({
       next: (res: any) => {
         this.lockUserDialog = true;
         this.userLocked = res.user;
-        this.nameLock = res.user.firstName + ' ' + res.user.lastName ;
+        this.nameLock = res.user.firstName + ' ' + res.user.lastName;
       },
       error: (err) => {
         console.log(err);
@@ -345,99 +346,9 @@ export class CrudComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-
-  permissionCreateUser(){
-    let permissions = this.permissionsStrings;
-    let bandera: boolean = false;
-    if(permissions != undefined){
-      for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'User creation'){
-            bandera = true;
-            break;
-          
-          }
-      }
-    }
-    return bandera;
+  // Metodo para validar permisos de un usuario
+  public getPermission(id_Function: number): boolean {
+    return this.permissionsIdFunctions.includes(id_Function);
   }
-
-  permissionGetUsers(){
-    let permissions = this.permissionsStrings;
-    let bandera: boolean = false;
-    if(permissions != undefined){
-      for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'Get users'){
-            bandera = true;
-            break;
-          
-          }
-      }
-    }
-    return bandera;
-  }
-
-
-  permissionPasswordChange(){
-    let permissions = this.permissionsStrings;
-    let bandera: boolean = false;
-    if(permissions != undefined){
-      for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'Change of password'){
-            bandera = true;
-            break;
-          
-          }
-      }
-    }
-    return bandera;
-  }
-
-  permissionIsLocked(){
-    let permissions = this.permissionsStrings;
-    let bandera: boolean = false;
-    if(permissions != undefined){
-      for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'User blocking'){
-            bandera = true;
-            break;
-          
-          }
-      }
-    }
-    return bandera;
-  }
-
-  permissionEditUser(){
-    let permissions = this.permissionsStrings;
-    let bandera: boolean = false;
-    if(permissions != undefined){
-      for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'User Edition'){
-            bandera = true;
-            break;
-          
-          }
-      }
-    }
-    return bandera;
-  }
-
-  permissiondeleteUser(){
-    let permissions = this.permissionsStrings;
-    let bandera: boolean = false;
-    if(permissions != undefined){
-      for(let x = 0; x < permissions.length; x++){
-          if(permissions[x] == 'Deletion of users'){
-            bandera = true;
-            break;
-          
-          }
-      }
-    }
-    return bandera;
-  }
-
-  
-
 
 }

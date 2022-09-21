@@ -26,11 +26,11 @@ export class UserRestService {
   }
 
   getUsers(){
-    return this.http.get(environment.baseUri + "users/getUsers", {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+    return this.http.get(environment.baseUri + "users/getUsers", {headers: this.httpOption});
   }
 
   getUser(idUser: string){
-    return this.http.get(environment.baseUri + "users/getUser/" + idUser, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+    return this.http.get(environment.baseUri + "users/getUser/" + idUser, {headers: this.httpOption});
   };
 
   deleteUser(idUser: string){
@@ -39,16 +39,16 @@ export class UserRestService {
 
   updateUser(idUser: string, params: {}){
     params = {...params, ...this.locale};
-    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, params, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())});
+    return this.http.put(environment.baseUri + "users/updateUser/" + idUser, params, {headers: this.httpOption});
   }
 
 
   updatePasswordByAdmin(idUser: string){
-    return this.http.put(environment.baseUri + "users/updatePasswordByAdmin/" + idUser , {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 
+    return this.http.put(environment.baseUri + "users/updatePasswordByAdmin/" + idUser , this.locale, {headers: this.httpOption}) 
   }
 
   registerByAdmin(params:{}){
-    return this.http.post(environment.baseUri + "users/register", params, {headers: this.httpOption.set("Authorization", this.loginRest.getToken())}) 
+    return this.http.post(environment.baseUri + "users/register", params, {headers: this.httpOption}) 
   }
 
 
@@ -58,7 +58,8 @@ export class UserRestService {
       let xhr = new XMLHttpRequest();
 
       if(files && name){
-        formData.append('username', username );
+        
+      formData.append('username', username );
       formData.append('firstName', firstName );
       formData.append('lastName', lastName );
       formData.append('mail', mail );
@@ -85,6 +86,7 @@ export class UserRestService {
       };
 
       xhr.open('POST', uri, true);
+      
       xhr.setRequestHeader('Authorization', this.loginRest.getToken());
       xhr.send(formData);
       }else{
@@ -94,7 +96,7 @@ export class UserRestService {
       formData.append('lastName', lastName );
       formData.append('mail', mail );
       formData.append('sendEmail', sendEmail );
-
+      
       for(let i = 0; i < idsRol.length; i++){
         formData.append('idsRol', idsRol[i]);
       }

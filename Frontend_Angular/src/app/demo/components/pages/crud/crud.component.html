@@ -5,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div  class="my-2">
-                        <button style="width: auto; text-align: center;"  pButton pRipple  class="p-button-success " *ngIf="permissionCreateUser()"
+                        <button style="width: auto; text-align: center;"  pButton pRipple  class="p-button-success " *ngIf="getPermission(listPermission.User_creation)"
                             (click)="dialogCreateUser();  stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable();"><i class="pi pi-plus mr-2"></i> <b>{{"USERS.ADDUSER" | translate}}</b> </button>
                     </div>
                 </ng-template>
@@ -34,13 +34,13 @@
                         <th pSortableColumn="price">{{"USERS.FIRSTNAME" | translate}} </th>
                         <th pSortableColumn="category">{{"USERS.LASTNAME" | translate}}</th>
                         <th pSortableColumn="rating">{{"USERS.EMAIL" | translate}} </th>
-                        <th *ngIf="permissionPasswordChange()" pSortableColumn="inventoryStatus">{{"USERS.PASSWORD" | translate}} </th>
-                        <th *ngIf="permissionIsLocked()" pSortableColumn="inventoryStatus">{{"USERS.LOCKED" | translate}} </th>
-                        <th *ngIf="!permissionPasswordChange()"></th>
-                        <th *ngIf="!permissionIsLocked()"></th>
-                        <th *ngIf="!permissionEditUser() && !permissiondeleteUser()"></th>
+                        <th *ngIf="getPermission(listPermission.Change_password)" pSortableColumn="inventoryStatus">{{"USERS.PASSWORD" | translate}} </th>
+                        <th *ngIf="getPermission(listPermission.User_blocking)" pSortableColumn="inventoryStatus">{{"USERS.LOCKED" | translate}} </th>
+                        <th *ngIf="!getPermission(listPermission.Change_password)"></th>
+                        <th *ngIf="!getPermission(listPermission.User_blocking)"></th>
+                        <th *ngIf="!getPermission(listPermission.User_Edition) && !getPermission(listPermission.Deletion_users)"></th>
                         
-                        <th *ngIf="permissionEditUser() || permissiondeleteUser()">{{"USERS.ACTIONS" | translate}}</th>
+                        <th *ngIf="getPermission(listPermission.User_Edition) || getPermission(listPermission.Deletion_users)">{{"USERS.ACTIONS" | translate}}</th>
                         
                     </tr>
                 </ng-template>
@@ -57,21 +57,20 @@
                         <td style="width:14%; min-width:10rem;"><span>{{user.firstName}}</span></td>
                         <td style="width:14%; min-width:8rem;"><span>{{user.lastName}}</span></td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.mail}}</span></td>
-                        <td *ngIf="permissionPasswordChange()" style="width:14%; min-width: 10rem;">
-                            <button pButton pRipple icon="pi pi-key" class="p-button-rounded p-button-warning" 
-                                (click)="getPasswordUpdate(user.id)"></button>
+                        <td *ngIf="getPermission(listPermission.Change_password)" style="width:14%; min-width: 10rem;">
+                            <button pButton pRipple icon="pi pi-key" class="p-button-rounded p-button-warning" (click)="getPasswordUpdate(user.id)"></button>
                         </td>
-                        <td style="width:14%; min-width: 10rem;" ><button *ngIf="user.isLocked == true && permissionIsLocked()" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2"
+                        <td style="width:14%; min-width: 10rem;" ><button *ngIf="user.isLocked == true && getPermission(listPermission.User_blocking)" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2"
                             (click)="getUserLocked(user.id, nameLock)"></button>
-                            <button *ngIf="user.isLocked == false && permissionIsLocked()" pButton pRipple icon="pi pi-lock-open" class="p-button-rounded p-button-primary mr-2"
+                            <button *ngIf="user.isLocked == false && getPermission(listPermission.User_blocking)" pButton pRipple icon="pi pi-lock-open" class="p-button-rounded p-button-primary mr-2"
                             (click)="getUserLocked(user.id, nameLock)"></button>
                         </td>
                         <td>
                             <div class="flex">
-                                <button *ngIf="permissionEditUser()" pButton pRipple icon="pi pi-pencil"
+                                <button *ngIf="getPermission(listPermission.User_Edition)" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
                                     (click)="getUserUpdate(user.id)"></button>
-                                <button *ngIf="permissiondeleteUser()"pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
+                                <button *ngIf="getPermission(listPermission.Deletion_users)"pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
                                     (click)="getUserDelete(user.id)"></button>
                             </div>
                         </td>

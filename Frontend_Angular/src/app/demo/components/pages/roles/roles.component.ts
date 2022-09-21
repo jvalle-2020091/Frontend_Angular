@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Validators, FormBuilder} from '@angular/forms';
 import {TranslateService} from '../../../../../../node_modules/@ngx-translate/core';
 import { LoginRestService } from 'src/app/services/login-rest.service';
-
+import { permissions } from './permissions';
 
 interface City {
   name: string,
@@ -33,9 +33,9 @@ export class RolesComponent implements OnInit {
   roleUpdateDialog: boolean = false;
   userRolDialog: boolean = false;
   rolPermissionDialog: boolean = false;
-
-  cities: City[];
   selectedCities1: any;
+
+  listPermission: any;
 
   //Lenguaje
   language: any
@@ -74,7 +74,7 @@ export class RolesComponent implements OnInit {
   submitted: boolean = false;
   //Lenguaje
   
-  permissionsStrings: any = [];
+  permissionsIdFunctions: any = [];
 
 
   constructor(
@@ -86,15 +86,8 @@ export class RolesComponent implements OnInit {
     private loginRest: LoginRestService
 
 
-  ) {
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-  ];
-    
+  ) {   
+    this.listPermission = permissions;    
    }
 
   ngOnInit(): void {
@@ -109,7 +102,7 @@ export class RolesComponent implements OnInit {
   permissions(){
     this.loginRest.permissions(this.loginRest.getUser().id).subscribe({
       next: (res: any)=> {
-        this.permissionsStrings = res.nameFunctions;
+        this.permissionsIdFunctions = res.idFunctions;        
       },
       error: (err) => {
         console.log(err);
@@ -398,96 +391,9 @@ assignPermissions(){
   
 }
 
-permissionGetRoles(){
-  let permissions = this.permissionsStrings;
-  let bandera: boolean = false;
-  if(permissions != undefined){
-    for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'Get Roles'){
-          bandera = true;
-          break;
-    
-        }
-    }
-  }
-  return bandera;
+public getPermission(id_Function: number): boolean {
+  return  this.permissionsIdFunctions.includes(id_Function);
 }
-
-permissionGetUsersByRol(){
-  let permissions = this.permissionsStrings;
-  let bandera: boolean = false;
-  if(permissions != undefined){
-    for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'Get users by role'){
-          bandera = true;
-          break;
-        
-        }
-    }
-  }
-  return bandera;
-}
-
-permissionAssignFunctions(){
-  let permissions = this.permissionsStrings;
-  let bandera: boolean = false;
-  if(permissions != undefined){
-    for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'Permission Assignment'){
-          bandera = true;
-          break;
-        
-        }
-    }
-  }
-  return bandera;
-}
-
-permissionEditRol(){
-  let permissions = this.permissionsStrings;
-  let bandera: boolean = false;
-  if(permissions != undefined){
-    for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'Role edition'){
-          bandera = true;
-          break;
-        
-        }
-    }
-  }
-  return bandera;
-}
-
-permissionDeleteRol(){
-  let permissions = this.permissionsStrings;
-  let bandera: boolean = false;
-  if(permissions != undefined){
-    for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'Role removal'){
-          bandera = true;
-          break;
-        
-        }
-    }
-  }
-  return bandera;
-}
-
-permissionCreateRol(){
-  let permissions = this.permissionsStrings;
-  let bandera: boolean = false;
-  if(permissions != undefined){
-    for(let x = 0; x < permissions.length; x++){
-        if(permissions[x] == 'Role creation'){
-          bandera = true;
-          break;
-        
-        }
-    }
-  }
-  return bandera;
-}
-
 
 
 }
