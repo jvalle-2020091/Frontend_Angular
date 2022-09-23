@@ -10,7 +10,7 @@
         "PASSWORD": "Cambio de Contraseña",
         "LOCKED": "Bloqueado",
         "ACTIONS": "Acciones",
-        "DELETEUSER": "¿Está seguro que desea eliminar este usuario?",
+        "DELETEUSER": "¿Está seguro que desea eliminar este usuario? \n Esta acción será permanente y se eliminará de los roles asignados.",
         "NEEDPASSWORD": "¿Está seguro de que desea confirmar el cambio de contraseña?",
         "CREATEUSER": "Crear Usuario",
         "ROLUSER": "Rol de Usuario",
