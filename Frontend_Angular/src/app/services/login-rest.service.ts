@@ -23,7 +23,7 @@ export class LoginRestService {
   }
 
   login(params:{}){
-    return this.http.post(environment.baseUri + 'users/login', params, {headers: this.httpOption});
+    return this.http.post(environment.baseUri + 'users/login', params);
   }
 
   needChangePassword(params:{}){

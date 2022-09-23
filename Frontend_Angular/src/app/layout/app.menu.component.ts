@@ -13,21 +13,6 @@ import { permissions } from '../../../src/app/demo/components/pages/roles/permis
 export class AppMenuComponent implements OnInit {
 
   permissionsStrings: any = [];
-  permissionsIdFunctions: any = [];
-
-  //GET PERMISSION
-  permissions() {
-    this.loginRest.permissions(this.loginRest.getUser().id).subscribe({
-      next: (res: any) => {
-        this.permissionsIdFunctions = res.idFunctions;
-        console.log(this.permissionsIdFunctions);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
   setLang: any
 
   constructor(
@@ -35,12 +20,9 @@ export class AppMenuComponent implements OnInit {
     public translate: TranslateService,
     private roleRest: RoleRestService,
     private loginRest: LoginRestService) {
-
   }
 
   ngOnInit() {
-    this.permissions();
-
     this.setLang = this.roleRest.getLanguage();
     this.translate.addLangs(['es', 'en']);
     this.translate.setDefaultLang(this.setLang)
@@ -57,8 +39,8 @@ export class AppMenuComponent implements OnInit {
 
       })
     }
+    
   }
-
   model: any = [
     // {
     //     label: 'MENU.HOME',
@@ -75,21 +57,20 @@ export class AppMenuComponent implements OnInit {
           label: 'MENU.USERS',
           icon: 'pi pi-fw pi-users',
           routerLink: ['/layout/pages/crud'],
-          visible: this.getPermission(permissions.Get_users),
+          visible: this.verifyPermissions(permissions.Get_users),
         },
         {
           label: 'MENU.ROLES',
           icon: 'pi pi-fw pi-cog',
           routerLink: ['/layout/pages/roles'],
-          //hidden:this.true
+          visible: this.verifyPermissions(permissions.Get_Roles),
         },
       ],
     },
   ];
-
-  // Metodo para validar permisos de un usuario
-  public getPermission(id_Function: number): boolean {
-    console.log(this.permissionsIdFunctions.includes(id_Function))
-    return this.permissionsIdFunctions.includes(id_Function);
+ 
+  verifyPermissions(id_Function: number): boolean{
+    let permissionsIdFunctions = this.loginRest.getUser().ids;
+    return permissionsIdFunctions.includes(id_Function)
   }
 }

@@ -391,7 +391,9 @@ assignPermissions(){
   let idsPermissionsArray = this.idsUserSelected.concat(this.idsRoleSelected);
 
   this.object.idsPermissionsArray = idsPermissionsArray;
-
+  let user = this.loginRest.getUser();
+  user.ids = this.object.idsPermissionsArray;
+  localStorage.setItem("user", JSON.stringify(user));
   this.roleRest.assignPermissions(this.idRolSelected, this.object).subscribe({
     next: (res: any) =>{
       this.rolPermissionDialog = false;
