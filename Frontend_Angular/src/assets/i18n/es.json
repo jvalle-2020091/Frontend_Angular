@@ -61,7 +61,8 @@
         "MUSERS": "Módulo Usuario",
         "MROLE": "Módulo Rol",
         "SAVE": "Guardar",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "ADD": "Agregar Rol"
         
     },
     "MENU":{

@@ -69,7 +69,7 @@
         </div>
 
         <!--Modal para agregar un nuevo role-->
-        <p-dialog [(visible)]="addRoles" [style]="{width: '30%', height: '80%'}"  header="New Role" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="addRoles" [style]="{width: '30%', height: '80%'}"  header="{{'ROLES.ADD' | translate}}" [modal]="true" class="p-fluid">
             <form [formGroup]="secondFormGroup">
             <div class="field">
                 <label for="name">{{"ROLES.NAMENEWROLE" | translate}}</label>
