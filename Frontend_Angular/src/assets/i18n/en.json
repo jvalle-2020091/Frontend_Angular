@@ -30,7 +30,8 @@
     "DATAUSER": "DATA USER",
     "CANCEL": "Cancel",
     "ISlOCKED": "Are you sure to perform this action on",
-    "MAIL_INVALID": "The mail is not valid"
+    "MAIL_INVALID": "The mail is not valid",
+    "ADD": "Add User"
   },
   "ROLES":{
     "ID": "Code",

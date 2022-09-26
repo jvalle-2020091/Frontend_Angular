@@ -181,7 +181,7 @@
         </p-dialog>
 
         <!--Modal y stepper para agregar usuario-->
-        <p-dialog [(visible)]="addUser" [style]="{width: '50%', height: '65%'}" header="Add User" [modal]="true"
+        <p-dialog [(visible)]="addUser" [style]="{width: '50%', height: '65%'}" header="{{'USERS.ADD' | translate}}" [modal]="true"
             class="p-fluid">
             <mat-stepper linear #stepper>
                 <!--STEP 1-->

@@ -32,7 +32,8 @@
         "DATAUSER": "INFORMACIÓN USUARIO",
         "CANCEL": "Cancelar",
         "ISlOCKED": "¿Estas seguro de realizar esta acción a",
-        "MAIL_INVALID": "El mail no es válido"
+        "MAIL_INVALID": "El mail no es válido",
+        "ADD": "Agregar Usuario"
     },
     "ROLES":{
         "ID": "Código",

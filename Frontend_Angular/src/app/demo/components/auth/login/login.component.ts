@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   };
 
   idUser: any;
-  language = 'es'
+  language = 'en'
   permissionsIdFunctions: any = [];
 
   constructor(
