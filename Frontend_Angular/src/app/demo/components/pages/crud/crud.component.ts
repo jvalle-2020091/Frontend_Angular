@@ -12,8 +12,6 @@ import { TranslateService } from '../../../../../../node_modules/@ngx-translate/
 import { LoginRestService } from 'src/app/services/login-rest.service';
 import { permissions } from '../roles/permissions'
 
-
-
 @Component({
   templateUrl: './crud.component.html',
   providers: [MessageService],
@@ -21,6 +19,7 @@ import { permissions } from '../roles/permissions'
 export class CrudComponent implements OnInit {
   stateCtrl = new FormControl('');
   stateCtrl2 = new FormControl(' ');
+  emailFormControl = new FormControl(' ', [Validators.required, Validators.email]);
 
   // Propiedades de plantilla
   userUpdateDialog: boolean = false;
@@ -66,7 +65,7 @@ export class CrudComponent implements OnInit {
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
     secondCtrl: ['', Validators.required],
-    thirdCtrl: ['', Validators.required],
+    thirdCtrl:  ['', [Validators.required, Validators.email]],
     fourthCtrl: ['', Validators.required],
     fiveCtrl: [],
     checkCtrl1: [],

@@ -28,6 +28,8 @@ import {CardModule} from 'primeng/card';
  import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AccessComponent } from '../../auth/access/access.component'
+
  
 
 export function HttpLoaderFactory(http: HttpClient){

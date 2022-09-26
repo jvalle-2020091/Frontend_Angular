@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NeedPasswordComponent } from './demo/components/need-password/need-password.component';
 import { TranslocoRootModule } from './transloco-root.module'
+import { AccessComponent } from '../../src/app/demo/components/auth/access/access.component'
+
 
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -21,7 +23,7 @@ export function HttpLoaderFactory(http: HttpClient){
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, NeedPasswordComponent,
+        AppComponent, NotfoundComponent, NeedPasswordComponent
 
     ],
     imports: [

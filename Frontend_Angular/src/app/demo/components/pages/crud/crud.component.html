@@ -1,12 +1,15 @@
+
 <div class="grid">
     <div class="col-12">
         <div *ngIf="getPermission(listPermission.Get_users)" class="card px-6 py-6">
             <p-toast></p-toast>
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-                    <div  class="my-2">
-                        <button style="width: auto; text-align: center;"  pButton pRipple  class="p-button-success " *ngIf="getPermission(listPermission.User_creation)"
-                            (click)="dialogCreateUser();  stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable();"><i class="pi pi-plus mr-2"></i> <b>{{"USERS.ADDUSER" | translate}}</b> </button>
+                    <div class="my-2">
+                        <button style="width: auto; text-align: center;" pButton pRipple class="p-button-success "
+                            *ngIf="getPermission(listPermission.User_creation)"
+                            (click)="dialogCreateUser();  stateCtrl.reset(); firstFormGroup.reset(); secondFormGroup.reset(); stepper.reset(); stateCtrl.enable();"><i
+                                class="pi pi-plus mr-2"></i> <b>{{"USERS.ADDUSER" | translate}}</b> </button>
                     </div>
                 </ng-template>
             </p-toolbar>
@@ -14,39 +17,46 @@
             <p-table [value]="users" #dt [columns]="cols" responsiveLayout="scroll" [rows]="10"
                 [globalFilterFields]="['username','firstName','lastName','mail']" [rows]="10" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-              selectionMode="multiple" [rowHover]="true" dataKey="id">
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+                [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">{{"USERS.USERS" | translate}}</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="{{'ROLES.SEARCH' | translate}}"
-                                class="w-full sm:w-auto" />
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
+                                placeholder="{{'ROLES.SEARCH' | translate}}" class="w-full sm:w-auto" />
                         </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>   </th>
+                        <th> </th>
                         <th pSortableColumn="code">{{"USERS.ID" | translate}}</th>
                         <th pSortableColumn="name">{{"USERS.USER" | translate}}</th>
                         <th pSortableColumn="price">{{"USERS.FIRSTNAME" | translate}} </th>
                         <th pSortableColumn="category">{{"USERS.LASTNAME" | translate}}</th>
                         <th pSortableColumn="rating">{{"USERS.EMAIL" | translate}} </th>
-                        <th *ngIf="getPermission(listPermission.Change_password)" pSortableColumn="inventoryStatus">{{"USERS.PASSWORD" | translate}} </th>
-                        <th *ngIf="getPermission(listPermission.User_blocking)" pSortableColumn="inventoryStatus">{{"USERS.LOCKED" | translate}} </th>
-                        <th *ngIf="!getPermission(listPermission.User_Edition) && !getPermission(listPermission.Deletion_users)"></th>
-                        <th *ngIf="getPermission(listPermission.User_Edition) || getPermission(listPermission.Deletion_users)">{{"USERS.ACTIONS" | translate}}</th>
+                        <th *ngIf="getPermission(listPermission.Change_password)" pSortableColumn="inventoryStatus">
+                            {{"USERS.PASSWORD" | translate}} </th>
+                        <th *ngIf="getPermission(listPermission.User_blocking)" pSortableColumn="inventoryStatus">
+                            {{"USERS.LOCKED" | translate}} </th>
+                        <th
+                            *ngIf="!getPermission(listPermission.User_Edition) && !getPermission(listPermission.Deletion_users)">
+                        </th>
+                        <th
+                            *ngIf="getPermission(listPermission.User_Edition) || getPermission(listPermission.Deletion_users)">
+                            {{"USERS.ACTIONS" | translate}}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
                     <tr>
                         <td style="width:8%; min-width:8rem;">
                             <img *ngIf="!user.image"
-                                src="https://ui-avatars.com/api/?background=B8B8B8&rounded=true&name={{user.firstName}}+{{user.lastName}}" width="33"/>
+                                src="https://ui-avatars.com/api/?background=B8B8B8&rounded=true&name={{user.firstName}}+{{user.lastName}}"
+                                width="33" />
                             <img *ngIf="user.image" src="http://localhost:3000/users/getImage/{{ user.image }}"
-                                width="33" height="33" style="border-radius:20px"/>
+                                width="33" height="33" style="border-radius:20px" />
                         </td>
                         <td style="width:14%; min-width:10rem;"><span>{{user.id}}</span></td>
                         <td style="width:14%; min-width:10rem;"><span>{{user.username}}</span></td>
@@ -54,24 +64,29 @@
                         <td style="width:14%; min-width:8rem;"><span>{{user.lastName}}</span></td>
                         <td style="width:14%; min-width: 10rem;"><span>{{user.mail}}</span></td>
                         <td *ngIf="getPermission(listPermission.Change_password)" style="width:14%; min-width: 10rem;">
-                            <button pButton pRipple icon="pi pi-key" class="p-button-rounded p-button-warning" (click)="getPasswordUpdate(user.id)"></button>
+                            <button pButton pRipple icon="pi pi-key" class="p-button-rounded p-button-warning"
+                                (click)="getPasswordUpdate(user.id)"></button>
                         </td>
-                        <td *ngIf="getPermission(listPermission.User_blocking)" style="width:14%; min-width: 10rem;" ><button *ngIf="user.isLocked == true" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-primary mr-2"
-                            (click)="getUserLocked(user.id, nameLock)"></button>
-                            <button *ngIf="user.isLocked == false" pButton pRipple icon="pi pi-lock-open" class="p-button-rounded p-button-primary mr-2"
-                            (click)="getUserLocked(user.id, nameLock)"></button>
+                        <td *ngIf="getPermission(listPermission.User_blocking)" style="width:14%; min-width: 10rem;">
+                            <button *ngIf="user.isLocked == true" pButton pRipple icon="pi pi-lock"
+                                class="p-button-rounded p-button-primary mr-2"
+                                (click)="getUserLocked(user.id, nameLock)"></button>
+                            <button *ngIf="user.isLocked == false" pButton pRipple icon="pi pi-lock-open"
+                                class="p-button-rounded p-button-primary mr-2"
+                                (click)="getUserLocked(user.id, nameLock)"></button>
                         </td>
                         <td>
                             <div class="flex">
-                                <button *ngIf="getPermission(listPermission.User_Edition)" pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-success mr-2"
+                                <button *ngIf="getPermission(listPermission.User_Edition)" pButton pRipple
+                                    icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
                                     (click)="getUserUpdate(user.id)"></button>
-                                <button *ngIf="getPermission(listPermission.Deletion_users)"pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
+                                <button *ngIf="getPermission(listPermission.Deletion_users)" pButton pRipple
+                                    icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
                                     (click)="getUserDelete(user.id)"></button>
                             </div>
                         </td>
-                        
-                    
+
+
                     </tr>
                 </ng-template>
             </p-table>
@@ -79,8 +94,8 @@
 
         <!--Modal para actualizar al usuario-->
 
-        <p-dialog [(visible)]="userUpdateDialog" [style]="{width: '450px'}" header="{{'USERS.DATAUSER' | translate}}" [modal]="true"
-            class="p-fluid">
+        <p-dialog [(visible)]="userUpdateDialog" [style]="{width: '450px'}" header="{{'USERS.DATAUSER' | translate}}"
+            [modal]="true" class="p-fluid">
 
             <ng-template pTemplate="content">
                 <div class="field">
@@ -95,13 +110,15 @@
                     <label for="name">{{"USERS.FIRSTNAME" | translate}}</label>
                     <input type="text" pInputText id="name" [(ngModel)]="this.userUpdate.firstName" required autofocus
                         #name="ngModel" [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.firstName}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.firstName">{{"USERS.REQUERIDNAME" | translate}}</small>
+                    <small class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !this.userUpdate.firstName">{{"USERS.REQUERIDNAME" | translate}}</small>
                 </div>
                 <div class="field">
                     <label for="lastname">{{"USERS.LASTNAME" | translate}}</label>
                     <input type="text" pInputText id="lastname" [(ngModel)]="this.userUpdate.lastName" required
                         autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !this.userUpdate.lastname}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !this.userUpdate.lastName">{{"USERS.REQUERIDLASTNAME" | translate}}</small>
+                    <small class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !this.userUpdate.lastName">{{"USERS.REQUERIDLASTNAME" | translate}}</small>
                 </div>
             </ng-template>
 
@@ -115,7 +132,8 @@
         </p-dialog>
 
         <!--Modal para eliminar el usuario-->
-        <p-dialog [(visible)]="deleteUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true"
+            [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>{{"USERS.DELETEUSER" | translate}}</span>
@@ -128,8 +146,9 @@
             </ng-template>
         </p-dialog>
 
-         <!--Modal para bloquear el usuario-->
-         <p-dialog [(visible)]="lockUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true" [style]="{width:'450px'}">
+        <!--Modal para bloquear el usuario-->
+        <p-dialog [(visible)]="lockUserDialog" header="{{'ROLES.CONFIRM' | translate}}" [modal]="true"
+            [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>{{"USERS.ISlOCKED" | translate}} {{nameLock}}?</span>
@@ -138,7 +157,7 @@
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="{{'ROLES.NO' | translate}}"
                     (click)="lockUserDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="{{'ROLES.YES' | translate}}"
-                (click)="updateUserLock()"></button>
+                    (click)="updateUserLock()"></button>
             </ng-template>
         </p-dialog>
 
@@ -184,8 +203,9 @@
                                     <td>
                                         <mat-form-field appearance="fill">
                                             <mat-label>{{"USERS.LASTNAME" | translate}}</mat-label>
-                                            <input type="text" formControlName="secondCtrl" [(ngModel)]="this.newUser.lastName"
-                                                name="lastName" matInput placeholder="Lastname" required>
+                                            <input type="text" formControlName="secondCtrl"
+                                                [(ngModel)]="this.newUser.lastName" name="lastName" matInput
+                                                placeholder="Lastname" required>
                                         </mat-form-field>
                                     </td>
 
@@ -196,40 +216,50 @@
                             <table cellspacing="0">
                                 <tr>
                                     <td>
+
                                         <mat-form-field appearance="fill">
                                             <mat-label>{{"USERS.EMAIL" | translate}}</mat-label>
-                                            <input formControlName="thirdCtrl" name="gmail"
+                                            <input #idc formControlName="thirdCtrl" name="gmail"
                                                 [(ngModel)]="this.newUser.mail" type="email" matInput
                                                 placeholder="Ex. pat@example.com" required>
+                                                <span style="color: red;" *ngIf="this.firstFormGroup.get('thirdCtrl')?.errors?.['email']">
+                                                    {{ 'USERS.MAIL_INVALID' | translate}}
+                                                </span>
                                         </mat-form-field>
+
                                     </td>
                                     <td>
 
                                         <mat-form-field appearance="fill">
                                             <mat-label>{{"USERS.USERNAME" | translate}} </mat-label>
-                                            <input  formControlName="fourthCtrl" [formControl]="stateCtrl" [(ngModel)]="this.newUser.username"
-                                                name="username" matInput  placeholder="Username" required  > 
+                                            <input formControlName="fourthCtrl" [formControl]="stateCtrl"
+                                                [(ngModel)]="this.newUser.username" name="username" matInput
+                                                placeholder="Username" required>
                                         </mat-form-field>
 
                                     </td>
 
                                 </tr>
                             </table>
-                            <input formControlName="fiveCtrl" (change)="filesChange($event)" [(ngModel)]="this.newUser.image" type="file" name="file" id="file" class="inputfile" />
+                            <input formControlName="fiveCtrl" (change)="filesChange($event)"
+                                [(ngModel)]="this.newUser.image" type="file" name="file" id="file" class="inputfile" />
                             <label for="file"><u>{{"USERS.IMG" | translate}}</u></label>
 
                             <br>
                             <br>
                             <img src="https://ui-avatars.com/api/?background=B8B8B8&rounded=true&name={{this.newUser.firstName}}+{{this.newUser.lastName}}"
-                                width="30"/>
+                                width="30" />
                             <p>
                             <section class="example-section">
                                 <h4>{{"USERS.OPTIONS" | translate}}</h4>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl1"  [(ngModel)]="this.newUser.sendEmail">{{"USERS.SENDCREDENTIALS" | translate}}</mat-checkbox>
+                                    <mat-checkbox formControlName="checkCtrl1" [(ngModel)]="this.newUser.sendEmail">
+                                        {{"USERS.SENDCREDENTIALS" | translate}}</mat-checkbox>
                                 </p>
                                 <p>
-                                    <mat-checkbox formControlName="checkCtrl2" (change)="stateCtrl.disabled ? stateCtrl.enable() : equalToEmail()" >{{"USERS.USEREMAIL" | translate}}</mat-checkbox>
+                                    <mat-checkbox formControlName="checkCtrl2"
+                                        (change)="stateCtrl.disabled ? stateCtrl.enable() : equalToEmail()">
+                                        {{"USERS.USEREMAIL" | translate}}</mat-checkbox>
                                 </p>
                             </section>
                         </form>
@@ -238,7 +268,7 @@
 
                     <p>
                     <div>
-                        <button mat-raised-button color="primary" matStepperNext >{{"USERS.NEXT" | translate}}</button>
+                        <button mat-raised-button color="primary" matStepperNext>{{"USERS.NEXT" | translate}}</button>
                     </div>
                 </mat-step>
 
@@ -250,12 +280,14 @@
                         <p>
                             <span class="block mt-2 md:mt-0 p-input-icon-left">
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" placeholder="{{'USERS.SEARCHROLES' | translate}}" (input)="onGlobalFilterRole(dtrole, $event)" class="w-full sm:w-auto" />
+                                <input pInputText type="text" placeholder="{{'USERS.SEARCHROLES' | translate}}"
+                                    (input)="onGlobalFilterRole(dtrole, $event)" class="w-full sm:w-auto" />
                             </span>
-                            <hr>  
+                            <hr>
 
 
-                            <p-table  #dtrole [value]="roles" [(selection)]="idsRolArray" [columns]="cols" [scrollable]="true" scrollHeight="190px"  [globalFilterFields]="['name']"  dataKey="id">
+                            <p-table #dtrole [value]="roles" [(selection)]="idsRolArray" [columns]="cols"
+                                [scrollable]="true" scrollHeight="190px" [globalFilterFields]="['name']" dataKey="id">
 
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -270,9 +302,9 @@
                                         <td>
                                             <p-tableCheckbox [value]="role"></p-tableCheckbox>
                                         </td>
-                                        <td >
+                                        <td>
                                             {{role.name}}
-                                        </td>                                
+                                        </td>
                                     </tr>
                                 </ng-template>
                             </p-table>
@@ -280,7 +312,8 @@
                         <div style="text-align: center; margin: 5px">
                             <button style="margin: 5px;" mat-raised-button matStepperPrevious
                                 color="primary">{{"USERS.BACK" | translate}}</button>
-                            <button style="margin: 5px;" mat-raised-button color="primary" matStepperNext (click)="uploadImage()">{{"USERS.SAVE" | translate}}</button>
+                            <button style="margin: 5px;" mat-raised-button color="primary" matStepperNext
+                                (click)="uploadImage()">{{"USERS.SAVE" | translate}}</button>
                         </div>
 
                     </form>
@@ -289,5 +322,26 @@
 
         </p-dialog>
 
+    </div>
+</div>
+
+<div *ngIf="!getPermission(listPermission.Get_users)"class="flex md:flex-row md:justify-content-center md:align-items-center">
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
+        <div class="col-12 mt-5 xl:mt-0 text-center">
+            <img src="https://elearning.bdgsa.net/pluginfile.php/1/theme_lambda/logo/1642803314/Logo11.png" alt="bdg logo" class="mb-5" style="width:81px; height:60px;">
+        </div>
+        <div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, rgba(247, 149, 48, 0.4) 10%, rgba(247, 149, 48, 0) 30%);">
+            <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+                <div class="grid flex flex-column align-items-center">
+                    <div class="flex justify-content-center align-items-center bg-orange-500 border-circle" style="width:3.2rem; height:3.2rem;">
+                        <i class="text-50 pi pi-fw pi-lock text-2xl"></i>
+                    </div>
+                    <h1 class="text-900 font-bold text-4xl lg:text-5xl mb-2">Access Denied</h1>
+                    <span class="text-600 text-center">You do not have the necesary permisions. Please contact admins.</span>
+                    <img src="assets/demo/images/access/asset-access.svg" alt="Access denied" class="mt-5" width="80%">
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>

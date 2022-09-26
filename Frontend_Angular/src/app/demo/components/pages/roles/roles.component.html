@@ -117,13 +117,6 @@
                     </p-tabPanel>
 
                     <p-tabPanel header="{{'ROLES.PERMISSIONS' | translate}}">
-
-                        <!-- <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" placeholder="{{'ROLES.SEARCHPERMISSIONS' | translate}}" (input)="onGlobalFilterFunctions(dtfunctions, $event)" class="w-full sm:w-auto" />
-                        </span>
-                        <hr> -->
-
                         <!-- TABLA MODULO USUARIOS -->
                         <p-accordion  >
                             <p-accordionTab  header="{{'ROLES.MUSERS' | translate}}">
@@ -304,5 +297,26 @@
     </p-dialog>
 
 
+    </div>
+</div>
+
+<div *ngIf="!getPermission(listPermission.Get_Roles)"class="flex md:flex-row md:justify-content-center md:align-items-center">
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
+        <div class="col-12 mt-5 xl:mt-0 text-center">
+            <img src="https://elearning.bdgsa.net/pluginfile.php/1/theme_lambda/logo/1642803314/Logo11.png" alt="bdg logo" class="mb-5" style="width:81px; height:60px;">
+        </div>
+        <div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, rgba(247, 149, 48, 0.4) 10%, rgba(247, 149, 48, 0) 30%);">
+            <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+                <div class="grid flex flex-column align-items-center">
+                    <div class="flex justify-content-center align-items-center bg-orange-500 border-circle" style="width:3.2rem; height:3.2rem;">
+                        <i class="text-50 pi pi-fw pi-lock text-2xl"></i>
+                    </div>
+                    <h1 class="text-900 font-bold text-4xl lg:text-5xl mb-2">Access Denied</h1>
+                    <span class="text-600 text-center">You do not have the necesary permisions. Please contact admins.</span>
+                    <img src="assets/demo/images/access/asset-access.svg" alt="Access denied" class="mt-5" width="80%">
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>

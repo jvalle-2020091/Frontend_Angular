@@ -5,8 +5,7 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { NeedPasswordComponent } from './demo/components/need-password/need-password.component';
 import { UserGuard } from './guards/user.guard'
-import { NeedPasswordGuard } from './guards/need-password.guard'
-
+import { AccessComponent } from './demo/components/auth/access/access.component'
 @NgModule({
   imports: [
     RouterModule.forRoot(
@@ -14,6 +13,10 @@ import { NeedPasswordGuard } from './guards/need-password.guard'
         {
           path: '',
           component: LoginComponent,
+        },
+        {
+          path: 'auth',
+          component: AccessComponent,
         },
         {
           path: 'layout',

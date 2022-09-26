@@ -29,7 +29,8 @@
     "SEARCHROLES": "Search Roles",
     "DATAUSER": "DATA USER",
     "CANCEL": "Cancel",
-    "ISlOCKED": "Are you sure to perform this action on"
+    "ISlOCKED": "Are you sure to perform this action on",
+    "MAIL_INVALID": "The mail is not valid"
   },
   "ROLES":{
     "ID": "Code",
